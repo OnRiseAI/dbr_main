@@ -1,0 +1,133 @@
+'use client'
+
+// Next Imports
+import Link from 'next/link'
+
+// Third-party Imports
+import { ArrowRightIcon, ShoppingBagIcon } from 'lucide-react'
+
+// Type Imports
+import type { Product } from '@/types/product'
+
+// Component Imports
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+
+// Store Imports
+import { useIsInCart, useIsWishlisted, useWishlist, useCart } from '@/store/use-products-store'
+
+// Utils Imports
+import { cn } from '@/lib/utils'
+import { formatPrice } from '@/utils/product-utils'
+
+// SVGs Imports
+import Heart from '@/assets/svg/heart'
+
+type BadgeData = {
+  label: string
+  variant?: 'default' | 'new' | 'destructive'
+}
+
+type Props = {
+  product: Product
+  badges?: BadgeData[]
+  variant?: 'deals' | 'new-arrivals' | 'popular' | 'default'
+  galleryView?: boolean
+  onWishlistClick?: (productId: string) => void
+}
+
+const ProductCard = ({ product, badges, variant = 'default', galleryView = false, onWishlistClick }: Props) => {
+  const liked = useIsWishlisted(product.id)
+  const inCart = useIsInCart(product.id)
+  const { toggleWishlist } = useWishlist()
+  const { addToCart } = useCart()
+
+  const handleWishlistClick = () => {
+    if (onWishlistClick) {
+      onWishlistClick(product.id)
+    } else {
+      toggleWishlist(product.id)
+    }
+  }
+
+  return (
+    <Card
+      className={cn(
+        'group border pt-0 ring-0 transition-colors',
+        variant === 'deals' && 'border-destructive/20',
+        variant === 'popular' && 'dark:ring-amber-700'
+      )}
+    >
+      <div className='bg-muted relative h-70 overflow-hidden rounded-t-xl'>
+        <Link
+          href={product.href}
+          className={cn(
+            'flex h-full items-center justify-center p-5 pb-0',
+            variant === 'new-arrivals' && 'pt-2',
+            variant === 'deals' && 'pt-0',
+            galleryView === true && 'pb-0'
+          )}
+        >
+          <img
+            src={product.image}
+            alt={product.name}
+            className='mt-auto max-h-full object-contain transition-transform duration-300 group-hover:scale-105'
+          />
+          {badges && badges.length > 0 && (
+            <div className='absolute top-4.75 left-3 flex flex-col'>
+              {badges.map((badge, idx) => (
+                <Badge
+                  key={idx}
+                  className={cn(
+                    'flex h-5 items-center justify-center rounded-full px-2 text-xs font-semibold',
+                    badge.variant === 'new' && 'bg-green-600 text-white dark:bg-green-400',
+                    badge.variant === 'destructive' && 'bg-destructive text-white'
+                  )}
+                >
+                  {badge.label}
+                </Badge>
+              ))}
+            </div>
+          )}
+        </Link>
+        <Button
+          variant='outline'
+          size='icon-sm'
+          className='bg-background! hover:bg-background/90 absolute top-3.5 right-4 z-10 size-7.25 rounded-full border-0 shadow-sm'
+          onClick={handleWishlistClick}
+        >
+          <Heart className={cn('size-5.25', { 'fill-rose-500 stroke-rose-500': liked })} />
+          <span className='sr-only'>{liked ? 'Remove from wishlist' : 'Add to wishlist'}</span>
+        </Button>
+      </div>
+      <CardContent className='flex flex-col'>
+        <h5 className='mb-0.5 text-lg font-semibold'>
+          <Link href={product.href} className='hover:text-primary transition-colors'>
+            {product.brand}
+          </Link>
+        </h5>
+        <p className='text-muted-foreground mb-1.5 overflow-hidden text-sm text-nowrap text-ellipsis'>{product.name}</p>
+        <div className='flex items-center gap-1.5 text-sm'>
+          <span className='font-semibold'>{formatPrice(product.price)}</span>
+          {product.discount > 0 && (
+            <span className='text-muted-foreground line-through'>{formatPrice(product.originalPrice)}</span>
+          )}
+        </div>
+        {inCart ? (
+          <Button className='border-border mt-3 w-full' render={<Link href='/checkout' />} nativeButton={false}>
+            Go to Cart
+            <ArrowRightIcon className='size-4' />
+          </Button>
+        ) : (
+          <Button className='border-border mt-3 w-full' onClick={() => addToCart(product.id)}>
+            Add to Cart
+            <ShoppingBagIcon className='size-4' />
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
+export default ProductCard
