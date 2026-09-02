@@ -5,7 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 export const siteConfig = {
   name: 'Shopix',
   description:
-    'Shopix – ShadCN UI eCommerce Template (Full). A complete Next.js eCommerce storefront built with shadcn/ui (Base UI) and Tailwind CSS.',
+    'Research peptide storefront: pre-mixed pens, nasal sprays, blends, and bioregulators imported from the Pen Peptide catalog.',
   url: baseUrl,
   ogImage: `${baseUrl}/images/og-image.png`,
   links: {

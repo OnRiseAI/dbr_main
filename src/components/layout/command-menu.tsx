@@ -150,9 +150,9 @@ const CommandMenu = () => {
                   <Grid3x3Icon className='size-4' />
                   <span>Category Page</span>
                 </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push('/product/boat-airdopes-138'))}>
+                <CommandItem onSelect={() => runCommand(() => router.push('/pages/about-us'))}>
                   <PackageIcon className='size-4' />
-                  <span>Product Details</span>
+                  <span>About us</span>
                 </CommandItem>
               </CommandGroup>
             )}

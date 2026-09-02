@@ -9,6 +9,7 @@ import { db as products, dealIds, newArrivalIds, defaultWishlistIds } from '@/fa
 import { db as categories } from '@/fake-db/categories'
 import { db as brands } from '@/fake-db/brands'
 import { db as announcements } from '@/fake-db/announcement'
+import { db as pages } from '@/fake-db/pages'
 
 /**
  * Data-access layer (the single DB seam).
@@ -47,7 +48,9 @@ export const getNewArrivals = async () => {
 }
 
 export const getProductsByCategory = async (category: string) => {
-  return products.filter(product => product.category === category)
+  return products.filter(
+    product => product.category === category || Boolean(product.collections?.includes(category))
+  )
 }
 
 export const getDefaultWishlistIds = async () => {
@@ -76,4 +79,12 @@ export const getHomeData = async () => {
 
 export const getAnnouncements = async () => {
   return announcements
+}
+
+export const getPages = async () => {
+  return pages
+}
+
+export const getPageByHandle = async (handle: string) => {
+  return pages.find(page => page.handle === handle) ?? null
 }

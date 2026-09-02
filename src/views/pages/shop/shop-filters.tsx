@@ -321,6 +321,8 @@ const ShopFilters = ({
         </RadioGroup>
       </div>
 
+      {colors.length > 0 && (
+        <>
       <Separator />
 
       <div className='space-y-4'>
@@ -388,6 +390,8 @@ const ShopFilters = ({
           </Button>
         )}
       </div>
+        </>
+      )}
 
       <Separator />
 

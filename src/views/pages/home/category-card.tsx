@@ -21,7 +21,7 @@ const CategoryCard = ({ category }: Props) => {
           className='object-cover object-bottom transition-transform duration-300 group-hover:scale-105'
         />
       </div>
-      <h3 className='text-center text-lg font-medium text-nowrap'>{category.name}</h3>
+      <h3 className='text-center text-lg leading-6 font-medium text-balance'>{category.name}</h3>
     </Link>
   )
 }

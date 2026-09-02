@@ -52,10 +52,16 @@ const GRID_PAGE_SIZE = 12
 const LIST_PAGE_SIZE = 10
 
 const ShopView = ({ products }: Props) => {
-  const categories = useMemo(
-    () => [...new Set(products.map(product => product.category).filter((value): value is string => Boolean(value)))],
-    [products]
-  )
+  const categories = useMemo(() => {
+    const names = new Set<string>()
+
+    products.forEach(product => {
+      if (product.category) names.add(product.category)
+      product.collections?.forEach(name => names.add(name))
+    })
+
+    return [...names]
+  }, [products])
 
   const [category, setCategory] = useQueryState(
     'category',
@@ -119,7 +125,9 @@ const ShopView = ({ products }: Props) => {
   const filteredProducts = useMemo(() => {
     const list = products.filter(
       product =>
-        (category === 'all' || product.category === category) &&
+        (category === 'all' ||
+          product.category === category ||
+          Boolean(product.collections?.includes(category))) &&
         (selectedBrands.length === 0 || selectedBrands.includes(product.brand)) &&
         (selectedColors.length === 0 || product.colors.some(color => selectedColors.includes(color.name))) &&
         product.price >= price[0] &&

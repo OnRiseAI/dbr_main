@@ -73,6 +73,16 @@ const ProductDetailView = ({ product, relatedProducts }: Props) => {
         </ContentLayout>
       </section>
 
+      {product.bodyHtml ? (
+        <section className='pb-8'>
+          <ContentLayout>
+            <article
+              className='prose prose-neutral dark:prose-invert max-w-none'
+              dangerouslySetInnerHTML={{ __html: product.bodyHtml }}
+            />
+          </ContentLayout>
+        </section>
+      ) : null}
       <ProductHighlights rows={product.highlights} />
       <ProductReviews
         productId={product.id}

@@ -9,5 +9,5 @@ export function selectProductsByIds(products: Product[], ids: string[]): Product
 
 /** Format a numeric price for display (e.g. 249 → "$249.00"). */
 export function formatPrice(value: number): string {
-  return `$${value.toFixed(2)}`
+  return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(value)
 }

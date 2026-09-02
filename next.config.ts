@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ['192.168.*.*'],
   turbopack: {
     root: projectRoot
+  },
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.shopify.com' },
+      { protocol: 'https', hostname: 'dtspharmacy.com' }
+    ]
   }
 }
 

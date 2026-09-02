@@ -1,0 +1,65 @@
+{
+  "Buy Peptides Online": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 20,
+    "priceMax": 221
+  },
+  "Exosomes": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 246,
+    "priceMax": 415
+  },
+  "Peptide Blends & Combination Products": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 112,
+    "priceMax": 415
+  },
+  "Peptide Nasal Sprays": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 51,
+    "priceMax": 221
+  },
+  "Peptides Bioregulators": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 20,
+    "priceMax": 69
+  },
+  "Peptides for Fitness": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 20,
+    "priceMax": 122
+  },
+  "Peptides for Immune System": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 58,
+    "priceMax": 138
+  },
+  "Peptides for Muscle Mass": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 54,
+    "priceMax": 122
+  },
+  "Peptides for Weight Loss": {
+    "brands": [
+      "Pen Peptide"
+    ],
+    "priceMin": 54,
+    "priceMax": 129
+  }
+}

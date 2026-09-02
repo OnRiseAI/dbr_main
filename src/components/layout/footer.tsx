@@ -23,12 +23,23 @@ import InstagramIcon from '@/assets/svg/instagram-icon'
 
 const footerLinks = [
   {
-    title: 'Explore',
+    title: 'Collections',
     links: [
-      { title: 'Main Page', href: '/' },
-      { title: 'Product Listing', href: '/shop' },
-      { title: 'Category Page', href: '/category' },
-      { title: 'Product Details', href: '/product/boat-airdopes-138' }
+      { title: 'All peptides', href: '/shop' },
+      { title: 'Weight loss', href: '/shop?category=Peptides%20for%20Weight%20Loss' },
+      { title: 'Muscle mass', href: '/shop?category=Peptides%20for%20Muscle%20Mass' },
+      { title: 'Nasal sprays', href: '/shop?category=Peptide%20Nasal%20Sprays' },
+      { title: 'All collections', href: '/category' }
+    ]
+  },
+  {
+    title: 'Pages',
+    links: [
+      { title: 'About us', href: '/pages/about-us' },
+      { title: 'FAQ', href: '/pages/faq' },
+      { title: 'Contacts', href: '/pages/contacts' },
+      { title: 'Become a distributor', href: '/pages/become-our-distributor' },
+      { title: 'MSSPT', href: '/pages/molecular-structure-stabilization-process-technology-msspt' }
     ]
   }
 ]

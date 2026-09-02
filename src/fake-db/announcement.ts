@@ -4,14 +4,10 @@ export type AnnouncementItem = {
 }
 
 export const db: AnnouncementItem[] = [
-  { name: 'Free Shipping on Orders Over $50', color: 'fill-cyan-400' },
-  { name: 'Up to 50% Off Selected Items', color: 'fill-indigo-400' },
-  { name: 'New Arrivals Dropping Weekly', color: 'fill-lime-400' },
-  { name: 'Flash Sale Ends Tonight', color: 'fill-red-400' },
-  { name: 'Buy 2 Get 1 Free on Accessories', color: 'fill-yellow-400' },
-  { name: 'Members Get Early Access', color: 'fill-purple-400' },
-  { name: 'Extra 10% Off Your First Order', color: 'fill-emerald-400' },
-  { name: 'Easy 30-Day Returns', color: 'fill-orange-400' },
-  { name: 'Clearance Picks Starting at $9.99', color: 'fill-pink-400' },
-  { name: 'Limited Stock - Shop Before It Sells Out', color: 'fill-sky-400' }
+  { name: '1-3 business day delivery with DHL Express', color: 'fill-cyan-400' },
+  { name: 'Stabilized pre-mixed peptide pens', color: 'fill-indigo-400' },
+  { name: 'Research-use peptides shipped in cooling boxes', color: 'fill-lime-400' },
+  { name: 'Secure payment by bank transfer', color: 'fill-yellow-400' },
+  { name: 'Store refrigerated at 2-8C after delivery', color: 'fill-emerald-400' },
+  { name: 'MSSPT molecular stabilization technology', color: 'fill-purple-400' }
 ]

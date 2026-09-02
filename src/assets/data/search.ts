@@ -1,6 +1,6 @@
 import type { ForwardRefExoticComponent, RefAttributes } from 'react'
 
-import { HomeIcon, ShoppingBagIcon, Grid3x3Icon, PackageIcon, type LucideProps } from 'lucide-react'
+import { HomeIcon, ShoppingBagIcon, Grid3x3Icon, FileTextIcon, type LucideProps } from 'lucide-react'
 
 export type SearchData = {
   title: string
@@ -33,9 +33,19 @@ export const searchData: SearchData[] = [
         href: '/category'
       },
       {
-        icon: PackageIcon,
-        name: 'Product Detail Carousel View',
-        href: '/product/boat-airdopes-138'
+        icon: FileTextIcon,
+        name: 'About us',
+        href: '/pages/about-us'
+      },
+      {
+        icon: FileTextIcon,
+        name: 'FAQ',
+        href: '/pages/faq'
+      },
+      {
+        icon: FileTextIcon,
+        name: 'Contacts',
+        href: '/pages/contacts'
       }
     ]
   }

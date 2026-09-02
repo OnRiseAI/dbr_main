@@ -48,7 +48,9 @@ export type Product = {
   rating: number
   reviewCount: number
   category: string
+  collections?: string[]
   description: string
+  bodyHtml?: string
   images: string[]
   colors: ProductColor[]
   sizes?: ProductSize[]
@@ -62,6 +64,15 @@ export type Category = {
   name: string
   image: string
   href: string
+  handle?: string
+  description?: string
+  productsCount?: number
+}
+
+export type ContentPage = {
+  handle: string
+  title: string
+  html: string
 }
 
 export type Brand = {

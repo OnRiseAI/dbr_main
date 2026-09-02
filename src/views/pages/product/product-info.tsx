@@ -133,35 +133,36 @@ const ProductInfo = ({ product }: Props) => {
         </div>
       </div>
 
-      {/* Colors */}
-      <div className='flex flex-col gap-3'>
-        <h4 className='text-lg font-medium'>
-          Color: <span className='text-muted-foreground'>{product.colors[selectedColor]?.name}</span>
-        </h4>
-        <div className='flex items-center gap-3'>
-          {product.colors.map((color, index) => (
-            <Button
-              key={color.name}
-              variant='ghost'
-              size='icon-sm'
-              aria-label={color.name}
-              style={{
-                backgroundColor: color.value,
-                ...(selectedColor === index && {
-                  boxShadow: `0 0 0 2px var(--background), 0 0 0 4px ${color.value}`
-                })
-              }}
-              className={cn(
-                'border-border size-7 rounded-full border p-0 hover:opacity-90',
-                selectedColor === index && 'ring-2 ring-offset-2'
-              )}
-              onClick={() => setSelectedColor(index)}
-            >
-              <span className='sr-only'>{color.name}</span>
-            </Button>
-          ))}
+      {product.colors.length > 0 && (
+        <div className='flex flex-col gap-3'>
+          <h4 className='text-lg font-medium'>
+            Color: <span className='text-muted-foreground'>{product.colors[selectedColor]?.name}</span>
+          </h4>
+          <div className='flex items-center gap-3'>
+            {product.colors.map((color, index) => (
+              <Button
+                key={color.name}
+                variant='ghost'
+                size='icon-sm'
+                aria-label={color.name}
+                style={{
+                  backgroundColor: color.value,
+                  ...(selectedColor === index && {
+                    boxShadow: `0 0 0 2px var(--background), 0 0 0 4px ${color.value}`
+                  })
+                }}
+                className={cn(
+                  'border-border size-7 rounded-full border p-0 hover:opacity-90',
+                  selectedColor === index && 'ring-2 ring-offset-2'
+                )}
+                onClick={() => setSelectedColor(index)}
+              >
+                <span className='sr-only'>{color.name}</span>
+              </Button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Sizes */}
       {product.sizes && (

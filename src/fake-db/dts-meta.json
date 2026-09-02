@@ -1,0 +1,31 @@
+{
+  "dealIds": [
+    "somatropin-human-growth-hormone-30-iu-9-9mg",
+    "slu-pp-332-1-5mg",
+    "sermorelin-5mg",
+    "pen-semaglutide-5mg-1mg",
+    "retatrutide-pen-6-12-20-40mg",
+    "ipamorelin-peptide-10mg",
+    "hgh-fragment-176-191-hgh-frag-5mg",
+    "ghrp-2-5mg"
+  ],
+  "newArrivalIds": [
+    "selank-nasal-spray-20mg-10ml",
+    "pe-22-28-nasal-spray-10mg-10ml",
+    "bpc-157-nasal-spray-10mg-10ml",
+    "pt-141-nasal-spray-10mg-10ml",
+    "dsip-nasal-spray-10mg-10ml",
+    "oxytocin-nasal-spray-20mg-10ml",
+    "nad-nasal-spray-500mg-10ml",
+    "semax-nasal-spray-20mg-10ml"
+  ],
+  "defaultWishlistIds": [
+    "selank-nasal-spray-20mg-10ml",
+    "pe-22-28-nasal-spray-10mg-10ml",
+    "bpc-157-nasal-spray-10mg-10ml"
+  ],
+  "defaultCartIds": [
+    "somatropin-human-growth-hormone-30-iu-9-9mg"
+  ],
+  "sampleProductId": "retatrutide-pen-6-12-20-40mg"
+}

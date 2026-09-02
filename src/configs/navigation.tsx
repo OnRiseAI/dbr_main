@@ -1,8 +1,14 @@
 import { ShoppingBagIcon, BoxIcon, FileIcon, BadgeDollarSignIcon } from 'lucide-react'
 
 import type { NavigationSection } from '@/components/blocks/menu-sheet'
+import { db as categories } from '@/fake-db/categories'
 
 const iconClassName = 'size-4 shrink-0'
+
+const collectionItems = categories.map(category => ({
+  title: category.name,
+  href: category.href
+}))
 
 export const mainNavigation: NavigationSection[] = [
   {
@@ -12,12 +18,21 @@ export const mainNavigation: NavigationSection[] = [
       {
         groups: [
           {
-            title: 'Pages',
+            title: 'Store',
             items: [
-              { title: 'Main Page', href: '/' },
-              { title: 'Product Listing With Sidebar', href: '/shop' },
-              { title: 'Category Page', href: '/category' },
-              { title: 'Product Detail Carousel View', href: '/product/boat-airdopes-138' }
+              { title: 'Home', href: '/' },
+              { title: 'All products', href: '/shop' },
+              { title: 'Collections', href: '/category' }
+            ]
+          },
+          {
+            title: 'Info',
+            items: [
+              { title: 'About us', href: '/pages/about-us' },
+              { title: 'FAQ', href: '/pages/faq' },
+              { title: 'Contacts', href: '/pages/contacts' },
+              { title: 'Become a distributor', href: '/pages/become-our-distributor' },
+              { title: 'MSSPT technology', href: '/pages/molecular-structure-stabilization-process-technology-msspt' }
             ]
           }
         ]
@@ -31,81 +46,8 @@ export const mainNavigation: NavigationSection[] = [
       {
         groups: [
           {
-            title: 'Topwear',
-            items: [
-              { title: 'Casual Shirts', href: '/shop?category=Clothing' },
-              { title: 'T-Shirts', href: '/shop?category=Clothing' },
-              { title: 'Formal Shirts', href: '/shop?category=Clothing' },
-              { title: 'Jackets', href: '/shop?category=Clothing' },
-              { title: 'Rain Jackets', href: '/shop?category=Clothing' },
-              { title: 'Blazers & Coats', href: '/shop?category=Clothing' },
-              { title: 'Sweatshirts', href: '/shop?category=Clothing' },
-              { title: 'Suits', href: '/shop?category=Clothing' }
-            ]
-          },
-          {
-            title: 'Festive Wear',
-            items: [
-              { title: 'Kurtas & Kurta Sets', href: '/shop?category=Clothing' },
-              { title: 'Shervanis', href: '/shop?category=Clothing' },
-              { title: 'Nehru Jackets', href: '/shop?category=Clothing' }
-            ]
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Bottomwear',
-            items: [
-              { title: 'Jeans', href: '/shop?category=Clothing' },
-              { title: 'Casual Trousers', href: '/shop?category=Clothing' },
-              { title: 'Formal Trousers', href: '/shop?category=Clothing' },
-              { title: 'Shorts', href: '/shop?category=Clothing' },
-              { title: 'Track Pants', href: '/shop?category=Clothing' }
-            ]
-          },
-          {
-            title: 'Gadget',
-            items: [
-              { title: 'Smart Wearables', href: '/shop?category=Electronics' },
-              { title: 'Headphones', href: '/shop?category=Electronics' },
-              { title: 'Speakers', href: '/shop?category=Electronics' },
-              { title: 'Fitness Gadgets', href: '/shop?category=Electronics' }
-            ]
-          },
-          {
-            title: 'Sunglasses & Frames',
-            items: [],
-            href: '/shop?category=Watches'
-          },
-          {
-            title: 'Watches',
-            items: [],
-            href: '/shop?category=Watches'
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Personal Care',
-            items: [
-              { title: 'Cleansers', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Sunscreen', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Shampoo', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Face Masks', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Perfume/Cologne', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Makeup Remover', href: '/shop?category=Beauty+%26+Skincare' }
-            ]
-          },
-          {
-            title: 'Toys & Games',
-            items: [
-              { title: 'Action Figures', href: '/shop?category=Toys+%26+Games' },
-              { title: 'Board Games', href: '/shop?category=Toys+%26+Games' },
-              { title: 'Outdoor Toys', href: '/shop?category=Toys+%26+Games' }
-            ]
+            title: 'Collections',
+            items: collectionItems
           }
         ]
       }
@@ -114,175 +56,11 @@ export const mainNavigation: NavigationSection[] = [
   {
     title: "Today's Deal",
     icon: <BadgeDollarSignIcon className={iconClassName} />,
-    columns: [
-      {
-        groups: [
-          {
-            title: 'Topwear',
-            items: [
-              { title: 'Casual Shirts', href: '/shop?category=Clothing' },
-              { title: 'T-Shirts', href: '/shop?category=Clothing' },
-              { title: 'Formal Shirts', href: '/shop?category=Clothing' },
-              { title: 'Jackets', href: '/shop?category=Clothing' },
-              { title: 'Rain Jackets', href: '/shop?category=Clothing' },
-              { title: 'Blazers & Coats', href: '/shop?category=Clothing' },
-              { title: 'Sweatshirts', href: '/shop?category=Clothing' },
-              { title: 'Suits', href: '/shop?category=Clothing' }
-            ]
-          },
-          {
-            title: 'Festive Wear',
-            items: [
-              { title: 'Kurtas & Kurta Sets', href: '/shop?category=Clothing' },
-              { title: 'Shervanis', href: '/shop?category=Clothing' },
-              { title: 'Nehru Jackets', href: '/shop?category=Clothing' }
-            ]
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Bottomwear',
-            items: [
-              { title: 'Jeans', href: '/shop?category=Clothing' },
-              { title: 'Casual Trousers', href: '/shop?category=Clothing' },
-              { title: 'Formal Trousers', href: '/shop?category=Clothing' },
-              { title: 'Shorts', href: '/shop?category=Clothing' },
-              { title: 'Track Pants', href: '/shop?category=Clothing' }
-            ]
-          },
-          {
-            title: 'Gadget',
-            items: [
-              { title: 'Smart Wearables', href: '/shop?category=Electronics' },
-              { title: 'Headphones', href: '/shop?category=Electronics' },
-              { title: 'Speakers', href: '/shop?category=Electronics' },
-              { title: 'Fitness Gadgets', href: '/shop?category=Electronics' }
-            ]
-          },
-          {
-            title: 'Sunglasses & Frames',
-            items: [],
-            href: '/shop?category=Watches'
-          },
-          {
-            title: 'Watches',
-            items: [],
-            href: '/shop?category=Watches'
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Personal Care',
-            items: [
-              { title: 'Cleansers', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Sunscreen', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Shampoo', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Face Masks', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Perfume/Cologne', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Makeup Remover', href: '/shop?category=Beauty+%26+Skincare' }
-            ]
-          },
-          {
-            title: 'Toys & Games',
-            items: [
-              { title: 'Action Figures', href: '/shop?category=Toys+%26+Games' },
-              { title: 'Board Games', href: '/shop?category=Toys+%26+Games' },
-              { title: 'Outdoor Toys', href: '/shop?category=Toys+%26+Games' }
-            ]
-          }
-        ]
-      }
-    ]
+    href: '/shop?category=Peptides%20for%20Weight%20Loss'
   },
   {
     title: 'New Arrivals',
     icon: <BoxIcon className={iconClassName} />,
-    columns: [
-      {
-        groups: [
-          {
-            title: 'Topwear',
-            items: [
-              { title: 'Casual Shirts', href: '/shop?category=Clothing' },
-              { title: 'T-Shirts', href: '/shop?category=Clothing' },
-              { title: 'Formal Shirts', href: '/shop?category=Clothing' },
-              { title: 'Jackets', href: '/shop?category=Clothing' },
-              { title: 'Rain Jackets', href: '/shop?category=Clothing' },
-              { title: 'Blazers & Coats', href: '/shop?category=Clothing' },
-              { title: 'Sweatshirts', href: '/shop?category=Clothing' },
-              { title: 'Suits', href: '/shop?category=Clothing' }
-            ]
-          },
-          {
-            title: 'Festive Wear',
-            items: [
-              { title: 'Kurtas & Kurta Sets', href: '/shop?category=Clothing' },
-              { title: 'Shervanis', href: '/shop?category=Clothing' },
-              { title: 'Nehru Jackets', href: '/shop?category=Clothing' }
-            ]
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Bottomwear',
-            items: [
-              { title: 'Jeans', href: '/shop?category=Clothing' },
-              { title: 'Casual Trousers', href: '/shop?category=Clothing' },
-              { title: 'Formal Trousers', href: '/shop?category=Clothing' },
-              { title: 'Shorts', href: '/shop?category=Clothing' },
-              { title: 'Track Pants', href: '/shop?category=Clothing' }
-            ]
-          },
-          {
-            title: 'Gadget',
-            items: [
-              { title: 'Smart Wearables', href: '/shop?category=Electronics' },
-              { title: 'Headphones', href: '/shop?category=Electronics' },
-              { title: 'Speakers', href: '/shop?category=Electronics' },
-              { title: 'Fitness Gadgets', href: '/shop?category=Electronics' }
-            ]
-          },
-          {
-            title: 'Sunglasses & Frames',
-            items: [],
-            href: '/shop?category=Watches'
-          },
-          {
-            title: 'Watches',
-            items: [],
-            href: '/shop?category=Watches'
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Personal Care',
-            items: [
-              { title: 'Cleansers', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Sunscreen', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Shampoo', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Face Masks', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Perfume/Cologne', href: '/shop?category=Beauty+%26+Skincare' },
-              { title: 'Makeup Remover', href: '/shop?category=Beauty+%26+Skincare' }
-            ]
-          },
-          {
-            title: 'Toys & Games',
-            items: [
-              { title: 'Action Figures', href: '/shop?category=Toys+%26+Games' },
-              { title: 'Board Games', href: '/shop?category=Toys+%26+Games' },
-              { title: 'Outdoor Toys', href: '/shop?category=Toys+%26+Games' }
-            ]
-          }
-        ]
-      }
-    ]
+    href: '/shop?category=Peptide%20Nasal%20Sprays'
   }
 ]
