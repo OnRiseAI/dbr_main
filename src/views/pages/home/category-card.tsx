@@ -1,7 +1,6 @@
-// Next Imports
 import Link from 'next/link'
+import { ArrowRightIcon } from 'lucide-react'
 
-// Type Imports
 import type { Category } from '@/types/product'
 
 type Props = {
@@ -10,18 +9,18 @@ type Props = {
 
 const CategoryCard = ({ category }: Props) => {
   return (
-    <Link
-      href={category.href}
-      className='group flex flex-col items-center gap-4 p-0 focus-visible:outline-none max-sm:mx-auto max-sm:w-fit'
-    >
-      <div className='bg-muted group-hover:bg-primary/10 flex size-31 items-center justify-center overflow-hidden rounded-full transition-colors'>
+    <Link href={category.href} className='group block focus-visible:outline-none'>
+      <div className='bg-muted aspect-[4/3] overflow-hidden'>
         <img
           src={category.image}
           alt={category.name}
-          className='object-cover object-bottom transition-transform duration-300 group-hover:scale-105'
+          className='size-full object-cover transition-transform duration-500 group-hover:scale-105'
         />
       </div>
-      <h3 className='text-center text-lg leading-6 font-medium text-balance'>{category.name}</h3>
+      <p className='mt-3 flex items-center gap-1.5 text-base font-medium'>
+        <span>{category.name}</span>
+        <ArrowRightIcon className='size-4 transition-transform duration-300 group-hover:translate-x-1' />
+      </p>
     </Link>
   )
 }

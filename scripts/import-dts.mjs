@@ -121,7 +121,7 @@ products.forEach(p => {
 const categories = collections.map(col => ({
   name: col.title,
   handle: col.handle,
-  image: col.image?.src ?? '',
+  image: `/images/categories/${col.handle}.jpg`,
   href: `/shop?category=${encodeURIComponent(col.title)}`,
   description: stripHtml(col.description || '').slice(0, 220),
   productsCount: col.products_count
