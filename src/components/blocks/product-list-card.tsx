@@ -4,7 +4,7 @@
 import Link from 'next/link'
 
 // Third-party Imports
-import { ArrowRightIcon, ShoppingBagIcon } from 'lucide-react'
+import { ShoppingBagIcon } from 'lucide-react'
 
 // Type Imports
 import type { Product } from '@/types/product'
@@ -93,9 +93,9 @@ const ProductListCard = ({ product, badges }: Props) => {
         </div>
         <div className='flex flex-wrap gap-3'>
           {inCart ? (
-            <Button render={<Link href='/checkout' />} nativeButton={false}>
-              Go to Cart
-              <ArrowRightIcon />
+            <Button disabled>
+              In cart
+              <ShoppingBagIcon />
             </Button>
           ) : (
             <Button onClick={() => addToCart(product.id)}>

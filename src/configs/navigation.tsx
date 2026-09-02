@@ -12,96 +12,12 @@ export const mainNavigation: NavigationSection[] = [
       {
         groups: [
           {
-            title: 'Main Page',
-            items: [{ title: 'Home Page', href: '/' }]
-          },
-          {
-            title: 'Hero layout',
+            title: 'Pages',
             items: [
-              { title: 'Hero layout 1', href: '/home/hero-layout-01' },
-              { title: 'Hero layout 2', href: '/home/hero-layout-02' }
-            ]
-          },
-          {
-            title: 'Product Listing',
-            items: [
+              { title: 'Main Page', href: '/' },
               { title: 'Product Listing With Sidebar', href: '/shop' },
-              { title: 'Product Listing With Banner', href: '/product-list-with-banner' }
-            ]
-          },
-          {
-            title: 'Category Page',
-            items: [{ title: 'Category Listing', href: '/category' }]
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Authentication',
-            items: [
-              { title: 'Login', href: '/login' },
-              { title: 'Register', href: '/register' },
-              { title: 'Forgot Password', href: '/forgot-password' },
-              { title: 'Reset Password', href: '/reset-password' },
-              { title: 'Two Factor Authentication', href: '/two-factor-auth' },
-              { title: 'Verify Email', href: '/verify-email' }
-            ]
-          },
-          {
-            title: 'Product Details',
-            items: [
-              { title: 'Product Detail Carousel view', href: '/product/boat-airdopes-138' },
-              { title: 'Product Detail Gallery View', href: '/product-detail-with-gallery-view' }
-            ]
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Profile Pages',
-            items: [
-              { title: 'My Account', href: '/account' },
-              { title: 'My Wishlist', href: '/account/wishlist' },
-              { title: 'My Orders', href: '/account/orders' },
-              { title: 'Order Details', href: '/account/orders/details' },
-              { title: 'Track Order', href: '/account/track-order' },
-              { title: 'My Addresses', href: '/account/addresses' },
-              { title: 'Payment', href: '/account/payments' },
-              { title: 'Wallet', href: '/account/wallet' },
-              { title: 'Giftcards', href: '/account/gift-cards' },
-              { title: 'Return & Refunds', href: '/account/return-refunds' },
-              { title: 'Exchange & Returns', href: '/account/exchange-return' },
-              { title: 'Email Newsletter', href: '/account/email-newsletter' },
-              { title: 'Support Ticket', href: '/account/support-ticket' }
-            ]
-          }
-        ]
-      },
-      {
-        groups: [
-          {
-            title: 'Checkout Pages',
-            items: [
-              { title: 'Cart Page', href: '/checkout' },
-              { title: 'Address Page', href: '/checkout' },
-              { title: 'Payment Page', href: '/checkout' },
-              { title: 'Empty Cart', href: '/checkout' }
-            ]
-          },
-          {
-            title: 'Other Pages',
-            items: [{ title: 'Compare Products', href: '/compare' }]
-          },
-          {
-            title: 'Miscellaneous',
-            items: [
-              { title: 'FAQ', href: '/faq' },
-              { title: 'Help', href: '/help' },
-              { title: 'Write Review', href: '/write-review' },
-              { title: 'Privacy Policy', href: '/privacy-policy' },
-              { title: 'Return Policy', href: '/return-policy' }
+              { title: 'Category Page', href: '/category' },
+              { title: 'Product Detail Carousel View', href: '/product/boat-airdopes-138' }
             ]
           }
         ]

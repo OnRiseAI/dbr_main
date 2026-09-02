@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
 
       // Exclude auth pages, private paths, and URLs with query strings
-      disallow: ['/login', '/register', '/private/', '/*?*']
+      disallow: ['/private/', '/*?*']
     },
     sitemap: `${siteConfig.url}/sitemap.xml`
   }

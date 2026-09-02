@@ -4,7 +4,7 @@
 import Link from 'next/link'
 
 // Third-party Imports
-import { ArrowRightIcon, ShoppingBagIcon } from 'lucide-react'
+import { ShoppingBagIcon } from 'lucide-react'
 
 // Type Imports
 import type { Product } from '@/types/product'
@@ -115,9 +115,9 @@ const ProductCard = ({ product, badges, variant = 'default', galleryView = false
           )}
         </div>
         {inCart ? (
-          <Button className='border-border mt-3 w-full' render={<Link href='/checkout' />} nativeButton={false}>
-            Go to Cart
-            <ArrowRightIcon className='size-4' />
+          <Button className='border-border mt-3 w-full' disabled>
+            In cart
+            <ShoppingBagIcon className='size-4' />
           </Button>
         ) : (
           <Button className='border-border mt-3 w-full' onClick={() => addToCart(product.id)}>

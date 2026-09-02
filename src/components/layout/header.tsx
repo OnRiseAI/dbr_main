@@ -11,7 +11,6 @@ import { MenuIcon, ChevronDownIcon } from 'lucide-react'
 
 // Component Imports
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -28,16 +27,12 @@ import ContentLayout from '@/components/layout/content-layout'
 import CommandMenu from '@/components/layout/command-menu'
 import LanguageDropdown from '@/components/blocks/dropdown-language'
 import CurrencyDropdown from '@/components/blocks/dropdown-currency'
-import AccountDropdown from '@/components/blocks/dropdown-account'
 import MenuSheet from '@/components/blocks/menu-sheet'
 import { PagesMegamenu } from '@/components/layout/pages-megamenu'
 import { MegamenuPromotionalCard1 } from '@/components/layout/megamenu-promotional-card-1'
 import { MegamenuPromotionalCard2 } from '@/components/layout/megamenu-promotional-card-2'
 import { MegamenuPromotionalCard3 } from '@/components/layout/megamenu-promotional-card-3'
 import ThemeCustomizer from './ThemeCustomizer'
-
-// Store Imports
-import { useUserStore } from '@/store/user-store'
 
 // Config Imports
 import { mainNavigation } from '@/configs/navigation'
@@ -59,7 +54,6 @@ const darkBarButtonClass = 'gap-2 bg-transparent p-0 font-normal h-5 text-foregr
 const Header = () => {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const headerRef = useRef<HTMLElement>(null)
-  const avatarUrl = useUserStore(state => state.avatarUrl)
 
   useEffect(() => {
     const header = headerRef.current
@@ -279,20 +273,6 @@ const Header = () => {
               <WishlistButton />
               <CartButton />
               <ThemeCustomizer />
-              <AccountDropdown
-                trigger={
-                  <Button variant='ghost' size='icon-lg' className='rounded-lg p-0'>
-                    <Avatar className='size-9 after:rounded-lg'>
-                      <AvatarImage
-                        src={avatarUrl ?? 'https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-1.png'}
-                        alt='Mitchell Johnson'
-                        className='rounded-lg'
-                      />
-                      <AvatarFallback>MJ</AvatarFallback>
-                    </Avatar>
-                  </Button>
-                }
-              />
             </div>
           </div>
         </ContentLayout>

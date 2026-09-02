@@ -10,20 +10,7 @@ import { siteConfig } from '@/configs/site'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const productIds = await getProductIds()
 
-  const routes = [
-    '' /* This is equivalent to / */,
-    '/shop',
-    '/category',
-    '/checkout',
-    '/compare',
-    '/faq',
-    '/help',
-    '/write-review',
-    '/return-policy',
-    '/privacy-policy',
-    '/contact',
-    ...productIds.map(id => `/product/${id}`)
-  ]
+  const routes = ['' /* This is equivalent to / */, '/shop', '/category', ...productIds.map(id => `/product/${id}`)]
 
   return routes.map(route => ({
     url: `${siteConfig.url}${route}`

@@ -1,8 +1,5 @@
 'use client'
 
-// Next Imports
-import Link from 'next/link'
-
 // Third-party Imports
 import { ShoppingBagIcon } from 'lucide-react'
 
@@ -20,7 +17,7 @@ const CartButton = () => {
   const count = useCartCount()
 
   return (
-    <Button variant='ghost' size='icon-lg' className='relative' render={<Link href='/checkout' />} nativeButton={false}>
+    <Button variant='ghost' size='icon-lg' className='relative'>
       <ShoppingBagIcon className='size-5.5' />
       {count > 0 && (
         <Badge

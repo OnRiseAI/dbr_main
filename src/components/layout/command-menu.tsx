@@ -7,7 +7,7 @@ import { Fragment, useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Third-party Imports
-import { SearchIcon, ShoppingCartIcon, UserIcon, StarIcon, HouseIcon, ShoppingBagIcon } from 'lucide-react'
+import { SearchIcon, HouseIcon, ShoppingBagIcon, Grid3x3Icon, PackageIcon } from 'lucide-react'
 
 // Component Imports
 import { Button } from '@/components/ui/button'
@@ -140,23 +140,19 @@ const CommandMenu = () => {
               <CommandGroup heading='Suggestions'>
                 <CommandItem onSelect={() => runCommand(() => router.push('/'))}>
                   <HouseIcon className='size-4' />
-                  <span>Home</span>
+                  <span>Main Page</span>
                 </CommandItem>
                 <CommandItem onSelect={() => runCommand(() => router.push('/shop'))}>
-                  <ShoppingCartIcon className='size-4' />
-                  <span>Shop</span>
-                </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push('/account/wishlist'))}>
-                  <StarIcon className='size-4' />
-                  <span>Wishlist</span>
-                </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push('/account'))}>
-                  <UserIcon className='size-4' />
-                  <span>Profile</span>
-                </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push('/checkout'))}>
                   <ShoppingBagIcon className='size-4' />
-                  <span>Checkout</span>
+                  <span>Product Listing</span>
+                </CommandItem>
+                <CommandItem onSelect={() => runCommand(() => router.push('/category'))}>
+                  <Grid3x3Icon className='size-4' />
+                  <span>Category Page</span>
+                </CommandItem>
+                <CommandItem onSelect={() => runCommand(() => router.push('/product/boat-airdopes-138'))}>
+                  <PackageIcon className='size-4' />
+                  <span>Product Details</span>
                 </CommandItem>
               </CommandGroup>
             )}

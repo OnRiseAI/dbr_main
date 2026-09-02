@@ -8,7 +8,6 @@ import Link from 'next/link'
 
 // Third-party Imports
 import {
-  GitCompareIcon,
   ChevronRightIcon,
   HeartIcon,
   MinusIcon,
@@ -24,10 +23,9 @@ import type { Product } from '@/types/product'
 
 // Component Imports
 import { Badge } from '@/components/ui/badge'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Rating } from '@/components/ui/rating'
 
 // Store Imports
@@ -59,25 +57,6 @@ const ProductInfo = ({ product }: Props) => {
           In Stock
         </Badge>
         <div className='flex gap-3'>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  <Link
-                    href='/compare'
-                    className={cn(
-                      buttonVariants({ variant: 'ghost', size: 'icon-sm' }),
-                      'bg-secondary hover:bg-muted size-7'
-                    )}
-                  />
-                }
-              >
-                <GitCompareIcon className='size-4' />
-                <span className='sr-only'>Compare Products</span>
-              </TooltipTrigger>
-              <TooltipContent>Compare Products</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
           <Button
             variant='ghost'
             size='icon-sm'
@@ -264,9 +243,9 @@ const ProductInfo = ({ product }: Props) => {
           </Button>
         </div>
         {inCart ? (
-          <Button size='lg' className='sm:flex-1' render={<Link href='/checkout' />} nativeButton={false}>
-            Go to Cart
-            <ArrowRightIcon className='size-4' />
+          <Button size='lg' className='sm:flex-1' disabled>
+            In cart
+            <ShoppingBagIcon className='size-4' />
           </Button>
         ) : (
           <Button size='lg' className='sm:flex-1' onClick={() => addToCart(product.id, quantity)}>
@@ -278,8 +257,7 @@ const ProductInfo = ({ product }: Props) => {
           size='lg'
           variant='outline'
           className='group shadow-sm sm:flex-1'
-          render={<Link href='/checkout' />}
-          nativeButton={false}
+          onClick={() => addToCart(product.id, quantity)}
         >
           Buy Now
           <ArrowRightIcon className='size-4 transition-all duration-300 group-hover:translate-x-1' />

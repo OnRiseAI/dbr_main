@@ -1,8 +1,5 @@
 'use client'
 
-// Next Imports
-import Link from 'next/link'
-
 // Third-party Imports
 import { HeartIcon } from 'lucide-react'
 
@@ -20,13 +17,7 @@ const WishlistButton = () => {
   const count = useWishlistCount()
 
   return (
-    <Button
-      variant='ghost'
-      size='icon-lg'
-      className='relative'
-      render={<Link href='/account/wishlist' />}
-      nativeButton={false}
-    >
+    <Button variant='ghost' size='icon-lg' className='relative'>
       <HeartIcon className='size-5.5' />
       {count > 0 && (
         <Badge

@@ -25,19 +25,10 @@ const footerLinks = [
   {
     title: 'Explore',
     links: [
+      { title: 'Main Page', href: '/' },
       { title: 'Product Listing', href: '/shop' },
-      { title: 'My Profile', href: '/account' },
-      { title: 'Order Tracking', href: '/account/track-order' },
-      { title: 'Category Listing', href: '/category' }
-    ]
-  },
-  {
-    title: 'Terms & Policies',
-    links: [
-      { title: 'Returns & Exchanges', href: '/account/exchange-return' },
-      { title: 'Privacy Policy', href: '/privacy-policy' },
-      { title: 'Purchase Protection', href: '/return-policy' },
-      { title: 'Help', href: '/help' }
+      { title: 'Category Page', href: '/category' },
+      { title: 'Product Details', href: '/product/boat-airdopes-138' }
     ]
   }
 ]

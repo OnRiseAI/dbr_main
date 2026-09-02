@@ -5,16 +5,10 @@ import type { Product } from '@/types/product'
 import { selectProductsByIds } from '@/utils/product-utils'
 
 // Data Imports
-import { db as products, dealIds, newArrivalIds, defaultWishlistIds, sampleProductId } from '@/fake-db/products'
+import { db as products, dealIds, newArrivalIds, defaultWishlistIds } from '@/fake-db/products'
 import { db as categories } from '@/fake-db/categories'
 import { db as brands } from '@/fake-db/brands'
-import { db as orders } from '@/fake-db/orders'
-import { db as orderDetailGroups } from '@/fake-db/order-details'
 import { db as announcements } from '@/fake-db/announcement'
-import { db as heroLayoutProducts } from '@/fake-db/hero-layout'
-import { db as helpTopics } from '@/fake-db/help-topics'
-import { db as helpFaqs } from '@/fake-db/help-faq'
-import { db as faqCategories } from '@/fake-db/faq-categories'
 
 /**
  * Data-access layer (the single DB seam).
@@ -33,11 +27,6 @@ export const getProducts = async () => {
 
 export const getProductById = async (id: string) => {
   return products.find(product => product.id === id) ?? null
-}
-
-/** Default product for the "Product Details" nav link and the bare /write-review page. */
-export const getSampleProduct = async () => {
-  return products.find(product => product.id === sampleProductId) ?? products[0]
 }
 
 /** Catalog ids - used by the dynamic product route's generateStaticParams. */
@@ -87,34 +76,4 @@ export const getHomeData = async () => {
 
 export const getAnnouncements = async () => {
   return announcements
-}
-
-export const getHeroLayoutProducts = async () => {
-  return heroLayoutProducts
-}
-
-// ---------- Orders ----------
-
-export const getOrders = async () => {
-  return orders
-}
-
-export const getOrderDetails = async () => {
-  return orderDetailGroups
-}
-
-// ---------- Help ----------
-
-export const getHelpTopics = async () => {
-  return helpTopics
-}
-
-export const getHelpFaqs = async () => {
-  return helpFaqs
-}
-
-// ---------- FAQ ----------
-
-export const getFaqCategories = async () => {
-  return faqCategories
 }

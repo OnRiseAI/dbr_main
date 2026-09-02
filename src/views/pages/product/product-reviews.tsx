@@ -3,9 +3,6 @@
 // React Imports
 import { useMemo, useState } from 'react'
 
-// Next Imports
-import Link from 'next/link'
-
 // Third-party Imports
 import { CircleCheckIcon, FlagIcon, StarIcon } from 'lucide-react'
 
@@ -220,27 +217,6 @@ const ProductReviews = ({ productId, reviews: initialReviews, rating, reviewCoun
                     value={0}
                     className='*:data-[slot=progress-track]:bg-primary/10 w-full **:data-[slot=progress-indicator]:bg-amber-600 **:data-[slot=progress-track]:h-2.5 dark:**:data-[slot=progress-indicator]:bg-amber-400'
                   />
-                </div>
-              </div>
-              <div>
-                <div className='flex h-auto flex-wrap gap-3 lg:gap-5'>
-                  <Button
-                    className='flex-1 max-xl:w-full'
-                    size='lg'
-                    render={<Link href={`/write-review?product=${productId}`} />}
-                    nativeButton={false}
-                  >
-                    Write a review
-                  </Button>
-                  <Button
-                    variant='outline'
-                    size='lg'
-                    className='flex-1 max-xl:w-full'
-                    render={<Link href='/help' />}
-                    nativeButton={false}
-                  >
-                    Ask a question
-                  </Button>
                 </div>
               </div>
             </div>
