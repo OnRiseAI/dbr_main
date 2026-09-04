@@ -72,7 +72,7 @@ const MenuSheet = ({ trigger, logoName, navigationData, logo, footer }: Props) =
           <Link href='/' onClick={handleLinkClick} className='self-start'>
             <div className='flex items-center gap-2.5'>
               {logo ?? <LogoSvg className='size-8.5' />}
-              <span className='text-xl font-semibold'>{logoName}</span>
+              {logoName ? <span className='text-xl font-semibold'>{logoName}</span> : null}
             </div>
           </Link>
         </SheetHeader>

@@ -41,7 +41,6 @@ import { mainNavigation } from '@/configs/navigation'
 import { cn } from '@/lib/utils'
 
 // SVGs Imports
-import Logo from '@/assets/svg/logo'
 import InstagramIcon from '@/assets/svg/instagram-icon'
 import FacebookIcon from '@/assets/svg/facebook-icon'
 
@@ -137,8 +136,10 @@ const Header = () => {
           <div className='flex items-center gap-10'>
             <div className='flex items-center gap-2'>
               <MenuSheet
-                logoName='Deep Beauty Research'
-                logo={<Logo className='size-8' />}
+                logoName=''
+                logo={
+                  <img src='/images/brands/dbr-logo.svg' alt='Deep Beauty Research' className='h-6 w-auto dark:invert' />
+                }
                 navigationData={mainNavigation}
                 trigger={
                   <Button variant='outline' size='icon-lg' className='rounded-md xl:hidden'>
@@ -147,9 +148,9 @@ const Header = () => {
                   </Button>
                 }
               />
-              <Link href='/' className='flex items-center gap-2.5'>
-                <Logo className='text-primary size-8' />
-                <span className='hidden text-xl leading-6.5 font-semibold max-sm:hidden sm:block'>Deep Beauty Research</span>
+              <Link href='/' className='flex items-center' aria-label='Deep Beauty Research'>
+                <img src='/images/brands/dbr-logo.svg' alt='Deep Beauty Research' className='h-6 w-auto sm:h-7 dark:hidden' />
+                <img src='/images/brands/dbr-logo-white.svg' alt='' aria-hidden className='hidden h-6 w-auto sm:h-7 dark:block' />
               </Link>
             </div>
 

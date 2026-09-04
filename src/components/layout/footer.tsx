@@ -16,7 +16,6 @@ import { Separator } from '@/components/ui/separator'
 import ContentLayout from '@/components/layout/content-layout'
 
 // SVGs Imports
-import EcommerceLogo from '@/assets/svg/logo'
 import YoutubeIcon from '@/assets/svg/youtube-icon'
 import FacebookIcon from '@/assets/svg/facebook-icon'
 import InstagramIcon from '@/assets/svg/instagram-icon'
@@ -75,9 +74,9 @@ const Footer = () => {
         <div className='grid max-xl:gap-8 md:grid-cols-2 lg:grid-cols-4'>
           {/* Company info */}
           <div className='space-y-8'>
-            <Link href='/#hero-section' className='flex items-center gap-1.5 text-xl font-semibold'>
-              <EcommerceLogo className='text-primary size-8' />
-              <span>Deep Beauty Research</span>
+            <Link href='/#hero-section' className='flex items-center' aria-label='Deep Beauty Research'>
+              <img src='/images/brands/dbr-logo.svg' alt='Deep Beauty Research' className='h-7 w-auto dark:hidden' />
+              <img src='/images/brands/dbr-logo-white.svg' alt='' aria-hidden className='hidden h-7 w-auto dark:block' />
             </Link>
             <ul className='space-y-3'>
               <li className='flex gap-2'>
