@@ -19,18 +19,36 @@ type Format = 'pen' | 'vial'
 
 /** Pen strengths and fill volumes as printed on the pen labels. */
 const PENS = [
-  { value: 'retatrutide-pen-15mg', label: 'Retatrutide pen 15 mg', mg: 15, ml: 3 },
-  { value: 'retatrutide-pen-40mg', label: 'Retatrutide pen 40 mg', mg: 40, ml: 4 },
-  { value: 'ghk-cu-pen-100mg', label: 'GHK-Cu pen 100 mg', mg: 100, ml: 3 }
+  {
+    value: 'retatrutide-pen-15mg',
+    label: 'Retatrutide pen 15 mg',
+    mg: 15,
+    ml: 3,
+    image: '/images/products/dbr-reta-pen-15mg-upright.png'
+  },
+  {
+    value: 'retatrutide-pen-40mg',
+    label: 'Retatrutide pen 40 mg',
+    mg: 40,
+    ml: 4,
+    image: '/images/products/dbr-reta-pen-40mg-upright.png'
+  },
+  {
+    value: 'ghk-cu-pen-100mg',
+    label: 'GHK-Cu pen 100 mg',
+    mg: 100,
+    ml: 3,
+    image: '/images/products/dbr-ghk-cu-pen-100mg-upright.png'
+  }
 ]
 
 const VIALS = [
-  { value: 'retatrutide-vial-10mg', label: 'Retatrutide vial 10 mg', mg: 10 },
-  { value: 'retatrutide-vial-20mg', label: 'Retatrutide vial 20 mg', mg: 20 },
-  { value: 'ghk-cu-vial-100mg', label: 'GHK-Cu vial 100 mg', mg: 100 },
-  { value: 'mt1-vial-10mg', label: 'Melanotan I (MT1) vial 10 mg', mg: 10 },
-  { value: 'mt2-vial-10mg', label: 'Melanotan II (MT2) vial 10 mg', mg: 10 },
-  { value: 'selank-vial-10mg', label: 'Selank vial 10 mg', mg: 10 }
+  { value: 'retatrutide-vial-10mg', label: 'Retatrutide vial 10 mg', mg: 10, image: '/images/products/dbr-reta-vial-10mg.png' },
+  { value: 'retatrutide-vial-20mg', label: 'Retatrutide vial 20 mg', mg: 20, image: '/images/products/dbr-reta-vial-20mg.png' },
+  { value: 'ghk-cu-vial-100mg', label: 'GHK-Cu vial 100 mg', mg: 100, image: '/images/products/dbr-ghk-cu-vial-100mg.png' },
+  { value: 'mt1-vial-10mg', label: 'Melanotan I (MT1) vial 10 mg', mg: 10, image: '/images/products/dbr-mt1-vial-10mg.png' },
+  { value: 'mt2-vial-10mg', label: 'Melanotan II (MT2) vial 10 mg', mg: 10, image: '/images/products/dbr-mt2-vial-10mg.png' },
+  { value: 'selank-vial-10mg', label: 'Selank vial 10 mg', mg: 10, image: '/images/products/dbr-selank-vial-10mg.png' }
 ]
 
 const WATER = [
@@ -53,8 +71,8 @@ const HomeCalculator = () => {
   const [pen, setPen] = useState(PENS[0].value)
   const [vial, setVial] = useState(VIALS[0].value)
   const [water, setWater] = useState('2')
-  const [dose, setDose] = useState('')
-  const [perWeek, setPerWeek] = useState('')
+  const [dose, setDose] = useState('1')
+  const [perWeek, setPerWeek] = useState('1')
 
   const result = useMemo(() => {
     const doseMg = Number.parseFloat(dose.replace(',', '.'))
@@ -71,7 +89,7 @@ const HomeCalculator = () => {
     const dosesPerUnit = hasDose ? totalMg / doseMg : NaN
     const weeks = hasDose && Number.isFinite(times) && times > 0 ? dosesPerUnit / times : NaN
 
-    return { mgPerMl, unitsPerDose, dosesPerUnit, weeks, hasDose, name: product.label }
+    return { mgPerMl, unitsPerDose, dosesPerUnit, weeks, hasDose, name: product.label, image: product.image }
   }, [format, pen, vial, water, dose, perWeek])
 
   const items = format === 'pen' ? PENS : VIALS
@@ -174,22 +192,41 @@ const HomeCalculator = () => {
             </p>
           </div>
 
-          <div className='grid content-start gap-4 sm:grid-cols-2'>
-            <Stat label='Concentration' value={result ? `${fmt(result.mgPerMl, 2)} mg/ml` : EMPTY} />
-            <Stat label='Units per use' value={result?.hasDose ? fmt(result.unitsPerDose, 0) : EMPTY} />
-            <Stat
-              label={format === 'pen' ? 'Uses per pen' : 'Uses per vial'}
-              value={result?.hasDose ? fmt(result.dosesPerUnit, 1) : EMPTY}
-            />
-            <Stat
-              label={format === 'pen' ? 'One pen lasts' : 'One vial lasts'}
-              value={result && Number.isFinite(result.weeks) ? `${fmt(result.weeks, 1)} weeks` : EMPTY}
-            />
-            <p className='text-muted-foreground text-sm sm:col-span-2'>
-              {result?.hasDose
-                ? `${result.name}: ${fmt(result.unitsPerDose, 0)} units per use.`
-                : 'Enter an amount per use to see the numbers.'}
-            </p>
+          <div className='flex flex-col gap-5'>
+            <div className='ring-border grid gap-6 rounded-xl bg-white p-6 ring-1 sm:grid-cols-[140px_1fr] sm:items-center'>
+              <div className='flex h-48 items-center justify-center sm:h-56'>
+                {result ? <img src={result.image} alt={result.name} className='max-h-full object-contain' /> : null}
+              </div>
+              <div className='space-y-4'>
+                <div>
+                  <p className='text-muted-foreground text-xs font-medium tracking-wide uppercase'>
+                    {format === 'pen' ? 'Dial to' : 'Draw to'}
+                  </p>
+                  <p className='text-5xl font-bold tracking-tight sm:text-6xl'>
+                    {result?.hasDose ? fmt(result.unitsPerDose, 0) : '0'}
+                    <span className='text-muted-foreground ms-2 text-xl font-semibold'>units</span>
+                  </p>
+                  <p className='text-muted-foreground mt-1 text-sm'>
+                    {result?.hasDose
+                      ? `${fmt(result.unitsPerDose / 100, 2)} ml of ${result.name}`
+                      : 'Enter an amount per use.'}
+                  </p>
+                </div>
+                <UnitScale units={result?.hasDose ? result.unitsPerDose : 0} />
+              </div>
+            </div>
+
+            <div className='grid gap-4 sm:grid-cols-3'>
+              <Stat label='Concentration' value={result ? `${fmt(result.mgPerMl, 2)} mg/ml` : EMPTY} />
+              <Stat
+                label={format === 'pen' ? 'Uses per pen' : 'Uses per vial'}
+                value={result?.hasDose ? fmt(result.dosesPerUnit, 1) : EMPTY}
+              />
+              <Stat
+                label={format === 'pen' ? 'One pen lasts' : 'One vial lasts'}
+                value={result && Number.isFinite(result.weeks) ? `${fmt(result.weeks, 1)} weeks` : EMPTY}
+              />
+            </div>
           </div>
         </div>
       </ContentLayout>
@@ -197,10 +234,38 @@ const HomeCalculator = () => {
   )
 }
 
+/** 0 to 100 unit scale, the span of an insulin syringe or one full pen dial. */
+const UnitScale = ({ units }: { units: number }) => {
+  const clamped = Math.max(0, Math.min(100, units))
+  const over = units > 100
+
+  return (
+    <div className='space-y-1.5'>
+      <div className='bg-muted relative h-3 overflow-hidden rounded-full'>
+        <div
+          className='bg-foreground h-full rounded-full transition-[width] duration-300'
+          style={{ width: `${clamped}%` }}
+        />
+        <div className='pointer-events-none absolute inset-0 flex justify-between px-[1px]'>
+          {Array.from({ length: 11 }).map((_, index) => (
+            <span key={index} className='bg-background/70 h-full w-px' />
+          ))}
+        </div>
+      </div>
+      <div className='text-muted-foreground flex justify-between text-[11px] font-medium'>
+        <span>0</span>
+        <span>50</span>
+        <span>100 units</span>
+      </div>
+      {over ? <p className='text-muted-foreground text-xs'>More than one full draw. Split it into two.</p> : null}
+    </div>
+  )
+}
+
 const Stat = ({ label, value }: { label: string; value: string }) => (
-  <div className='ring-border space-y-1 rounded-lg bg-white p-5 ring-1'>
+  <div className='ring-border space-y-1 rounded-lg bg-white p-4 ring-1'>
     <p className='text-muted-foreground text-xs font-medium tracking-wide uppercase'>{label}</p>
-    <p className='text-2xl font-bold'>{value}</p>
+    <p className='text-xl font-bold'>{value}</p>
   </div>
 )
 
