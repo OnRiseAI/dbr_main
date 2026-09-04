@@ -64,6 +64,9 @@ const WATER = [1, 2, 3]
 const WEEKLY = [1, 2, 3, 4, 5, 6, 7]
 const PLAN_WEEKS = 12
 
+/** The teal of the pen body, sampled from the render. */
+const ACCENT = '#0592b3'
+
 const fmt = (n: number, digits = 1) =>
   Number.isFinite(n) ? n.toLocaleString('en-GB', { maximumFractionDigits: digits }) : '0'
 
@@ -204,7 +207,7 @@ const HomeCalculator = ({
                   setDoseText(String(Math.round(next * 100) / 100))
                 }}
                 aria-label='Amount per use in milligrams'
-                className='w-full py-1 [&_[data-slot=slider-track]]:h-1.5 [&_[data-slot=slider-track]]:bg-neutral-300 [&_[data-slot=slider-thumb]]:size-4'
+                className='w-full py-1 [&_[data-slot=slider-track]]:h-1.5 [&_[data-slot=slider-track]]:bg-neutral-300 [&_[data-slot=slider-thumb]]:size-4 [&_[data-slot=slider-range]]:bg-[#0592b3]'
               />
               <div className='text-muted-foreground flex justify-between text-[11px] tabular-nums'>
                 <span>{fmt(sliderStep, 1)} mg</span>
@@ -231,15 +234,19 @@ const HomeCalculator = ({
 
           {/* Instrument */}
           <div className='flex flex-col gap-4'>
-            <div className='ring-border relative flex flex-col gap-6 rounded-xl bg-white p-6 ring-1 sm:p-8'>
+            <div className='relative flex flex-col gap-6 rounded-xl bg-neutral-950 p-6 text-white sm:p-8'>
               <div className='flex items-center justify-between gap-4'>
                 <div>
-                  <p className='text-muted-foreground text-xs font-semibold tracking-[0.14em] uppercase'>
+                  <p className='text-xs font-semibold tracking-[0.14em] text-white/55 uppercase'>
                     {format === 'pen' ? 'On the dial' : 'On the syringe'}
                   </p>
                   <p className='font-semibold'>{product?.label}</p>
                 </div>
-                {product ? <img src={product.image} alt='' className='h-14 w-auto object-contain' /> : null}
+                {product ? (
+                  <span className='flex h-16 w-16 items-center justify-center rounded-lg bg-white p-1.5'>
+                    <img src={product.image} alt='' className='max-h-full max-w-full object-contain' />
+                  </span>
+                ) : null}
               </div>
 
               {result ? (
@@ -250,14 +257,14 @@ const HomeCalculator = ({
                 )
               ) : null}
 
-              <div className='flex items-baseline justify-between gap-4 border-t pt-4'>
-                <p className='text-muted-foreground text-sm'>
+              <div className='flex items-baseline justify-between gap-4 border-t border-white/15 pt-4'>
+                <p className='text-sm text-white/70'>
                   {hasDose && result
                     ? `${fmt(dose, 2)} mg is ${fmt(result.unitsPerDose / 100, 2)} ml at ${fmt(result.mgPerMl, 2)} mg/ml`
                     : 'Enter an amount to read the units.'}
                 </p>
                 {result && result.unitsPerDose > 100 ? (
-                  <p className='text-sm font-semibold'>Over one full draw. Split it.</p>
+                  <p className='text-sm font-semibold' style={{ color: ACCENT }}>Over one full draw. Split it.</p>
                 ) : null}
               </div>
             </div>
@@ -351,7 +358,7 @@ const PenDial = ({ units }: { units: number }) => {
           d={arc(start, start + sweep, r)}
           fill='none'
           stroke='currentColor'
-          strokeOpacity='0.12'
+          strokeOpacity='0.15'
           strokeWidth='10'
           strokeLinecap='round'
         />
@@ -359,7 +366,7 @@ const PenDial = ({ units }: { units: number }) => {
           <path
             d={arc(start, valueEnd, r)}
             fill='none'
-            stroke='currentColor'
+            stroke={ACCENT}
             strokeWidth='10'
             strokeLinecap='round'
             className='transition-all duration-300'
@@ -416,7 +423,7 @@ const PenDial = ({ units }: { units: number }) => {
           dominantBaseline='middle'
           fontSize='12'
           fill='currentColor'
-          fillOpacity='0.55'
+          fillOpacity='0.6'
           letterSpacing='1.5'
         >
           UNITS
@@ -455,7 +462,7 @@ const Syringe = ({ units }: { units: number }) => {
           rx='4'
           fill='none'
           stroke='currentColor'
-          strokeOpacity='0.35'
+          strokeOpacity='0.5'
           strokeWidth='1.5'
         />
         {clamped > 0 ? (
@@ -465,8 +472,8 @@ const Syringe = ({ units }: { units: number }) => {
             width={fillX - x0}
             height={y1 - y0 - 2}
             rx='3'
-            fill='currentColor'
-            fillOpacity='0.14'
+            fill={ACCENT}
+            fillOpacity='0.55'
             className='transition-all duration-300'
           />
         ) : null}
@@ -476,8 +483,8 @@ const Syringe = ({ units }: { units: number }) => {
             y1={y0 - 6}
             x2={fillX}
             y2={y1 + 6}
-            stroke='currentColor'
-            strokeWidth='2.5'
+            stroke={ACCENT}
+            strokeWidth='3'
             className='transition-all duration-300'
           />
         ) : null}
@@ -516,7 +523,7 @@ const Syringe = ({ units }: { units: number }) => {
       </svg>
       <p className='text-4xl font-bold tracking-tight tabular-nums'>
         {Math.round(units)}
-        <span className='text-muted-foreground ms-2 text-base font-semibold'>units</span>
+        <span className='ms-2 text-base font-semibold text-white/60'>units</span>
       </p>
     </div>
   )
