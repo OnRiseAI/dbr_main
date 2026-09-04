@@ -70,6 +70,7 @@ const ProductCarousel = ({ images, video, alt }: Props) => {
         <CarouselPrevious className='left-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 disabled:opacity-0 group-hover:disabled:opacity-50' />
         <CarouselNext className='right-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 disabled:opacity-0 group-hover:disabled:opacity-50' />
       </Carousel>
+      {images.length + (video ? 1 : 0) > 1 ? (
       <div className='mt-2.5 flex gap-2.5 overflow-x-auto'>
         {images.map((src, index) => (
           <Button
@@ -106,6 +107,7 @@ const ProductCarousel = ({ images, video, alt }: Props) => {
           </Button>
         ) : null}
       </div>
+      ) : null}
     </div>
   )
 }
