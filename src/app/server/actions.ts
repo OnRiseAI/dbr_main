@@ -73,7 +73,9 @@ export const getHomeData = async () => {
     brands,
     dealsOfTheDay: selectProductsByIds(products, dealIds),
     newArrivals: selectProductsByIds(products, newArrivalIds),
-    popularProducts: products.filter(p => p.isPopular)
+    popularProducts: products.filter(p => p.isPopular),
+    pens: products.filter(p => p.collections?.includes('Pens')),
+    vials: products.filter(p => p.collections?.includes('Vials'))
   }
 }
 

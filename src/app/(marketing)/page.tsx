@@ -12,24 +12,18 @@ import { getHomeData } from '@/app/server/actions'
 
 export const metadata: Metadata = generateSEOMetadata({
   title: 'Home',
-  description: 'Shop the latest deals, new arrivals, and featured products across electronics, fashion, and more.',
+  description: 'Deep Beauty Research: pre-filled Retatrutide and GHK-Cu pens plus lyophilised vials, dispatched from Germany.',
   url: '/'
 })
 
 const Home = async () => {
-  const { categories, dealsOfTheDay, newArrivals, popularProducts, brands } = await getHomeData()
+  const { categories, pens, vials } = await getHomeData()
 
   const jsonLd = combineSchemas(generateWebsiteSchema())
 
   return (
     <>
-      <HomeView
-        categories={categories}
-        dealsOfTheDay={dealsOfTheDay}
-        newArrivals={newArrivals}
-        popularProducts={popularProducts}
-        brands={brands}
-      />
+      <HomeView categories={categories} pens={pens} vials={vials} />
 
       {/* Add JSON-LD to your page */}
       <script

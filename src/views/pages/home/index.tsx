@@ -1,37 +1,46 @@
 // Type Imports
-import type { Product, Category, Brand } from '@/types/product'
+import type { Product, Category } from '@/types/product'
 
 // Component Imports
 import HomeHero from '@/views/pages/home/home-hero'
+import HomeTrust from '@/views/pages/home/home-trust'
 import HomeCategories from '@/views/pages/home/home-categories'
+import HomeProductRow from '@/views/pages/home/home-product-row'
 import HomePenBreakdown from '@/views/pages/home/home-pen-breakdown'
-import HomeDeals from '@/views/pages/home/home-deals'
-import HomeBrands from '@/views/pages/home/home-brands'
-import HomeNewArrivals from '@/views/pages/home/home-new-arrivals'
-import HomeCTA from '@/views/pages/home/home-cta'
-import HomeBenefits from '@/views/pages/home/home-benefits'
-import HomeCarousel from '@/views/pages/home/home-carousel'
+import HomeHowToUse from '@/views/pages/home/home-how-to-use'
+import HomeCalculator from '@/views/pages/home/home-calculator'
+import HomeFormatChooser from '@/views/pages/home/home-format-chooser'
+import HomeFaq from '@/views/pages/home/home-faq'
 
 type Props = {
   categories: Category[]
-  dealsOfTheDay: Product[]
-  newArrivals: Product[]
-  popularProducts: Product[]
-  brands: Brand[]
+  pens: Product[]
+  vials: Product[]
 }
 
-const HomeView = ({ categories, dealsOfTheDay, newArrivals, brands }: Props) => {
+const HomeView = ({ categories, pens, vials }: Props) => {
   return (
     <>
       <HomeHero />
+      <HomeTrust />
       <HomeCategories categories={categories} />
-      <HomeDeals products={dealsOfTheDay} />
-      {brands.length > 1 ? <HomeBrands brands={brands} /> : null}
-      <HomeNewArrivals products={newArrivals} />
-      <HomeCTA />
+      <HomeProductRow
+        title='Pens'
+        subtitle='Pre-filled, ready straight from the fridge.'
+        href='/shop?category=Pens'
+        products={pens}
+      />
+      <HomeProductRow
+        title='Vials'
+        subtitle='Lyophilised, reconstitute before use.'
+        href='/shop?category=Vials'
+        products={vials}
+      />
       <HomePenBreakdown />
-      <HomeCarousel />
-      <HomeBenefits />
+      <HomeHowToUse />
+      <HomeCalculator />
+      <HomeFormatChooser />
+      <HomeFaq />
     </>
   )
 }
