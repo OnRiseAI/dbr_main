@@ -56,6 +56,17 @@ export type Product = {
   sizes?: ProductSize[]
   highlights: ProductHighlight[]
   reviews: ProductReview[]
+  /**
+   * Variant family. Members are separate SKUs (own id, price, cart line) that
+   * share one product page name. One member is listed in grids; the rest are
+   * hiddenVariant and reached through the strength selector.
+   */
+  family?: string
+  familyName?: string
+  variantLabel?: string
+  variantOrder?: number
+  variantCount?: number
+  hiddenVariant?: boolean
 }
 
 export type ProductCollection = 'deals' | 'new-arrivals'

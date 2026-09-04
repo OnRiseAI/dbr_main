@@ -22,8 +22,20 @@ import { db as pages } from '@/fake-db/pages'
 
 // ---------- Products ----------
 
+/** Grid-facing catalogue: one entry per variant family. */
+const listed = products.filter(product => !product.hiddenVariant)
+
 export const getProducts = async () => {
+  return listed
+}
+
+/** Every SKU in the same variant family, in display order. */
+export const getProductVariants = async (product: Product) => {
+  if (!product.family) return [product]
+
   return products
+    .filter(item => item.family === product.family)
+    .sort((a, b) => (a.variantOrder ?? 0) - (b.variantOrder ?? 0))
 }
 
 export const getProductById = async (id: string) => {
@@ -48,7 +60,7 @@ export const getNewArrivals = async () => {
 }
 
 export const getProductsByCategory = async (category: string) => {
-  return products.filter(
+  return listed.filter(
     product => product.category === category || Boolean(product.collections?.includes(category))
   )
 }
@@ -73,9 +85,9 @@ export const getHomeData = async () => {
     brands,
     dealsOfTheDay: selectProductsByIds(products, dealIds),
     newArrivals: selectProductsByIds(products, newArrivalIds),
-    popularProducts: products.filter(p => p.isPopular),
-    pens: products.filter(p => p.collections?.includes('Pens')),
-    vials: products.filter(p => p.collections?.includes('Vials'))
+    popularProducts: listed.filter(p => p.isPopular),
+    pens: listed.filter(p => p.collections?.includes('Pens')),
+    vials: listed.filter(p => p.collections?.includes('Vials'))
   }
 }
 

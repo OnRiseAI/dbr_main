@@ -39,7 +39,13 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "family": "retatrutide-pen",
+    "familyName": "Retatrutide pen",
+    "variantLabel": "15 mg",
+    "variantOrder": 0,
+    "variantCount": 2,
+    "hiddenVariant": false
   },
   {
     "id": "retatrutide-pen-40mg",
@@ -81,7 +87,13 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "family": "retatrutide-pen",
+    "familyName": "Retatrutide pen",
+    "variantLabel": "40 mg",
+    "variantOrder": 1,
+    "variantCount": 2,
+    "hiddenVariant": true
   },
   {
     "id": "ghk-cu-pen-100mg",
@@ -123,7 +135,13 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "family": "ghk-cu-pen",
+    "familyName": "GHK-Cu pen",
+    "variantLabel": "100 mg",
+    "variantOrder": 0,
+    "variantCount": 2,
+    "hiddenVariant": false
   },
   {
     "id": "ghk-skin-glow-pen-70mg",
@@ -164,7 +182,13 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "family": "ghk-cu-pen",
+    "familyName": "GHK-Cu pen",
+    "variantLabel": "70 mg Skin Glow",
+    "variantOrder": 1,
+    "variantCount": 2,
+    "hiddenVariant": true
   },
   {
     "id": "mots-c-pen-20mg",
@@ -243,7 +267,13 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "family": "retatrutide-vial",
+    "familyName": "Retatrutide vial",
+    "variantLabel": "10 mg",
+    "variantOrder": 0,
+    "variantCount": 2,
+    "hiddenVariant": false
   },
   {
     "id": "retatrutide-vial-20mg",
@@ -283,7 +313,13 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "family": "retatrutide-vial",
+    "familyName": "Retatrutide vial",
+    "variantLabel": "20 mg",
+    "variantOrder": 1,
+    "variantCount": 2,
+    "hiddenVariant": true
   },
   {
     "id": "ghk-cu-vial-100mg",

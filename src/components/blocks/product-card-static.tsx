@@ -64,10 +64,13 @@ const ProductCardStatic = ({ product, badges, variant = 'default', galleryView =
         </div>
       </div>
       <CardContent className='flex flex-col'>
-        <h5 className='mb-0.5 overflow-hidden text-lg font-semibold text-nowrap text-ellipsis'>{product.name}</h5>
+        <h5 className='mb-0.5 overflow-hidden text-lg font-semibold text-nowrap text-ellipsis'>{product.familyName ?? product.name}</h5>
         <p className='text-muted-foreground mb-1.5 text-xs font-medium tracking-wide uppercase'>{product.brand}</p>
         <div className='flex items-center gap-1.5 text-sm'>
-          <span className='font-semibold'>{formatPrice(product.price)}</span>
+          <span className='font-semibold'>
+            {(product.variantCount ?? 1) > 1 ? 'From ' : ''}
+            {formatPrice(product.price)}
+          </span>
           {product.discount > 0 && (
             <span className='text-muted-foreground line-through'>{formatPrice(product.originalPrice)}</span>
           )}

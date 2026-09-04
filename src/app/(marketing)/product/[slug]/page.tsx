@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation'
 import { ProductDetailView } from '@/views/pages/product'
 
 // Data Imports
-import { getProductById, getProductIds, getProductsByCategory } from '@/app/server/actions'
+import { getProductById, getProductIds, getProductsByCategory, getProductVariants } from '@/app/server/actions'
 
 // Utils Imports
 import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
@@ -45,9 +45,14 @@ const ProductPage = async ({ params }: Params) => {
   if (!product) notFound()
 
   const sameCategory = await getProductsByCategory(product.category)
-  const relatedProducts = sameCategory.filter(item => item.id !== product.id).slice(0, RELATED_PRODUCTS_LIMIT)
 
-  return <ProductDetailView product={product} relatedProducts={relatedProducts} />
+  const relatedProducts = sameCategory
+    .filter(item => item.id !== product.id && (!product.family || item.family !== product.family))
+    .slice(0, RELATED_PRODUCTS_LIMIT)
+
+  const variants = await getProductVariants(product)
+
+  return <ProductDetailView product={product} variants={variants} relatedProducts={relatedProducts} />
 }
 
 export default ProductPage

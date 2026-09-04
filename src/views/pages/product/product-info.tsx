@@ -37,9 +37,10 @@ import { formatPrice } from '@/utils/product-utils'
 
 type Props = {
   product: Product
+  variants?: Product[]
 }
 
-const ProductInfo = ({ product }: Props) => {
+const ProductInfo = ({ product, variants = [product] }: Props) => {
   const [selectedColor, setSelectedColor] = useState(0)
   const [selectedSize, setSelectedSize] = useState(0)
   const [quantity, setQuantity] = useState(1)
@@ -90,7 +91,7 @@ const ProductInfo = ({ product }: Props) => {
       </div>
 
       <div className='mb-7 space-y-1.5'>
-        <h2 className='text-3xl font-semibold'>{product.name}</h2>
+        <h2 className='text-3xl font-semibold'>{product.familyName ?? product.name}</h2>
         <div className='flex items-center gap-3'>
           <Rating readOnly variant='yellow' size={16} value={product.rating} precision={0.5} />
           <span className='text-muted-foreground text-sm font-medium'>({product.reviewCount} Reviews)</span>
@@ -105,6 +106,34 @@ const ProductInfo = ({ product }: Props) => {
           )}
         </div>
       </div>
+
+      {variants.length > 1 && (
+        <div className='flex flex-col gap-3'>
+          <h4 className='text-lg font-medium'>Strength</h4>
+          <div className='flex flex-wrap gap-3'>
+            {variants.map(variant => {
+              const active = variant.id === product.id
+
+              return (
+                <Link
+                  key={variant.id}
+                  href={variant.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={cn(
+                    'flex min-w-32 flex-col rounded-lg border px-4 py-3 transition-colors',
+                    active ? 'border-foreground bg-foreground text-background' : 'hover:border-foreground/40'
+                  )}
+                >
+                  <span className='text-sm font-semibold'>{variant.variantLabel ?? variant.name}</span>
+                  <span className={cn('text-xs', active ? 'text-background/80' : 'text-muted-foreground')}>
+                    {formatPrice(variant.price)}
+                  </span>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       <p className='text-muted-foreground text-lg'>{product.description}</p>
 

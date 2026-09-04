@@ -31,10 +31,11 @@ import { useProductsStore } from '@/store/products-store'
 
 type Props = {
   product: Product
+  variants?: Product[]
   relatedProducts: Product[]
 }
 
-const ProductDetailView = ({ product, relatedProducts }: Props) => {
+const ProductDetailView = ({ product, variants = [product], relatedProducts }: Props) => {
   const initializeProducts = useProductsStore(state => state.initializeProducts)
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const ProductDetailView = ({ product, relatedProducts }: Props) => {
 
           <div className='grid gap-6 lg:grid-cols-2 lg:gap-8'>
             <ProductCarousel images={product.images} alt={product.name} />
-            <ProductInfo product={product} />
+            <ProductInfo product={product} variants={variants} />
           </div>
         </ContentLayout>
       </section>
