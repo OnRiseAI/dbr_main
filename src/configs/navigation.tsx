@@ -1,38 +1,36 @@
-import { ShoppingBagIcon, BoxIcon, FileIcon, BadgeDollarSignIcon } from 'lucide-react'
-
 import type { NavigationSection } from '@/components/blocks/menu-sheet'
 import { db as categories } from '@/fake-db/categories'
 
-const iconClassName = 'size-4 shrink-0'
+const byHandle = (handles: string[]) =>
+  handles
+    .map(handle => categories.find(category => category.handle === handle))
+    .filter((category): category is NonNullable<typeof category> => Boolean(category))
+    .map(category => ({ title: category.name, href: category.href }))
 
-const collectionItems = categories.map(category => ({
-  title: category.name,
-  href: category.href
-}))
-
+/** Five short items so the bar stays on one line beside the wordmark. No icons. */
 export const mainNavigation: NavigationSection[] = [
   {
-    title: 'Pages',
-    icon: <FileIcon className={iconClassName} />,
+    title: 'Shop',
     columns: [
       {
         groups: [
           {
-            title: 'Store',
-            items: [
-              { title: 'Home', href: '/' },
-              { title: 'All products', href: '/shop' },
-              { title: 'Collections', href: '/category' }
-            ]
+            title: 'By goal',
+            items: byHandle(['weight-management', 'skin-glow', 'tanning', 'calm-focus'])
+          }
+        ]
+      },
+      {
+        groups: [
+          {
+            title: 'By format',
+            items: byHandle(['pens', 'vials'])
           },
           {
-            title: 'Info',
+            title: 'Everything',
             items: [
-              { title: 'About us', href: '/pages/about-us' },
-              { title: 'FAQ', href: '/pages/faq' },
-              { title: 'Contacts', href: '/pages/contacts' },
-              { title: 'Become a distributor', href: '/pages/become-our-distributor' },
-              { title: 'MSSPT technology', href: '/pages/molecular-structure-stabilization-process-technology-msspt' }
+              { title: 'All products', href: '/shop' },
+              { title: 'All collections', href: '/category' }
             ]
           }
         ]
@@ -40,27 +38,28 @@ export const mainNavigation: NavigationSection[] = [
     ]
   },
   {
-    title: 'Shops',
-    icon: <ShoppingBagIcon className={iconClassName} />,
-    columns: [
+    title: 'Pens',
+    href: '/shop?category=Pens'
+  },
+  {
+    title: 'Vials',
+    href: '/shop?category=Vials'
+  },
+  {
+    title: 'How it works',
+    href: '/#how-it-works'
+  },
+  {
+    title: 'About',
+    groups: [
       {
-        groups: [
-          {
-            title: 'Collections',
-            items: collectionItems
-          }
+        items: [
+          { title: 'About us', href: '/pages/about-us' },
+          { title: 'FAQ', href: '/pages/faq' },
+          { title: 'Contact', href: '/pages/contacts' },
+          { title: 'Become a distributor', href: '/pages/become-our-distributor' }
         ]
       }
     ]
-  },
-  {
-    title: "Today's Deal",
-    icon: <BadgeDollarSignIcon className={iconClassName} />,
-    href: '/shop?category=Weight%20Management'
-  },
-  {
-    title: 'New Arrivals',
-    icon: <BoxIcon className={iconClassName} />,
-    href: '/shop?category=Vials'
   }
 ]

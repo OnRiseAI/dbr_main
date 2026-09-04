@@ -45,7 +45,7 @@ const STEPS = [
 /** Homepage section: what is inside a Deep Beauty Research pen. */
 const HomePenBreakdown = () => {
   return (
-    <section className='pt-8 sm:pt-16 lg:pt-24'>
+    <section id='how-it-works' className='scroll-mt-(--header-height) pt-8 sm:pt-16 lg:pt-24'>
       <ContentLayout className='space-y-8'>
         <div className='flex items-end justify-between gap-4'>
           <div className='space-y-1'>

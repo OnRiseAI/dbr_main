@@ -29,9 +29,7 @@ import LanguageDropdown from '@/components/blocks/dropdown-language'
 import CurrencyDropdown from '@/components/blocks/dropdown-currency'
 import MenuSheet from '@/components/blocks/menu-sheet'
 import { PagesMegamenu } from '@/components/layout/pages-megamenu'
-import { MegamenuPromotionalCard1 } from '@/components/layout/megamenu-promotional-card-1'
 import { MegamenuPromotionalCard2 } from '@/components/layout/megamenu-promotional-card-2'
-import { MegamenuPromotionalCard3 } from '@/components/layout/megamenu-promotional-card-3'
 import ThemeCustomizer from './ThemeCustomizer'
 
 // Config Imports
@@ -159,9 +157,9 @@ const Header = () => {
                 className='max-w-full'
                 value={openMenu}
                 onValueChange={setOpenMenu}
-                align={openMenu === 'New Arrivals' ? 'center' : 'start'}
+                align='start'
               >
-                <NavigationMenuList className='flex-wrap justify-start gap-1.5'>
+                <NavigationMenuList className='flex-nowrap justify-start gap-1'>
                   {mainNavigation.map(section => {
                     if (section.href) {
                       return (
@@ -190,27 +188,13 @@ const Header = () => {
                           {section.title}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent className='w-auto p-0'>
-                          {section.title === 'Pages' && section.columns ? (
+                          {section.title === 'About' && section.columns ? (
                             <PagesMegamenu columns={section.columns} onNavigate={() => setOpenMenu(null)} />
-                          ) : section.title === 'New Arrivals' && section.columns ? (
-                            <PagesMegamenu
-                              columns={section.columns}
-                              columnCount={3}
-                              promotionalCard={<MegamenuPromotionalCard1 />}
-                              onNavigate={() => setOpenMenu(null)}
-                            />
-                          ) : section.title === 'Shops' && section.columns ? (
+                          ) : section.title === 'Shop' && section.columns ? (
                             <PagesMegamenu
                               columns={section.columns}
                               columnCount={3}
                               promotionalCard={<MegamenuPromotionalCard2 />}
-                              onNavigate={() => setOpenMenu(null)}
-                            />
-                          ) : section.title === "Today's Deal" && section.columns ? (
-                            <PagesMegamenu
-                              columns={section.columns}
-                              columnCount={3}
-                              promotionalCard={<MegamenuPromotionalCard3 />}
                               onNavigate={() => setOpenMenu(null)}
                             />
                           ) : section.groups ? (
