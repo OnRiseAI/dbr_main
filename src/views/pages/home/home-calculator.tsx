@@ -64,6 +64,9 @@ const WATER = [1, 2, 3]
 const WEEKLY = [1, 2, 3, 4, 5, 6, 7]
 const PLAN_WEEKS = 12
 
+/** Two decimals keeps server and client SVG markup byte-identical. */
+const round2 = (n: number) => Math.round(n * 100) / 100
+
 /** The teal of the pen body, sampled from the render. */
 const ACCENT = '#0592b3'
 
@@ -332,7 +335,7 @@ const PenDial = ({ units }: { units: number }) => {
   const toXY = (deg: number, radius: number) => {
     const rad = (deg * Math.PI) / 180
 
-    return [c + radius * Math.cos(rad), c + radius * Math.sin(rad)]
+    return [round2(c + radius * Math.cos(rad)), round2(c + radius * Math.sin(rad))]
   }
 
   const arc = (from: number, to: number, radius: number) => {
@@ -343,7 +346,7 @@ const PenDial = ({ units }: { units: number }) => {
     return `M ${x1} ${y1} A ${radius} ${radius} 0 ${large} 1 ${x2} ${y2}`
   }
 
-  const valueEnd = start + (sweep * clamped) / 100
+  const valueEnd = round2(start + (sweep * clamped) / 100)
 
   return (
     <div className='flex justify-center'>
@@ -442,7 +445,7 @@ const Syringe = ({ units }: { units: number }) => {
   const x1 = 300
   const y0 = 42
   const y1 = 78
-  const fillX = x0 + ((x1 - x0) * clamped) / 100
+  const fillX = round2(x0 + ((x1 - x0) * clamped) / 100)
 
   return (
     <div className='flex flex-col items-center gap-3'>
@@ -489,7 +492,7 @@ const Syringe = ({ units }: { units: number }) => {
           />
         ) : null}
         {Array.from({ length: 21 }).map((_, i) => {
-          const x = x0 + ((x1 - x0) * i) / 20
+          const x = round2(x0 + ((x1 - x0) * i) / 20)
           const major = i % 2 === 0
 
           return (
