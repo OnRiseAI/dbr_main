@@ -49,7 +49,7 @@ const ProductCarousel = ({ images, alt }: Props) => {
         <CarouselContent className='ml-0'>
           {images.map((src, index) => (
             <CarouselItem key={index} className='basis-full pl-0'>
-              <div className='flex h-80 items-center justify-center py-10 sm:h-112 sm:py-16 lg:h-136 lg:py-20'>
+              <div className='flex h-80 items-center justify-center py-5 sm:h-112 sm:py-6 lg:h-140 lg:py-8'>
                 <img
                   src={src}
                   alt={alt}
