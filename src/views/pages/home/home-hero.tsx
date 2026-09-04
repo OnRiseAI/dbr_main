@@ -48,7 +48,7 @@ const HomeHero = () => {
                 src: '/images/products/dbr-reta-pen-15mg.png',
                 alt: 'Retatrutide pen'
               }}
-              className='ms-auto mt-auto mb-7.5 w-66'
+              className='my-auto w-full px-2 py-4'
             />
           </Card>
 
