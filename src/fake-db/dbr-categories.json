@@ -34,7 +34,7 @@
   {
     "name": "Pens",
     "handle": "pens",
-    "image": "/images/categories/dbr-pens.jpg",
+    "image": "/images/products/dbr-reta-pen-15mg.png",
     "href": "/shop?category=Pens",
     "description": "Pre-filled pens, ready straight from the fridge. No reconstitution.",
     "productsCount": 4
@@ -42,7 +42,7 @@
   {
     "name": "Vials",
     "handle": "vials",
-    "image": "/images/categories/dbr-vials.jpg",
+    "image": "/images/products/dbr-reta-vial-10mg.png",
     "href": "/shop?category=Vials",
     "description": "Lyophilised vials, reconstitute before use.",
     "productsCount": 6
