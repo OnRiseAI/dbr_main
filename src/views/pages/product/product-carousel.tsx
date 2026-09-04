@@ -19,10 +19,11 @@ import { cn } from '@/lib/utils'
 
 type Props = {
   images: string[]
+  video?: string
   alt: string
 }
 
-const ProductCarousel = ({ images, alt }: Props) => {
+const ProductCarousel = ({ images, video, alt }: Props) => {
   const [api, setApi] = useState<CarouselApi>()
   const [selected, setSelected] = useState(0)
 
@@ -58,6 +59,13 @@ const ProductCarousel = ({ images, alt }: Props) => {
               </div>
             </CarouselItem>
           ))}
+          {video ? (
+            <CarouselItem className='basis-full pl-0'>
+              <div className='flex h-80 items-center justify-center bg-black sm:h-112 lg:h-140'>
+                <video src={video} controls playsInline preload='metadata' className='max-h-full max-w-full' />
+              </div>
+            </CarouselItem>
+          ) : null}
         </CarouselContent>
         <CarouselPrevious className='left-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 disabled:opacity-0 group-hover:disabled:opacity-50' />
         <CarouselNext className='right-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 disabled:opacity-0 group-hover:disabled:opacity-50' />
@@ -79,6 +87,24 @@ const ProductCarousel = ({ images, alt }: Props) => {
             <img src={src} alt={alt} className='max-h-20 object-contain' />
           </Button>
         ))}
+        {video ? (
+          <Button
+            type='button'
+            variant='outline'
+            aria-label='Play video'
+            aria-pressed={selected === images.length}
+            onClick={() => api?.scrollTo(images.length)}
+            className={cn(
+              'border-border h-auto grow items-center justify-center gap-2 rounded-xl border p-1 text-xs font-semibold md:h-30',
+              selected === images.length && 'border-primary dark:border-primary/70'
+            )}
+          >
+            <span className='bg-foreground text-background flex size-8 items-center justify-center rounded-full'>
+              <span className='ms-0.5 border-y-[6px] border-l-[10px] border-y-transparent border-l-current' />
+            </span>
+            Watch
+          </Button>
+        ) : null}
       </div>
     </div>
   )

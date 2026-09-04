@@ -21,10 +21,14 @@ import {
 import ContentLayout from '@/components/layout/content-layout'
 import ProductCarousel from '@/views/pages/product/product-carousel'
 import ProductInfo from '@/views/pages/product/product-info'
-import ProductHighlights from '@/views/pages/product/product-highlights'
+import ProductIncluded from '@/views/pages/product/product-included'
+import ProductSpecs from '@/views/pages/product/product-specs'
+import ProductDetailsTabs from '@/views/pages/product/product-details-tabs'
+import ProductFormatExplainer from '@/views/pages/product/product-format-explainer'
+import ProductFaq from '@/views/pages/product/product-faq'
 import ProductReviews from '@/views/pages/product/product-reviews'
 import RelatedProducts from '@/views/pages/product/related-products'
-import CategoryBenefits from '@/views/pages/category/category-benefits'
+import HomeCalculator from '@/views/pages/home/home-calculator'
 
 // Store Imports
 import { useProductsStore } from '@/store/products-store'
@@ -32,10 +36,11 @@ import { useProductsStore } from '@/store/products-store'
 type Props = {
   product: Product
   variants?: Product[]
+  pairsWith?: Product[]
   relatedProducts: Product[]
 }
 
-const ProductDetailView = ({ product, variants = [product], relatedProducts }: Props) => {
+const ProductDetailView = ({ product, variants = [product], pairsWith = [], relatedProducts }: Props) => {
   const initializeProducts = useProductsStore(state => state.initializeProducts)
 
   useEffect(() => {
@@ -47,11 +52,13 @@ const ProductDetailView = ({ product, variants = [product], relatedProducts }: P
     }
   }, [product.id, product, initializeProducts])
 
+  const companions = pairsWith.length > 0 ? pairsWith : relatedProducts
+
   return (
     <main className='flex-1'>
-      <section className='py-8 lg:py-14'>
+      <section className='py-8 lg:py-12'>
         <ContentLayout>
-          <Breadcrumb className='mb-1.5'>
+          <Breadcrumb className='mb-4'>
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink render={<Link href='/' />}>Home</BreadcrumbLink>
@@ -67,32 +74,33 @@ const ProductDetailView = ({ product, variants = [product], relatedProducts }: P
             </BreadcrumbList>
           </Breadcrumb>
 
-          <div className='grid gap-6 lg:grid-cols-2 lg:gap-8'>
-            <ProductCarousel images={product.images} alt={product.name} />
+          <div className='grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12'>
+            <ProductCarousel images={product.images} video={product.video} alt={product.name} />
             <ProductInfo product={product} variants={variants} />
           </div>
         </ContentLayout>
       </section>
 
-      {product.bodyHtml ? (
-        <section className='pb-8'>
-          <ContentLayout>
-            <article
-              className='prose prose-neutral dark:prose-invert max-w-none'
-              dangerouslySetInnerHTML={{ __html: product.bodyHtml }}
-            />
-          </ContentLayout>
-        </section>
-      ) : null}
-      <ProductHighlights rows={product.highlights} />
-      <ProductReviews
-        productId={product.id}
-        reviews={product.reviews}
-        rating={product.rating}
-        reviewCount={product.reviewCount}
+      <ProductIncluded product={product} />
+      <ProductSpecs product={product} />
+      <ProductDetailsTabs product={product} />
+      <HomeCalculator
+        defaultFormat={product.specs?.form}
+        defaultProductId={product.id}
+        title='Work out your units'
+        subtitle='This product is preselected. Enter the amount you use and see the units on the dial or syringe.'
       />
-      <RelatedProducts products={relatedProducts} />
-      <CategoryBenefits />
+      <ProductFormatExplainer product={product} />
+      <ProductFaq product={product} variants={variants} />
+      {product.reviewCount > 0 ? (
+        <ProductReviews
+          productId={product.id}
+          reviews={product.reviews}
+          rating={product.rating}
+          reviewCount={product.reviewCount}
+        />
+      ) : null}
+      {companions.length > 0 ? <RelatedProducts products={companions} title='Pairs with' /> : null}
     </main>
   )
 }

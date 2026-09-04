@@ -6,7 +6,13 @@ import { notFound } from 'next/navigation'
 import { ProductDetailView } from '@/views/pages/product'
 
 // Data Imports
-import { getProductById, getProductIds, getProductsByCategory, getProductVariants } from '@/app/server/actions'
+import {
+  getProductById,
+  getProductIds,
+  getProductsByCategory,
+  getProductsByIds,
+  getProductVariants
+} from '@/app/server/actions'
 
 // Utils Imports
 import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
@@ -51,8 +57,11 @@ const ProductPage = async ({ params }: Params) => {
     .slice(0, RELATED_PRODUCTS_LIMIT)
 
   const variants = await getProductVariants(product)
+  const pairsWith = product.pairsWith?.length ? await getProductsByIds(product.pairsWith) : []
 
-  return <ProductDetailView product={product} variants={variants} relatedProducts={relatedProducts} />
+  return (
+    <ProductDetailView product={product} variants={variants} pairsWith={pairsWith} relatedProducts={relatedProducts} />
+  )
 }
 
 export default ProductPage

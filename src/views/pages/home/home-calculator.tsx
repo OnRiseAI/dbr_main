@@ -73,10 +73,22 @@ const fmt = (n: number, digits = 1) =>
  * Units calculator. 1 unit on an insulin syringe or pen dial = 0.01 ml.
  * Pure arithmetic from the label values; no guidance on amounts.
  */
-const HomeCalculator = () => {
-  const [format, setFormat] = useState<Format>('pen')
-  const [pen, setPen] = useState(PENS[0].value)
-  const [vial, setVial] = useState(VIALS[0].value)
+type Props = {
+  defaultFormat?: Format
+  defaultProductId?: string
+  title?: string
+  subtitle?: string
+}
+
+const HomeCalculator = ({
+  defaultFormat = 'pen',
+  defaultProductId,
+  title = 'Units calculator',
+  subtitle = 'Enter the amount you work with and see the units on the pen dial or syringe, plus how long one pen or vial lasts.'
+}: Props) => {
+  const [format, setFormat] = useState<Format>(defaultFormat)
+  const [pen, setPen] = useState(PENS.find(p => p.value === defaultProductId)?.value ?? PENS[0].value)
+  const [vial, setVial] = useState(VIALS.find(v => v.value === defaultProductId)?.value ?? VIALS[0].value)
   const [water, setWater] = useState('2')
   const [dose, setDose] = useState('1')
   const [perWeek, setPerWeek] = useState('1')
@@ -107,11 +119,8 @@ const HomeCalculator = () => {
         <div className='bg-muted grid gap-8 rounded-xl p-6 sm:p-8 lg:grid-cols-2 lg:gap-12'>
           <div className='space-y-6'>
             <div className='space-y-1'>
-              <h3 className='text-2xl font-bold sm:text-3xl'>Units calculator</h3>
-              <p className='text-muted-foreground text-base'>
-                Enter the amount you work with and see the units on the pen dial or syringe, plus how long one pen or
-                vial lasts.
-              </p>
+              <h3 className='text-2xl font-bold sm:text-3xl'>{title}</h3>
+              <p className='text-muted-foreground text-base'>{subtitle}</p>
             </div>
 
             <Tabs value={format} onValueChange={value => setFormat(value as Format)}>

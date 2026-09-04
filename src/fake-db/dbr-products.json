@@ -40,6 +40,27 @@
       }
     ],
     "reviews": [],
+    "overview": [
+      "Retatrutide is a next-generation GLP-1 peptide and the flagship of our metabolic wellness range, chosen by people focused on body composition, energy and daily balance.",
+      "Supplied as a pre-filled pen, ready straight from the fridge, with no reconstitution and no measuring. The 15 mg pen is the smaller of the two pen strengths. Every batch is tested for purity and documented before dispatch."
+    ],
+    "contents": [
+      "Pre-filled Retatrutide pen, 15 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "Retatrutide",
+      "form": "pen",
+      "strengthMg": 15.0,
+      "fillMl": 3
+    },
+    "pairsWith": [
+      "retatrutide-vial-10mg",
+      "mots-c-pen-20mg",
+      "ghk-cu-pen-100mg"
+    ],
     "family": "retatrutide-pen",
     "familyName": "Retatrutide pen",
     "variantLabel": "15 mg",
@@ -88,6 +109,27 @@
       }
     ],
     "reviews": [],
+    "overview": [
+      "Retatrutide is a next-generation GLP-1 peptide and the flagship of our metabolic wellness range, chosen by people focused on body composition, energy and daily balance.",
+      "Supplied as a pre-filled pen, ready straight from the fridge, with no reconstitution and no measuring. The 40 mg pen is the highest strength in the range. Every batch is tested for purity and documented before dispatch."
+    ],
+    "contents": [
+      "Pre-filled Retatrutide pen, 40 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "Retatrutide",
+      "form": "pen",
+      "strengthMg": 40.0,
+      "fillMl": 4
+    },
+    "pairsWith": [
+      "retatrutide-vial-20mg",
+      "mots-c-pen-20mg",
+      "ghk-cu-pen-100mg"
+    ],
     "family": "retatrutide-pen",
     "familyName": "Retatrutide pen",
     "variantLabel": "40 mg",
@@ -136,6 +178,27 @@
       }
     ],
     "reviews": [],
+    "overview": [
+      "GHK-Cu is a copper-binding tripeptide known for its role in tissue remodelling, collagen synthesis and skin health. In the Deep Beauty Research range it is the beauty-focused option for skin, tone and collagen.",
+      "Supplied as a pre-filled pen, ready to use, no reconstitution required. Every batch is produced to a high standard, tested for purity and documented before dispatch."
+    ],
+    "contents": [
+      "Pre-filled GHK-Cu pen",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "GHK-Cu",
+      "form": "pen",
+      "strengthMg": 100.0,
+      "fillMl": 3
+    },
+    "pairsWith": [
+      "ghk-cu-vial-100mg",
+      "retatrutide-pen-15mg",
+      "selank-vial-10mg"
+    ],
     "family": "ghk-cu-pen",
     "familyName": "GHK-Cu pen",
     "variantLabel": "100 mg",
@@ -183,6 +246,26 @@
       }
     ],
     "reviews": [],
+    "overview": [
+      "Skin Glow is the pen format in the Deep Beauty Research GHK-Cu line, at 70 mg. GHK-Cu is a copper-binding tripeptide known for its role in collagen synthesis and skin health.",
+      "Supplied as a pre-filled pen, ready to use, no reconstitution required. Every batch is produced to a high standard, tested for purity and documented before dispatch."
+    ],
+    "contents": [
+      "Pre-filled Skin Glow pen, 70 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "GHK-Cu",
+      "form": "pen",
+      "strengthMg": 70.0
+    },
+    "pairsWith": [
+      "ghk-cu-vial-100mg",
+      "retatrutide-pen-15mg",
+      "selank-vial-10mg"
+    ],
     "family": "ghk-cu-pen",
     "familyName": "GHK-Cu pen",
     "variantLabel": "70 mg Skin Glow",
@@ -227,7 +310,22 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "overview": [
+      "MOTS-c is a mitochondrial-derived peptide. Supplied as a pre-filled pen, with no reconstitution required."
+    ],
+    "contents": [],
+    "specs": {
+      "compound": "MOTS-c",
+      "form": "pen",
+      "strengthMg": 20.0,
+      "fillMl": 4
+    },
+    "pairsWith": [
+      "retatrutide-pen-15mg",
+      "retatrutide-vial-10mg",
+      "ghk-cu-pen-100mg"
+    ]
   },
   {
     "id": "retatrutide-vial-10mg",
@@ -268,6 +366,26 @@
       }
     ],
     "reviews": [],
+    "overview": [
+      "Retatrutide is a next-generation GLP-1 peptide. This format is a lyophilised vial, reconstituted before use, for people who prefer a vial to a pre-filled pen.",
+      "As with the pens, every batch is tested for purity and documented per batch."
+    ],
+    "contents": [
+      "Lyophilised Retatrutide vial, 10 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "Retatrutide",
+      "form": "vial",
+      "strengthMg": 10.0
+    },
+    "pairsWith": [
+      "retatrutide-pen-15mg",
+      "mots-c-pen-20mg",
+      "ghk-cu-vial-100mg"
+    ],
     "family": "retatrutide-vial",
     "familyName": "Retatrutide vial",
     "variantLabel": "10 mg",
@@ -314,6 +432,26 @@
       }
     ],
     "reviews": [],
+    "overview": [
+      "Retatrutide is a next-generation GLP-1 peptide and the flagship of our metabolic wellness range. This format is a lyophilised 20 mg vial, the larger of the two vial strengths.",
+      "As with the pens, every batch is tested for purity and documented per batch. Reconstitute before use."
+    ],
+    "contents": [
+      "Lyophilised Retatrutide vial, 20 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "Retatrutide",
+      "form": "vial",
+      "strengthMg": 20.0
+    },
+    "pairsWith": [
+      "retatrutide-pen-40mg",
+      "mots-c-pen-20mg",
+      "ghk-cu-vial-100mg"
+    ],
     "family": "retatrutide-vial",
     "familyName": "Retatrutide vial",
     "variantLabel": "20 mg",
@@ -359,7 +497,27 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "overview": [
+      "GHK-Cu is a copper-binding tripeptide known for its role in tissue remodelling, collagen synthesis and skin health. This format is a lyophilised 100 mg vial for people who prefer a vial to a pre-filled pen.",
+      "Every batch is tested for purity and documented per batch. Reconstitute before use."
+    ],
+    "contents": [
+      "Lyophilised GHK-Cu vial, 100 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "GHK-Cu",
+      "form": "vial",
+      "strengthMg": 100.0
+    },
+    "pairsWith": [
+      "ghk-cu-pen-100mg",
+      "retatrutide-vial-10mg",
+      "mt2-vial-10mg"
+    ]
   },
   {
     "id": "mt1-vial-10mg",
@@ -399,7 +557,27 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "overview": [
+      "MT1 is a synthetic analogue of the body's own melanocyte-stimulating hormone alpha-MSH. Deep Beauty Research supplies it as a lyophilised 10 mg vial.",
+      "Every batch is tested for purity and documented per batch. Reconstitute before use."
+    ],
+    "contents": [
+      "Lyophilised MT1 vial, 10 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "Melanotan I",
+      "form": "vial",
+      "strengthMg": 10.0
+    },
+    "pairsWith": [
+      "mt2-vial-10mg",
+      "selank-vial-10mg",
+      "ghk-cu-vial-100mg"
+    ]
   },
   {
     "id": "mt2-vial-10mg",
@@ -439,7 +617,27 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "overview": [
+      "MT2 is a synthetic peptide analogue of the melanocyte-stimulating hormone alpha-MSH. Deep Beauty Research supplies it as a lyophilised 10 mg vial.",
+      "Every batch is tested for purity and documented per batch. Reconstitute before use."
+    ],
+    "contents": [
+      "Lyophilised MT2 vial, 10 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "Melanotan II",
+      "form": "vial",
+      "strengthMg": 10.0
+    },
+    "pairsWith": [
+      "mt1-vial-10mg",
+      "selank-vial-10mg",
+      "ghk-cu-vial-100mg"
+    ]
   },
   {
     "id": "selank-vial-10mg",
@@ -479,6 +677,26 @@
         ]
       }
     ],
-    "reviews": []
+    "reviews": [],
+    "overview": [
+      "Selank is a synthetic heptapeptide derived from the body's own peptide tuftsin. Deep Beauty Research supplies it as a lyophilised 10 mg vial.",
+      "Every batch is tested for purity and documented per batch. Reconstitute before use."
+    ],
+    "contents": [
+      "Lyophilised Selank vial, 10 mg",
+      "Tracked dispatch from Germany",
+      "Handling insert with storage and use guidance",
+      "Batch documentation"
+    ],
+    "specs": {
+      "compound": "Selank",
+      "form": "vial",
+      "strengthMg": 10.0
+    },
+    "pairsWith": [
+      "mt1-vial-10mg",
+      "ghk-cu-vial-100mg",
+      "retatrutide-vial-10mg"
+    ]
   }
 ]

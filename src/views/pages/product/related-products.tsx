@@ -8,16 +8,17 @@ import ContentLayout from '@/components/layout/content-layout'
 
 type Props = {
   products: Product[]
+  title?: string
   galleryView?: boolean
 }
 
-const RelatedProducts = ({ products, galleryView = false }: Props) => {
+const RelatedProducts = ({ products, galleryView = false, title = 'You May Also Like' }: Props) => {
   return (
     <section className='py-8 sm:py-16 lg:py-24'>
       <ContentLayout>
         <Carousel opts={{ align: 'start', slidesToScroll: 1 }}>
           <div className='mb-6 flex justify-between gap-4 sm:gap-8 md:items-end md:gap-16'>
-            <h3 className='text-2xl font-bold lg:text-3xl'>You May Also Like</h3>
+            <h3 className='text-2xl font-bold lg:text-3xl'>{title}</h3>
             <div className='flex gap-1'>
               <CarouselPrevious variant='ghost' size='icon' className='static size-7.5 translate-y-0 [&_svg]:size-6!' />
               <CarouselNext variant='ghost' size='icon' className='static size-7.5 translate-y-0 [&_svg]:size-6!' />
