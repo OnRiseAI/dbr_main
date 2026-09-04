@@ -53,7 +53,7 @@ const HomeHero = () => {
           </Card>
 
           {/* AirPods Max */}
-          <Card className='justify-between bg-amber-600/10 shadow-none ring-0'>
+          <Card className='bg-amber-600/10 shadow-none ring-0'>
             <MotionPreset
               component='img'
               fade
@@ -64,7 +64,7 @@ const HomeHero = () => {
                 src: '/images/products/dbr-ghk-cu-pen-100mg.png',
                 alt: 'GHK-Cu Skin Glow pen'
               }}
-              className='ms-auto mb-6 w-full'
+              className='my-auto w-full px-2 py-4'
             />
             <CardContent className='space-y-4'>
               <h2 className='text-4xl font-bold'>GHK-Cu pen</h2>
