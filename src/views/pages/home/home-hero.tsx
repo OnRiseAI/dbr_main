@@ -61,19 +61,19 @@ const HomeHero = () => {
               delay={0.5}
               transition={{ duration: 0.8 }}
               motionProps={{
-                src: '/images/products/dbr-ghk-skin-glow-pen-70mg.png',
+                src: '/images/products/dbr-ghk-cu-pen-100mg.png',
                 alt: 'GHK-Cu Skin Glow pen'
               }}
               className='ms-auto mb-6 w-full'
             />
             <CardContent className='space-y-4'>
-              <h2 className='text-4xl font-bold'>Skin Glow GHK-Cu</h2>
-              <p className='text-lg'>Copper peptide GHK-Cu in a pre-filled 70 mg pen for skin, tone and collagen support.</p>
+              <h2 className='text-4xl font-bold'>GHK-Cu pen</h2>
+              <p className='text-lg'>Copper peptide for skin, tone and collagen support. Pre-filled, 100 mg or the 70 mg Skin Glow.</p>
               <Button
                 variant='outline'
                 size='lg'
                 className={ctaButtonClass}
-                render={<Link href='/product/ghk-skin-glow-pen-70mg' />}
+                render={<Link href='/product/ghk-cu-pen-100mg' />}
                 nativeButton={false}
               >
                 View product
@@ -84,17 +84,17 @@ const HomeHero = () => {
 
           {/* Shoes + Shopping girl */}
           <div className='grid gap-4 sm:grid-cols-2 md:col-span-2 lg:col-span-1 lg:grid-cols-1'>
-            <Card className='gap-0 bg-sky-600/10 pb-0 shadow-none ring-0'>
+            <Card className='ring-border gap-0 bg-white pb-0 shadow-none ring-1'>
               <CardContent className='space-y-4'>
-                <h2 className='text-2xl font-bold sm:text-3xl'>Weight management</h2>
+                <h2 className='text-2xl font-bold sm:text-3xl'>Vials</h2>
                 <Button
                   variant='outline'
                   size='lg'
                   className={ctaButtonClass}
-                  render={<Link href='/shop?category=Weight%20Management' />}
+                  render={<Link href='/shop?category=Vials' />}
                   nativeButton={false}
                 >
-                  Shop collection
+                  Shop vials
                   <ArrowRightIcon className='size-4 transition-transform duration-300 group-hover:translate-x-1/4' />
                 </Button>
               </CardContent>
@@ -105,23 +105,23 @@ const HomeHero = () => {
                 delay={0.7}
                 transition={{ duration: 0.8 }}
                 motionProps={{
-                  src: '/images/products/dbr-reta-pen-40mg.png',
-                  alt: 'Retatrutide 40 mg pen'
+                  src: '/images/products/dbr-reta-vial-10mg.png',
+                  alt: 'Retatrutide 10 mg vial'
                 }}
-                className='ms-auto mt-2 mb-4 w-64'
+                className='ms-auto mb-2 w-28'
               />
             </Card>
-            <Card className='bg-muted justify-between gap-0 pb-0 shadow-none ring-0'>
+            <Card className='ring-border justify-between gap-0 bg-white pb-0 shadow-none ring-1'>
               <CardContent className='space-y-4'>
-                <h2 className='text-2xl font-bold sm:text-3xl'>Browse all collections</h2>
+                <h2 className='text-2xl font-bold sm:text-3xl'>MOTS-c pen</h2>
                 <Button
                   variant='outline'
                   size='lg'
                   className={ctaButtonClass}
-                  render={<Link href='/category' />}
+                  render={<Link href='/product/mots-c-pen-20mg' />}
                   nativeButton={false}
                 >
-                  View collections
+                  View product
                   <ArrowRightIcon className='size-4 transition-transform duration-300 group-hover:translate-x-1/4' />
                 </Button>
               </CardContent>
@@ -132,10 +132,10 @@ const HomeHero = () => {
                 delay={0.9}
                 transition={{ duration: 0.8 }}
                 motionProps={{
-                  src: '/images/products/dbr-reta-vial-10mg.png',
-                  alt: 'Retatrutide 10 mg vial'
+                  src: '/images/products/dbr-mots-c-pen-20mg.png',
+                  alt: 'MOTS-c 20 mg pen'
                 }}
-                className='ms-auto mb-4 w-28'
+                className='ms-auto mt-2 mb-4 w-64'
               />
             </Card>
           </div>
