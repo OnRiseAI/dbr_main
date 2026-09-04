@@ -102,12 +102,12 @@ const ProductCard = ({ product, badges, variant = 'default', galleryView = false
         </Button>
       </div>
       <CardContent className='flex flex-col'>
-        <h5 className='mb-0.5 text-lg font-semibold'>
+        <h5 className='mb-0.5 overflow-hidden text-lg font-semibold text-nowrap text-ellipsis'>
           <Link href={product.href} className='hover:text-primary transition-colors'>
-            {product.brand}
+            {product.name}
           </Link>
         </h5>
-        <p className='text-muted-foreground mb-1.5 overflow-hidden text-sm text-nowrap text-ellipsis'>{product.name}</p>
+        <p className='text-muted-foreground mb-1.5 text-xs font-medium tracking-wide uppercase'>{product.brand}</p>
         <div className='flex items-center gap-1.5 text-sm'>
           <span className='font-semibold'>{formatPrice(product.price)}</span>
           {product.discount > 0 && (
