@@ -167,16 +167,16 @@
     "reviews": []
   },
   {
-    "id": "mots-c-pen-10mg",
+    "id": "mots-c-pen-20mg",
     "brand": "Deep Beauty Research",
-    "name": "MOTS-c pen | 10 mg",
-    "image": "/images/products/dbr-mots-c-pen-10mg-upright.png",
+    "name": "MOTS-c pen | 20 mg",
+    "image": "/images/products/dbr-mots-c-pen-20mg-upright.png",
     "price": 189.0,
     "originalPrice": 189.0,
     "discount": 0,
     "isNew": true,
     "isPopular": false,
-    "href": "/product/mots-c-pen-10mg",
+    "href": "/product/mots-c-pen-20mg",
     "rating": 4.9,
     "reviewCount": 0,
     "category": "Weight Management",
@@ -187,7 +187,8 @@
     "description": "MOTS-c is a mitochondrial-derived peptide. Supplied as a pre-filled pen, with no reconstitution required.",
     "bodyHtml": "<h2>About</h2><p>MOTS-c is a mitochondrial-derived peptide. Supplied as a pre-filled pen, with no reconstitution required.</p>",
     "images": [
-      "/images/products/dbr-mots-c-pen-10mg-stacked.jpg",
+      "/images/products/dbr-mots-c-pen-20mg.png",
+      "/images/products/dbr-mots-c-pen-stacked.jpg",
       "/images/products/dbr-mots-c-chamber.jpg"
     ],
     "colors": [],

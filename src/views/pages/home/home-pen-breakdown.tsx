@@ -18,9 +18,9 @@ const PENS = [
   },
   {
     name: 'MOTS-c pen',
-    strength: '10 mg',
-    image: '/images/products/dbr-mots-c-pen-10mg-stacked.jpg',
-    href: '/product/mots-c-pen-10mg'
+    strength: '20 mg',
+    image: '/images/products/dbr-mots-c-pen-stacked.jpg',
+    href: '/product/mots-c-pen-20mg'
   }
 ]
 

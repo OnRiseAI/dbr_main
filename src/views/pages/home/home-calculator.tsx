@@ -39,6 +39,13 @@ const PENS = [
     mg: 100,
     ml: 3,
     image: '/images/products/dbr-ghk-cu-pen-100mg-upright.png'
+  },
+  {
+    value: 'mots-c-pen-20mg',
+    label: 'MOTS-c pen 20 mg',
+    mg: 20,
+    ml: 4,
+    image: '/images/products/dbr-mots-c-pen-20mg-upright.png'
   }
 ]
 
