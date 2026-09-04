@@ -44,7 +44,7 @@ const ProductCardStatic = ({ product, badges, variant = 'default', galleryView =
             galleryView === true && 'pb-0'
           )}
         >
-          <img src={product.image} alt={product.name} className='mt-auto max-h-full object-contain' />
+          <img src={product.image} alt={product.name} className='mt-auto max-h-full object-contain py-4' />
           {badges && badges.length > 0 && (
             <div className='absolute top-4.75 left-3 flex flex-col'>
               {badges.map((badge, idx) => (

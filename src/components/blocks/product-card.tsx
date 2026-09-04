@@ -72,7 +72,7 @@ const ProductCard = ({ product, badges, variant = 'default', galleryView = false
           <img
             src={product.image}
             alt={product.name}
-            className='mt-auto max-h-full object-contain transition-transform duration-300 group-hover:scale-105'
+            className='mt-auto max-h-full object-contain py-4 transition-transform duration-300 group-hover:scale-105'
           />
           {badges && badges.length > 0 && (
             <div className='absolute top-4.75 left-3 flex flex-col'>
