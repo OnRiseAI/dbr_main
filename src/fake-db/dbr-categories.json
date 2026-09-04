@@ -2,7 +2,7 @@
   {
     "name": "Weight Management",
     "handle": "weight-management",
-    "image": "/images/products/dbr-reta-pen-40mg.png",
+    "image": "/images/categories/dbr-weight-management.jpg",
     "href": "/shop?category=Weight%20Management",
     "description": "Retatrutide pens and vials for metabolic wellness and body composition.",
     "productsCount": 4
@@ -10,7 +10,7 @@
   {
     "name": "Skin & Glow",
     "handle": "skin-glow",
-    "image": "/images/products/dbr-ghk-skin-glow-pen-70mg.png",
+    "image": "/images/categories/dbr-skin-glow.jpg",
     "href": "/shop?category=Skin%20%26%20Glow",
     "description": "GHK-Cu copper peptide in pens and vials for skin, tone and collagen support.",
     "productsCount": 3
@@ -18,7 +18,7 @@
   {
     "name": "Tanning",
     "handle": "tanning",
-    "image": "/images/products/dbr-mt2-vial-10mg.png",
+    "image": "/images/categories/dbr-tanning.jpg",
     "href": "/shop?category=Tanning",
     "description": "Melanotan I and II vials.",
     "productsCount": 2
@@ -26,7 +26,7 @@
   {
     "name": "Calm & Focus",
     "handle": "calm-focus",
-    "image": "/images/products/dbr-selank-vial-10mg.png",
+    "image": "/images/categories/dbr-calm-focus.jpg",
     "href": "/shop?category=Calm%20%26%20Focus",
     "description": "Selank for balance and focus.",
     "productsCount": 1
@@ -34,7 +34,7 @@
   {
     "name": "Pens",
     "handle": "pens",
-    "image": "/images/products/dbr-reta-pen-15mg.png",
+    "image": "/images/categories/dbr-pens.jpg",
     "href": "/shop?category=Pens",
     "description": "Pre-filled pens, ready straight from the fridge. No reconstitution.",
     "productsCount": 4
@@ -42,7 +42,7 @@
   {
     "name": "Vials",
     "handle": "vials",
-    "image": "/images/products/dbr-reta-vial-10mg.png",
+    "image": "/images/categories/dbr-vials.jpg",
     "href": "/shop?category=Vials",
     "description": "Lyophilised vials, reconstitute before use.",
     "productsCount": 6
