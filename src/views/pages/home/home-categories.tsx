@@ -9,12 +9,12 @@ type Props = {
 }
 
 const HOME_HANDLES = [
-  'peptides',
-  'peptides-for-fitness',
-  'peptides-for-weight-loss',
-  'peptides-for-muscle-mass',
-  'bioregulator-peptides',
-  'immunostimulants'
+  'weight-management',
+  'skin-glow',
+  'tanning',
+  'calm-focus',
+  'pens',
+  'vials'
 ]
 
 const HomeCategories = ({ categories }: Props) => {

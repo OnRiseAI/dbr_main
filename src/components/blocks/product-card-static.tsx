@@ -35,7 +35,7 @@ const ProductCardStatic = ({ product, badges, variant = 'default', galleryView =
         variant === 'popular' && 'dark:ring-amber-700'
       )}
     >
-      <div className='bg-muted relative h-70 overflow-hidden rounded-t-xl'>
+      <div className='bg-white relative h-70 overflow-hidden rounded-t-xl border-b border-border'>
         <div
           className={cn(
             'flex h-full items-center justify-center p-5 pb-0',

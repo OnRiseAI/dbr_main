@@ -26,7 +26,7 @@ const HomeView = ({ categories, dealsOfTheDay, newArrivals, popularProducts, bra
       <HomeHero />
       <HomeCategories categories={categories} />
       <HomeDeals products={dealsOfTheDay} />
-      <HomeBrands brands={brands} />
+      {brands.length > 1 ? <HomeBrands brands={brands} /> : null}
       <HomeNewArrivals products={newArrivals} />
       <HomeCTA />
       <HomePopularProducts products={popularProducts} />

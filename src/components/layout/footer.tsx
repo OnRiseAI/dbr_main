@@ -25,10 +25,11 @@ const footerLinks = [
   {
     title: 'Collections',
     links: [
-      { title: 'All peptides', href: '/shop' },
-      { title: 'Weight loss', href: '/shop?category=Peptides%20for%20Weight%20Loss' },
-      { title: 'Muscle mass', href: '/shop?category=Peptides%20for%20Muscle%20Mass' },
-      { title: 'Nasal sprays', href: '/shop?category=Peptide%20Nasal%20Sprays' },
+      { title: 'All products', href: '/shop' },
+      { title: 'Weight management', href: '/shop?category=Weight%20Management' },
+      { title: 'Skin and glow', href: '/shop?category=Skin%20%26%20Glow' },
+      { title: 'Pens', href: '/shop?category=Pens' },
+      { title: 'Vials', href: '/shop?category=Vials' },
       { title: 'All collections', href: '/category' }
     ]
   },
@@ -76,7 +77,7 @@ const Footer = () => {
           <div className='space-y-8'>
             <Link href='/#hero-section' className='flex items-center gap-1.5 text-xl font-semibold'>
               <EcommerceLogo className='text-primary size-8' />
-              <span>Shopix</span>
+              <span>Deep Beauty Research</span>
             </Link>
             <ul className='space-y-3'>
               <li className='flex gap-2'>
@@ -212,7 +213,7 @@ const Footer = () => {
           <p className='text-center text-base font-medium md:text-left'>
             &copy; {currentYear}{' '}
             <Link href='/' className='text-primary font-bold hover:underline'>
-              Shopix
+              Deep Beauty Research
             </Link>
             , Made with ❤️ for a better web.
           </p>

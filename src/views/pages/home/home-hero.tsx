@@ -24,14 +24,14 @@ const HomeHero = () => {
               <div className='space-y-2'>
                 <h2 className='text-4xl font-bold'>Retatrutide pen</h2>
                 <p className='text-lg'>
-                  Stabilized research peptide pens, ready to use. 6mg to 40mg options from the Pen Peptide catalog.
+                  Pre-filled Retatrutide pens, ready straight from the fridge. 15 mg and 40 mg strengths, no reconstitution.
                 </p>
               </div>
               <Button
                 variant='outline'
                 size='lg'
                 className={ctaButtonClass}
-                render={<Link href='/product/retatrutide-pen-6-12-20-40mg' />}
+                render={<Link href='/product/retatrutide-pen-15mg' />}
                 nativeButton={false}
               >
                 View product
@@ -45,7 +45,7 @@ const HomeHero = () => {
               delay={0.3}
               transition={{ duration: 0.8 }}
               motionProps={{
-                src: 'https://cdn.shopify.com/s/files/1/0696/8737/8187/files/retatrutide-6mg.jpg?v=1775584612',
+                src: '/images/products/dbr-reta-pen-15mg.png',
                 alt: 'Retatrutide pen'
               }}
               className='ms-auto mt-auto mb-7.5 w-66'
@@ -61,19 +61,19 @@ const HomeHero = () => {
               delay={0.5}
               transition={{ duration: 0.8 }}
               motionProps={{
-                src: 'https://cdn.shopify.com/s/files/1/0696/8737/8187/files/ghk-cu-peptide.jpg?v=1775584619',
+                src: '/images/products/dbr-ghk-skin-glow-pen-70mg.png',
                 alt: 'GHK-Cu Skin Glow pen'
               }}
-              className='ms-auto mb-6'
+              className='ms-auto mb-6 w-full'
             />
             <CardContent className='space-y-4'>
               <h2 className='text-4xl font-bold'>Skin Glow GHK-Cu</h2>
-              <p className='text-lg'>Copper peptide 100mg in a pre-mixed pen for research use.</p>
+              <p className='text-lg'>Copper peptide GHK-Cu in a pre-filled 70 mg pen for skin, tone and collagen support.</p>
               <Button
                 variant='outline'
                 size='lg'
                 className={ctaButtonClass}
-                render={<Link href='/product/copper-peptide-ghk-cu-skin-glow-100mg' />}
+                render={<Link href='/product/ghk-skin-glow-pen-70mg' />}
                 nativeButton={false}
               >
                 View product
@@ -86,12 +86,12 @@ const HomeHero = () => {
           <div className='grid gap-4 sm:grid-cols-2 md:col-span-2 lg:col-span-1 lg:grid-cols-1'>
             <Card className='gap-0 bg-sky-600/10 pb-0 shadow-none ring-0'>
               <CardContent className='space-y-4'>
-                <h2 className='text-2xl font-bold sm:text-3xl'>Weight-loss collection</h2>
+                <h2 className='text-2xl font-bold sm:text-3xl'>Weight management</h2>
                 <Button
                   variant='outline'
                   size='lg'
                   className={ctaButtonClass}
-                  render={<Link href='/shop?category=Peptides%20for%20Weight%20Loss' />}
+                  render={<Link href='/shop?category=Weight%20Management' />}
                   nativeButton={false}
                 >
                   Shop collection
@@ -105,10 +105,10 @@ const HomeHero = () => {
                 delay={0.7}
                 transition={{ duration: 0.8 }}
                 motionProps={{
-                  src: 'https://cdn.shopify.com/s/files/1/0696/8737/8187/files/semaglutide-5mg.jpg?v=1775584615',
-                  alt: 'Semaglutide pen'
+                  src: '/images/products/dbr-reta-pen-40mg.png',
+                  alt: 'Retatrutide 40 mg pen'
                 }}
-                className='ms-auto -mt-20 w-57 md:-mt-12 lg:-mt-22'
+                className='ms-auto mt-2 mb-4 w-64'
               />
             </Card>
             <Card className='bg-muted justify-between gap-0 pb-0 shadow-none ring-0'>
@@ -132,10 +132,10 @@ const HomeHero = () => {
                 delay={0.9}
                 transition={{ duration: 0.8 }}
                 motionProps={{
-                  src: 'https://cdn.shopify.com/s/files/1/0696/8737/8187/files/mots_c.jpg?v=1775584585',
-                  alt: 'MOTS-c pen'
+                  src: '/images/products/dbr-reta-vial-10mg.png',
+                  alt: 'Retatrutide 10 mg vial'
                 }}
-                className='ms-auto w-54 max-sm:-mt-5 lg:-mt-4'
+                className='ms-auto mb-4 w-28'
               />
             </Card>
           </div>

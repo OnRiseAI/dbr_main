@@ -137,7 +137,7 @@ const Header = () => {
           <div className='flex items-center gap-10'>
             <div className='flex items-center gap-2'>
               <MenuSheet
-                logoName='Shopix'
+                logoName='Deep Beauty Research'
                 logo={<Logo className='size-8' />}
                 navigationData={mainNavigation}
                 trigger={
@@ -149,7 +149,7 @@ const Header = () => {
               />
               <Link href='/' className='flex items-center gap-2.5'>
                 <Logo className='text-primary size-8' />
-                <span className='hidden text-xl leading-6.5 font-semibold max-sm:hidden sm:block'>Shopix</span>
+                <span className='hidden text-xl leading-6.5 font-semibold max-sm:hidden sm:block'>Deep Beauty Research</span>
               </Link>
             </div>
 

@@ -56,11 +56,11 @@ export const mainNavigation: NavigationSection[] = [
   {
     title: "Today's Deal",
     icon: <BadgeDollarSignIcon className={iconClassName} />,
-    href: '/shop?category=Peptides%20for%20Weight%20Loss'
+    href: '/shop?category=Weight%20Management'
   },
   {
     title: 'New Arrivals',
     icon: <BoxIcon className={iconClassName} />,
-    href: '/shop?category=Peptide%20Nasal%20Sprays'
+    href: '/shop?category=Vials'
   }
 ]

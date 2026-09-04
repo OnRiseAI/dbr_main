@@ -1,0 +1,44 @@
+{
+  "Weight Management": {
+    "brands": [
+      "Deep Beauty Research"
+    ],
+    "priceMin": 74,
+    "priceMax": 390
+  },
+  "Skin & Glow": {
+    "brands": [
+      "Deep Beauty Research"
+    ],
+    "priceMin": 69,
+    "priceMax": 130
+  },
+  "Tanning": {
+    "brands": [
+      "Deep Beauty Research"
+    ],
+    "priceMin": 39,
+    "priceMax": 40
+  },
+  "Calm & Focus": {
+    "brands": [
+      "Deep Beauty Research"
+    ],
+    "priceMin": 52,
+    "priceMax": 53
+  },
+  "Pens": {
+    "brands": [
+      "Deep Beauty Research"
+    ],
+    "priceMin": 109,
+    "priceMax": 390
+  },
+  "Vials": {
+    "brands": [
+      "Deep Beauty Research"
+    ],
+    "priceMin": 39,
+    "priceMax": 121
+  }
+}

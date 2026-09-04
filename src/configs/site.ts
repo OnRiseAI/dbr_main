@@ -3,9 +3,9 @@ export type SiteConfig = typeof siteConfig
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
 export const siteConfig = {
-  name: 'Shopix',
+  name: 'Deep Beauty Research',
   description:
-    'Research peptide storefront: pre-mixed pens, nasal sprays, blends, and bioregulators imported from the Pen Peptide catalog.',
+    'Deep Beauty Research: pre-filled Retatrutide and GHK-Cu pens plus lyophilised vials, dispatched from Germany.',
   url: baseUrl,
   ogImage: `${baseUrl}/images/og-image.png`,
   links: {

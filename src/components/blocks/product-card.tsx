@@ -59,7 +59,7 @@ const ProductCard = ({ product, badges, variant = 'default', galleryView = false
         variant === 'popular' && 'dark:ring-amber-700'
       )}
     >
-      <div className='bg-muted relative h-70 overflow-hidden rounded-t-xl'>
+      <div className='bg-white relative h-70 overflow-hidden rounded-t-xl border-b border-border'>
         <Link
           href={product.href}
           className={cn(

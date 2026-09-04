@@ -10,11 +10,11 @@ type Props = {
 const CategoryCard = ({ category }: Props) => {
   return (
     <Link href={category.href} className='group block focus-visible:outline-none'>
-      <div className='bg-muted aspect-[4/3] overflow-hidden'>
+      <div className='bg-white aspect-[4/3] overflow-hidden ring-1 ring-border'>
         <img
           src={category.image}
           alt={category.name}
-          className='size-full object-cover transition-transform duration-500 group-hover:scale-105'
+          className='size-full object-contain p-6 transition-transform duration-500 group-hover:scale-105'
         />
       </div>
       <p className='mt-3 flex items-center gap-1.5 text-base font-medium'>

@@ -1,0 +1,402 @@
+[
+  {
+    "id": "retatrutide-pen-15mg",
+    "brand": "Deep Beauty Research",
+    "name": "Retatrutide pen | 15 mg",
+    "image": "/images/products/dbr-reta-pen-15mg.png",
+    "price": 218.5,
+    "originalPrice": 218.5,
+    "discount": 0,
+    "isNew": false,
+    "isPopular": true,
+    "href": "/product/retatrutide-pen-15mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Weight Management",
+    "collections": [
+      "Weight Management",
+      "Pens"
+    ],
+    "description": "Retatrutide is a next-generation GLP-1 peptide, supplied as a pre-filled, ready-to-use pen. No reconstitution required.",
+    "bodyHtml": "<h2>About</h2><p>Retatrutide is a next-generation GLP-1 peptide and the flagship of our metabolic wellness range, chosen by people focused on body composition, energy and daily balance.</p><p>Supplied as a pre-filled pen, ready straight from the fridge, with no reconstitution and no measuring. The 15 mg pen is the smaller of the two pen strengths. Every batch is tested for purity and documented before dispatch.</p><h2>What is included</h2><ul><li>Pre-filled Retatrutide pen, 15 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-reta-pen-15mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Weight Management",
+        "manufacture": "Deep Beauty Research",
+        "material": "Pre-filled pen, ready to use",
+        "compatibility": "Research use only",
+        "features": [
+          "Pre-filled Retatrutide pen, 15 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "retatrutide-pen-40mg",
+    "brand": "Deep Beauty Research",
+    "name": "Retatrutide pen | 40 mg",
+    "image": "/images/products/dbr-reta-pen-40mg.png",
+    "price": 389.0,
+    "originalPrice": 389.0,
+    "discount": 0,
+    "isNew": false,
+    "isPopular": true,
+    "href": "/product/retatrutide-pen-40mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Weight Management",
+    "collections": [
+      "Weight Management",
+      "Pens"
+    ],
+    "description": "Retatrutide is a next-generation GLP-1 peptide, supplied as a pre-filled, ready-to-use pen. The 40 mg pen is the highest strength in the range. No reconstitution required.",
+    "bodyHtml": "<h2>About</h2><p>Retatrutide is a next-generation GLP-1 peptide and the flagship of our metabolic wellness range, chosen by people focused on body composition, energy and daily balance.</p><p>Supplied as a pre-filled pen, ready straight from the fridge, with no reconstitution and no measuring. The 40 mg pen is the highest strength in the range. Every batch is tested for purity and documented before dispatch.</p><h2>What is included</h2><ul><li>Pre-filled Retatrutide pen, 40 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-reta-pen-40mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Weight Management",
+        "manufacture": "Deep Beauty Research",
+        "material": "Pre-filled pen, ready to use",
+        "compatibility": "Research use only",
+        "features": [
+          "Pre-filled Retatrutide pen, 40 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "ghk-cu-pen-100mg",
+    "brand": "Deep Beauty Research",
+    "name": "GHK-Cu pen | 100 mg",
+    "image": "/images/products/dbr-ghk-cu-pen-100mg.png",
+    "price": 109.25,
+    "originalPrice": 109.25,
+    "discount": 0,
+    "isNew": false,
+    "isPopular": true,
+    "href": "/product/ghk-cu-pen-100mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Skin & Glow",
+    "collections": [
+      "Skin & Glow",
+      "Pens"
+    ],
+    "description": "GHK-Cu is a copper-binding tripeptide. Supplied as a pre-filled pen, with no reconstitution required.",
+    "bodyHtml": "<h2>About</h2><p>GHK-Cu is a copper-binding tripeptide known for its role in tissue remodelling, collagen synthesis and skin health. In the Deep Beauty Research range it is the beauty-focused option for skin, tone and collagen.</p><p>Supplied as a pre-filled pen, ready to use, no reconstitution required. Every batch is produced to a high standard, tested for purity and documented before dispatch.</p><h2>What is included</h2><ul><li>Pre-filled GHK-Cu pen</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-ghk-cu-pen-100mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Skin & Glow",
+        "manufacture": "Deep Beauty Research",
+        "material": "Pre-filled pen, ready to use",
+        "compatibility": "Research use only",
+        "features": [
+          "Pre-filled GHK-Cu pen",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "ghk-skin-glow-pen-70mg",
+    "brand": "Deep Beauty Research",
+    "name": "GHK Skin Glow pen | 70 mg",
+    "image": "/images/products/dbr-ghk-skin-glow-pen-70mg.png",
+    "price": 129.95,
+    "originalPrice": 129.95,
+    "discount": 0,
+    "isNew": true,
+    "isPopular": false,
+    "href": "/product/ghk-skin-glow-pen-70mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Skin & Glow",
+    "collections": [
+      "Skin & Glow",
+      "Pens"
+    ],
+    "description": "Skin Glow is a pre-filled pen built on GHK-Cu, a copper-binding tripeptide. 70 mg, ready to use, no reconstitution required.",
+    "bodyHtml": "<h2>About</h2><p>Skin Glow is the pen format in the Deep Beauty Research GHK-Cu line, at 70 mg. GHK-Cu is a copper-binding tripeptide known for its role in collagen synthesis and skin health.</p><p>Supplied as a pre-filled pen, ready to use, no reconstitution required. Every batch is produced to a high standard, tested for purity and documented before dispatch.</p><h2>What is included</h2><ul><li>Pre-filled Skin Glow pen, 70 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-ghk-skin-glow-pen-70mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Skin & Glow",
+        "manufacture": "Deep Beauty Research",
+        "material": "Pre-filled pen, ready to use",
+        "compatibility": "Research use only",
+        "features": [
+          "Pre-filled Skin Glow pen, 70 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "retatrutide-vial-10mg",
+    "brand": "Deep Beauty Research",
+    "name": "Retatrutide vial | 10 mg",
+    "image": "/images/products/dbr-reta-vial-10mg.png",
+    "price": 74.75,
+    "originalPrice": 74.75,
+    "discount": 0,
+    "isNew": false,
+    "isPopular": true,
+    "href": "/product/retatrutide-vial-10mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Weight Management",
+    "collections": [
+      "Weight Management",
+      "Vials"
+    ],
+    "description": "Retatrutide is a next-generation GLP-1 peptide. This format is a lyophilised 10 mg vial, reconstituted before use, for people who prefer a vial to a pre-filled pen.",
+    "bodyHtml": "<h2>About</h2><p>Retatrutide is a next-generation GLP-1 peptide. This format is a lyophilised vial, reconstituted before use, for people who prefer a vial to a pre-filled pen.</p><p>As with the pens, every batch is tested for purity and documented per batch.</p><h2>What is included</h2><ul><li>Lyophilised Retatrutide vial, 10 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-reta-vial-10mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Weight Management",
+        "manufacture": "Deep Beauty Research",
+        "material": "Lyophilised vial, reconstitute before use",
+        "compatibility": "Research use only",
+        "features": [
+          "Lyophilised Retatrutide vial, 10 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "retatrutide-vial-20mg",
+    "brand": "Deep Beauty Research",
+    "name": "Retatrutide vial | 20 mg",
+    "image": "/images/products/dbr-reta-vial-20mg.png",
+    "price": 120.0,
+    "originalPrice": 120.0,
+    "discount": 0,
+    "isNew": true,
+    "isPopular": false,
+    "href": "/product/retatrutide-vial-20mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Weight Management",
+    "collections": [
+      "Weight Management",
+      "Vials"
+    ],
+    "description": "Retatrutide is a next-generation GLP-1 peptide. This format is a lyophilised 20 mg vial, reconstituted before use.",
+    "bodyHtml": "<h2>About</h2><p>Retatrutide is a next-generation GLP-1 peptide and the flagship of our metabolic wellness range. This format is a lyophilised 20 mg vial, the larger of the two vial strengths.</p><p>As with the pens, every batch is tested for purity and documented per batch. Reconstitute before use.</p><h2>What is included</h2><ul><li>Lyophilised Retatrutide vial, 20 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-reta-vial-20mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Weight Management",
+        "manufacture": "Deep Beauty Research",
+        "material": "Lyophilised vial, reconstitute before use",
+        "compatibility": "Research use only",
+        "features": [
+          "Lyophilised Retatrutide vial, 20 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "ghk-cu-vial-100mg",
+    "brand": "Deep Beauty Research",
+    "name": "GHK-Cu vial | 100 mg",
+    "image": "/images/products/dbr-ghk-cu-vial-100mg.png",
+    "price": 69.95,
+    "originalPrice": 69.95,
+    "discount": 0,
+    "isNew": true,
+    "isPopular": false,
+    "href": "/product/ghk-cu-vial-100mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Skin & Glow",
+    "collections": [
+      "Skin & Glow",
+      "Vials"
+    ],
+    "description": "GHK-Cu is a copper-binding tripeptide. This format is a lyophilised 100 mg vial, reconstituted before use.",
+    "bodyHtml": "<h2>About</h2><p>GHK-Cu is a copper-binding tripeptide known for its role in tissue remodelling, collagen synthesis and skin health. This format is a lyophilised 100 mg vial for people who prefer a vial to a pre-filled pen.</p><p>Every batch is tested for purity and documented per batch. Reconstitute before use.</p><h2>What is included</h2><ul><li>Lyophilised GHK-Cu vial, 100 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-ghk-cu-vial-100mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Skin & Glow",
+        "manufacture": "Deep Beauty Research",
+        "material": "Lyophilised vial, reconstitute before use",
+        "compatibility": "Research use only",
+        "features": [
+          "Lyophilised GHK-Cu vial, 100 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "mt1-vial-10mg",
+    "brand": "Deep Beauty Research",
+    "name": "Melanotan I (MT1) vial | 10 mg",
+    "image": "/images/products/dbr-mt1-vial-10mg.png",
+    "price": 39.95,
+    "originalPrice": 39.95,
+    "discount": 0,
+    "isNew": true,
+    "isPopular": false,
+    "href": "/product/mt1-vial-10mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Tanning",
+    "collections": [
+      "Tanning",
+      "Vials"
+    ],
+    "description": "MT1 is a synthetic analogue of the melanocyte-stimulating hormone alpha-MSH. Supplied as a lyophilised 10 mg vial, reconstituted before use.",
+    "bodyHtml": "<h2>About</h2><p>MT1 is a synthetic analogue of the body&#x27;s own melanocyte-stimulating hormone alpha-MSH. Deep Beauty Research supplies it as a lyophilised 10 mg vial.</p><p>Every batch is tested for purity and documented per batch. Reconstitute before use.</p><h2>What is included</h2><ul><li>Lyophilised MT1 vial, 10 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-mt1-vial-10mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Tanning",
+        "manufacture": "Deep Beauty Research",
+        "material": "Lyophilised vial, reconstitute before use",
+        "compatibility": "Research use only",
+        "features": [
+          "Lyophilised MT1 vial, 10 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "mt2-vial-10mg",
+    "brand": "Deep Beauty Research",
+    "name": "Melanotan II (MT2) vial | 10 mg",
+    "image": "/images/products/dbr-mt2-vial-10mg.png",
+    "price": 39.95,
+    "originalPrice": 39.95,
+    "discount": 0,
+    "isNew": true,
+    "isPopular": false,
+    "href": "/product/mt2-vial-10mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Tanning",
+    "collections": [
+      "Tanning",
+      "Vials"
+    ],
+    "description": "MT2 is a synthetic peptide analogue of alpha-MSH. Supplied as a lyophilised 10 mg vial, reconstituted before use.",
+    "bodyHtml": "<h2>About</h2><p>MT2 is a synthetic peptide analogue of the melanocyte-stimulating hormone alpha-MSH. Deep Beauty Research supplies it as a lyophilised 10 mg vial.</p><p>Every batch is tested for purity and documented per batch. Reconstitute before use.</p><h2>What is included</h2><ul><li>Lyophilised MT2 vial, 10 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-mt2-vial-10mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Tanning",
+        "manufacture": "Deep Beauty Research",
+        "material": "Lyophilised vial, reconstitute before use",
+        "compatibility": "Research use only",
+        "features": [
+          "Lyophilised MT2 vial, 10 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "selank-vial-10mg",
+    "brand": "Deep Beauty Research",
+    "name": "Selank vial | 10 mg",
+    "image": "/images/products/dbr-selank-vial-10mg.png",
+    "price": 52.95,
+    "originalPrice": 52.95,
+    "discount": 0,
+    "isNew": true,
+    "isPopular": false,
+    "href": "/product/selank-vial-10mg",
+    "rating": 4.9,
+    "reviewCount": 0,
+    "category": "Calm & Focus",
+    "collections": [
+      "Calm & Focus",
+      "Vials"
+    ],
+    "description": "Selank is a synthetic heptapeptide derived from the naturally occurring peptide tuftsin. Supplied as a lyophilised 10 mg vial, reconstituted before use.",
+    "bodyHtml": "<h2>About</h2><p>Selank is a synthetic heptapeptide derived from the body&#x27;s own peptide tuftsin. Deep Beauty Research supplies it as a lyophilised 10 mg vial.</p><p>Every batch is tested for purity and documented per batch. Reconstitute before use.</p><h2>What is included</h2><ul><li>Lyophilised Selank vial, 10 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
+    "images": [
+      "/images/products/dbr-selank-vial-10mg.png"
+    ],
+    "colors": [],
+    "highlights": [
+      {
+        "category": "Calm & Focus",
+        "manufacture": "Deep Beauty Research",
+        "material": "Lyophilised vial, reconstitute before use",
+        "compatibility": "Research use only",
+        "features": [
+          "Lyophilised Selank vial, 10 mg",
+          "Tracked dispatch from Germany",
+          "Handling insert with storage and use guidance",
+          "Batch documentation"
+        ]
+      }
+    ],
+    "reviews": []
+  }
+]

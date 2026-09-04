@@ -1,4 +1,4 @@
-import raw from './dts-category-filters.json'
+import raw from './dbr-category-filters.json'
 
 type CategoryFilterConfig = {
   brands: string[]

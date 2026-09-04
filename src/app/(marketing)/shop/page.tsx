@@ -12,7 +12,7 @@ import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = generateSEOMetadata({
   title: 'Shop',
-  description: 'Browse the Pen Peptide catalog: pens, nasal sprays, blends, and bioregulators.',
+  description: 'Browse the Deep Beauty Research range: pre-filled pens and lyophilised vials.',
   url: '/shop'
 })
 

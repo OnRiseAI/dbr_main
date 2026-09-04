@@ -17,8 +17,7 @@ const CategoryView = ({ categories }: Props) => {
           <p className='text-primary text-sm font-medium tracking-wide uppercase'>Collections</p>
           <h1 className='max-w-3xl text-4xl font-bold text-balance lg:text-5xl'>Research peptide collections</h1>
           <p className='text-muted-foreground max-w-2xl text-lg'>
-            Catalog imported from dtspharmacy.com: pens, nasal sprays, blends, bioregulators, and targeted research
-            collections.
+            Pre-filled pens and lyophilised vials, grouped by goal and by format.
           </p>
           <Link href='/shop' className='text-primary text-lg font-medium underline-offset-3 hover:underline'>
             Browse all products

@@ -1,6 +1,6 @@
 import type { Product } from '@/types/product'
-import raw from './dts-products.json'
-import meta from './dts-meta.json'
+import raw from './dbr-products.json'
+import meta from './dbr-meta.json'
 
 export const db = raw as Product[]
 export const dealIds = meta.dealIds

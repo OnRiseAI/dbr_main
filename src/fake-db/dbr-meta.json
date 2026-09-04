@@ -1,0 +1,29 @@
+{
+  "dealIds": [
+    "retatrutide-pen-15mg",
+    "ghk-cu-pen-100mg",
+    "ghk-skin-glow-pen-70mg",
+    "retatrutide-vial-10mg",
+    "retatrutide-pen-40mg",
+    "ghk-cu-vial-100mg",
+    "mt2-vial-10mg",
+    "selank-vial-10mg"
+  ],
+  "newArrivalIds": [
+    "ghk-skin-glow-pen-70mg",
+    "retatrutide-vial-20mg",
+    "ghk-cu-vial-100mg",
+    "mt1-vial-10mg",
+    "mt2-vial-10mg",
+    "selank-vial-10mg"
+  ],
+  "defaultWishlistIds": [
+    "retatrutide-pen-15mg",
+    "ghk-skin-glow-pen-70mg",
+    "selank-vial-10mg"
+  ],
+  "defaultCartIds": [
+    "retatrutide-pen-15mg"
+  ],
+  "sampleProductId": "retatrutide-pen-15mg"
+}
