@@ -120,7 +120,7 @@ const HomeCalculator = ({
   const noun = format === 'pen' ? 'pen' : 'vial'
 
   return (
-    <section className='pt-8 sm:pt-16 lg:pt-24'>
+    <section id='calculator' className='scroll-mt-(--header-height) pt-8 sm:pt-16 lg:pt-24'>
       <ContentLayout>
         <div className='bg-muted grid gap-8 rounded-xl p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-12'>
           {/* Inputs */}

@@ -31,7 +31,7 @@ const OPTIONS = [
 /** Two honest columns. No loser. */
 const HomeFormatChooser = () => {
   return (
-    <section className='pt-8 sm:pt-16 lg:pt-24'>
+    <section id='pen-or-vial' className='scroll-mt-(--header-height) pt-8 sm:pt-16 lg:pt-24'>
       <ContentLayout className='space-y-8'>
         <div className='space-y-1'>
           <h3 className='text-2xl font-bold sm:text-3xl'>Pen or vial?</h3>

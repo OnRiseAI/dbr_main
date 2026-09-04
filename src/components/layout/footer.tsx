@@ -1,235 +1,101 @@
-'use client'
-
-// React Imports
-import { Fragment } from 'react'
-
-// Next Imports
 import Link from 'next/link'
 
-// Third-party Imports
-import { MapPinIcon, PhoneIcon, MailIcon, ShieldCheckIcon, ArrowRightIcon } from 'lucide-react'
-
-// Component Imports
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
 import ContentLayout from '@/components/layout/content-layout'
 
-// SVGs Imports
-import YoutubeIcon from '@/assets/svg/youtube-icon'
-import FacebookIcon from '@/assets/svg/facebook-icon'
-import InstagramIcon from '@/assets/svg/instagram-icon'
-
-const footerLinks = [
+const COLUMNS = [
   {
-    title: 'Collections',
+    title: 'Shop',
     links: [
       { title: 'All products', href: '/shop' },
-      { title: 'Weight management', href: '/shop?category=Weight%20Management' },
-      { title: 'Skin and glow', href: '/shop?category=Skin%20%26%20Glow' },
       { title: 'Pens', href: '/shop?category=Pens' },
       { title: 'Vials', href: '/shop?category=Vials' },
-      { title: 'All collections', href: '/category' }
+      { title: 'Weight Management', href: '/shop?category=Weight%20Management' },
+      { title: 'Skin & Glow', href: '/shop?category=Skin%20%26%20Glow' },
+      { title: 'Tanning', href: '/shop?category=Tanning' },
+      { title: 'Calm & Focus', href: '/shop?category=Calm%20%26%20Focus' }
     ]
   },
   {
-    title: 'Pages',
+    title: 'Learn',
+    links: [
+      { title: 'How each format works', href: '/#how-it-works' },
+      { title: 'Units calculator', href: '/#calculator' },
+      { title: 'Pen or vial', href: '/#pen-or-vial' },
+      { title: 'FAQ', href: '/pages/faq' }
+    ]
+  },
+  {
+    title: 'Company',
     links: [
       { title: 'About us', href: '/pages/about-us' },
-      { title: 'FAQ', href: '/pages/faq' },
-      { title: 'Contacts', href: '/pages/contacts' },
-      { title: 'Become a distributor', href: '/pages/become-our-distributor' },
-      { title: 'MSSPT', href: '/pages/molecular-structure-stabilization-process-technology-msspt' }
+      { title: 'Contact', href: '/pages/contacts' },
+      { title: 'Become a distributor', href: '/pages/become-our-distributor' }
     ]
   }
 ]
 
-const paymentLogos = [
-  {
-    src: '/images/landing-page/lemon-squeezy.webp',
-    darkSrc: '/images/landing-page/lemon-squeezy-dark.webp',
-    alt: 'Lemon Squeezy',
-    className: 'h-6'
-  },
-  { src: '/images/landing-page/visa.webp', alt: 'Visa', className: 'h-5' },
-  {
-    src: '/images/landing-page/paypal.webp',
-    alt: 'Paypal',
-    className: 'h-5'
-  },
-  {
-    src: '/images/landing-page/master.webp',
-    alt: 'Mastercard',
-    className: 'h-5'
-  }
+const PAYMENT = [
+  { src: '/images/landing-page/visa.webp', alt: 'Visa', className: 'h-4' },
+  { src: '/images/landing-page/master.webp', alt: 'Mastercard', className: 'h-5' }
 ]
 
+/**
+ * Footer. Only things that are true: the range, the routes, the research
+ * notice. No dummy address, no app badges, no unwired forms.
+ */
 const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const year = new Date().getFullYear()
 
   return (
-    <footer className='bg-background border-t'>
-      {/* Main footer content */}
-      <ContentLayout className='py-6 md:py-8 lg:py-14'>
-        <div className='grid max-xl:gap-8 md:grid-cols-2 lg:grid-cols-4'>
-          {/* Company info */}
-          <div className='space-y-8'>
-            <Link href='/#hero-section' className='flex items-center' aria-label='Deep Beauty Research'>
-              <img src='/images/brands/dbr-logo.svg' alt='Deep Beauty Research' className='h-7 w-auto dark:hidden' />
-              <img src='/images/brands/dbr-logo-white.svg' alt='' aria-hidden className='hidden h-7 w-auto dark:block' />
+    <footer className='border-t'>
+      <ContentLayout className='py-12 lg:py-16'>
+        <div className='grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-8'>
+          <div className='max-w-sm space-y-5'>
+            <Link href='/' className='inline-flex' aria-label='Deep Beauty Research'>
+              <img src='/images/brands/dbr-logo.svg' alt='Deep Beauty Research' className='h-6 w-auto dark:hidden' />
+              <img src='/images/brands/dbr-logo-white.svg' alt='' aria-hidden className='hidden h-6 w-auto dark:block' />
             </Link>
-            <ul className='space-y-3'>
-              <li className='flex gap-2'>
-                <MapPinIcon className='size-5 shrink-0' />
-                <span>
-                  Shop 009A, Level 4, Block A <br /> Demo Park, Ottawa
-                </span>
-              </li>
-              <li className='flex gap-2'>
-                <PhoneIcon className='size-5 shrink-0' />
-                <Link href='tel:+16135986981' className='hover:text-primary transition-colors'>
-                  +1-613-598-6981
-                </Link>
-              </li>
-              <li className='flex gap-2'>
-                <MailIcon className='size-5 shrink-0' />
-                <Link href='mailto:shopix@gmail.com' className='hover:text-primary transition-colors'>
-                  shopix@gmail.com
-                </Link>
-              </li>
-            </ul>
+            <p className='text-muted-foreground text-sm leading-relaxed'>
+              Pre-filled peptide pens and lyophilised vials. Every batch tested for purity and documented before
+              dispatch. Shipped from Germany with tracking.
+            </p>
+            <p className='text-xs font-semibold tracking-[0.14em] uppercase'>Research use only</p>
           </div>
 
-          {/* Link columns */}
-          <div className='col-span-2 grid grid-cols-1 gap-8 sm:grid-cols-2 md:max-lg:order-1'>
-            {footerLinks.map(column => (
-              <div key={column.title}>
-                <h4 className='mb-4 text-xl font-semibold'>{column.title}</h4>
-                <ul className='space-y-3'>
-                  {column.links.map(link => (
-                    <li key={link.title}>
-                      <Link href={link.href} className='text-muted-foreground hover:text-primary transition-colors'>
-                        {link.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Newsletter subscription */}
-          <div className='flex flex-col gap-6'>
-            <div className='space-y-2.5'>
-              <h4 className='text-lg font-semibold'>Get the Latest Offers & Discounts</h4>
-              <form className='flex gap-2' onSubmit={e => e.preventDefault()}>
-                <Input type='email' placeholder='Your email address' className='input-lg' />
-                <Button
-                  type='submit'
-                  size='icon-lg'
-                  className='bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
-                >
-                  <ArrowRightIcon />
-                </Button>
-              </form>
+          {COLUMNS.map(column => (
+            <div key={column.title} className='space-y-4'>
+              <p className='text-xs font-semibold tracking-[0.14em] uppercase'>{column.title}</p>
+              <ul className='space-y-2.5'>
+                {column.links.map(link => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className='text-muted-foreground hover:text-foreground text-sm transition-colors'
+                    >
+                      {link.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className='flex flex-col gap-2.5'>
-              <p className='text-lg font-semibold'>Download App</p>
-              <div className='flex flex-wrap items-center justify-start gap-4 gap-y-2'>
-                <Button
-                  render={<a href='#' className='flex h-10.5 items-center gap-4' />}
-                  nativeButton={false}
-                  className='dark:bg-primary dark:hover:bg-primary! w-full max-w-33 rounded-sm bg-black px-2.5 py-1.25 hover:bg-black!'
-                >
-                  <img
-                    src='/images/landing-page/apple-icon.webp'
-                    className='block size-6 invert dark:hidden'
-                    alt='App Store'
-                  />
-                  <img
-                    src='/images/landing-page/apple-white.webp'
-                    className='hidden size-6 invert dark:block'
-                    alt='App Store'
-                  />
-                  <div>
-                    <div className='dark:text-primary-foreground text-[10px] font-normal text-white'>
-                      Download on the
-                    </div>
-                    <div className='dark:text-primary-foreground text-xs font-medium text-white'>App Store</div>
-                  </div>
-                </Button>
-                <Button
-                  render={<a href='#' className='flex h-10.5 items-center gap-4' />}
-                  nativeButton={false}
-                  className='dark:bg-primary dark:hover:bg-primary! w-full max-w-33 rounded-sm bg-black px-2.5 py-1.25 hover:bg-black!'
-                >
-                  <img
-                    src='https://cdn.shadcnstudio.com/ss-assets/brand-logo/google-play-icon.png'
-                    className='size-6'
-                    alt='Google Play Store'
-                  />
-                  <div>
-                    <div className='dark:text-primary-foreground text-[10px] font-normal text-white'>
-                      Download on the
-                    </div>
-                    <div className='dark:text-primary-foreground text-xs font-medium text-white'>Google Play</div>
-                  </div>
-                </Button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </ContentLayout>
 
-      {/* divider */}
-      <Separator />
-
-      <div className='py-6 max-sm:px-4'>
-        <div className='flex flex-wrap items-center justify-center gap-4'>
-          <span className='border-border inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-base'>
-            <ShieldCheckIcon className='size-5 shrink-0 text-green-600 dark:text-green-400' />
-            Secure Payment
-          </span>
-          {paymentLogos.map(logo =>
-            logo.darkSrc ? (
-              <Fragment key={logo.alt}>
-                <img src={logo.src} alt={logo.alt} className={`${logo.className} dark:hidden`} />
-                <img src={logo.darkSrc} alt={logo.alt} className={`${logo.className} hidden dark:block`} />
-              </Fragment>
-            ) : (
-              <img key={logo.alt} src={logo.src} alt={logo.alt} className={logo.className} />
-            )
-          )}
-        </div>
-      </div>
-
-      {/* divider */}
-      <Separator />
-
-      {/* Bottom bar */}
-      <ContentLayout className='py-6'>
-        <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
-          <p className='text-center text-base font-medium md:text-left'>
-            &copy; {currentYear}{' '}
-            <Link href='/' className='text-primary font-bold hover:underline'>
-              Deep Beauty Research
-            </Link>
-            , Made with ❤️ for a better web.
+      <div className='border-t'>
+        <ContentLayout className='flex flex-col gap-4 py-6 text-sm sm:flex-row sm:items-center sm:justify-between'>
+          <p className='text-muted-foreground'>
+            © {year} Deep Beauty Research. Supplied for research purposes only. Not for human or veterinary use.
           </p>
-
-          <div className='flex items-center gap-6'>
-            <a href='#'>
-              <YoutubeIcon className='text-primary/70 hover:text-primary size-5.5' />
-            </a>
-            <a href='#'>
-              <FacebookIcon className='text-primary/70 hover:text-primary size-5.5' />
-            </a>
-            <a href='#'>
-              <InstagramIcon className='text-primary/70 hover:text-primary size-5.5' />
-            </a>
-          </div>
-        </div>
-      </ContentLayout>
+          <ul className='flex items-center gap-4'>
+            {PAYMENT.map(item => (
+              <li key={item.alt}>
+                <img src={item.src} alt={item.alt} className={item.className} />
+              </li>
+            ))}
+          </ul>
+        </ContentLayout>
+      </div>
     </footer>
   )
 }
