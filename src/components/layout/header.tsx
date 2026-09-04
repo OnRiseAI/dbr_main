@@ -28,8 +28,8 @@ import CommandMenu from '@/components/layout/command-menu'
 import LanguageDropdown from '@/components/blocks/dropdown-language'
 import CurrencyDropdown from '@/components/blocks/dropdown-currency'
 import MenuSheet from '@/components/blocks/menu-sheet'
-import { PagesMegamenu } from '@/components/layout/pages-megamenu'
 import { ShopMegamenu } from '@/components/layout/shop-megamenu'
+import { AboutMegamenu } from '@/components/layout/about-megamenu'
 import ThemeCustomizer from './ThemeCustomizer'
 
 // Config Imports
@@ -189,8 +189,8 @@ const Header = () => {
                           {section.title}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent className='w-auto p-0'>
-                          {section.title === 'About' && section.columns ? (
-                            <PagesMegamenu columns={section.columns} onNavigate={() => setOpenMenu(null)} />
+                          {section.title === 'About' ? (
+                            <AboutMegamenu onNavigate={() => setOpenMenu(null)} />
                           ) : section.title === 'Shop' ? (
                             <ShopMegamenu categories={categories} onNavigate={() => setOpenMenu(null)} />
                           ) : section.groups ? (
