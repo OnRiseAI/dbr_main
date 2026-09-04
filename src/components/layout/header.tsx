@@ -29,11 +29,12 @@ import LanguageDropdown from '@/components/blocks/dropdown-language'
 import CurrencyDropdown from '@/components/blocks/dropdown-currency'
 import MenuSheet from '@/components/blocks/menu-sheet'
 import { PagesMegamenu } from '@/components/layout/pages-megamenu'
-import { MegamenuPromotionalCard2 } from '@/components/layout/megamenu-promotional-card-2'
+import { ShopMegamenu } from '@/components/layout/shop-megamenu'
 import ThemeCustomizer from './ThemeCustomizer'
 
 // Config Imports
 import { mainNavigation } from '@/configs/navigation'
+import { db as categories } from '@/fake-db/categories'
 
 // Utils Imports
 import { cn } from '@/lib/utils'
@@ -190,13 +191,8 @@ const Header = () => {
                         <NavigationMenuContent className='w-auto p-0'>
                           {section.title === 'About' && section.columns ? (
                             <PagesMegamenu columns={section.columns} onNavigate={() => setOpenMenu(null)} />
-                          ) : section.title === 'Shop' && section.columns ? (
-                            <PagesMegamenu
-                              columns={section.columns}
-                              columnCount={3}
-                              promotionalCard={<MegamenuPromotionalCard2 />}
-                              onNavigate={() => setOpenMenu(null)}
-                            />
+                          ) : section.title === 'Shop' ? (
+                            <ShopMegamenu categories={categories} onNavigate={() => setOpenMenu(null)} />
                           ) : section.groups ? (
                             <div
                               className='grid gap-4 p-4'
