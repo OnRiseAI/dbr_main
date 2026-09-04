@@ -62,50 +62,48 @@ const HomePenBreakdown = () => {
           </Link>
         </div>
 
-        <div className='grid gap-6 lg:grid-cols-3'>
-          <div className='bg-muted flex flex-col gap-6 rounded-xl p-6 sm:p-8'>
-            <div className='flex h-64 items-center justify-center overflow-hidden rounded-lg bg-white sm:h-72'>
-              <img
-                src='/images/products/dbr-reta-chamber.jpg'
-                alt='Dual-chamber cartridge: liquid part and lyophilised part'
-                className='h-full object-contain p-2'
-              />
-            </div>
-            <ol className='space-y-4'>
-              {STEPS.map(item => (
-                <li key={item.step} className='flex gap-3'>
-                  <span className='bg-foreground text-background flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold'>
-                    {item.step}
-                  </span>
-                  <div className='space-y-0.5'>
-                    <p className='font-semibold'>{item.title}</p>
-                    <p className='text-muted-foreground text-sm'>{item.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
+        <div className='grid gap-6 sm:grid-cols-3'>
+          {PENS.map(pen => (
+            <Link key={pen.name} href={pen.href} className='group flex flex-col gap-3 focus-visible:outline-none'>
+              <div className='ring-border flex aspect-[2/3] items-center justify-center overflow-hidden rounded-xl bg-white ring-1'>
+                <img
+                  src={pen.image}
+                  alt={`${pen.name} breakdown`}
+                  className='size-full object-contain p-3 transition-transform duration-500 group-hover:scale-105'
+                />
+              </div>
+              <div className='flex items-center justify-between gap-2'>
+                <div>
+                  <p className='font-semibold'>{pen.name}</p>
+                  <p className='text-muted-foreground text-sm'>{pen.strength}</p>
+                </div>
+                <ArrowRightIcon className='text-muted-foreground size-4 transition-transform duration-300 group-hover:translate-x-1' />
+              </div>
+            </Link>
+          ))}
+        </div>
 
-          <div className='grid gap-6 sm:grid-cols-3 lg:col-span-2'>
-            {PENS.map(pen => (
-              <Link key={pen.name} href={pen.href} className='group flex h-full flex-col gap-3 focus-visible:outline-none'>
-                <div className='ring-border flex aspect-[3/4] items-center justify-center overflow-hidden rounded-xl bg-white ring-1 lg:aspect-auto lg:min-h-0 lg:flex-1'>
-                      <img
-                    src={pen.image}
-                    alt={`${pen.name} breakdown`}
-                    className='size-full object-contain p-3 transition-transform duration-500 group-hover:scale-105'
-                  />
-                </div>
-                <div className='flex items-center justify-between gap-2'>
-                  <div>
-                    <p className='font-semibold'>{pen.name}</p>
-                    <p className='text-muted-foreground text-sm'>{pen.strength}</p>
-                  </div>
-                  <ArrowRightIcon className='text-muted-foreground size-4 transition-transform duration-300 group-hover:translate-x-1' />
-                </div>
-              </Link>
-            ))}
+        <div className='bg-muted grid items-center gap-8 rounded-xl p-6 sm:p-8 lg:grid-cols-[260px_1fr]'>
+          <div className='flex h-64 items-center justify-center overflow-hidden rounded-lg bg-white'>
+            <img
+              src='/images/products/dbr-reta-chamber.jpg'
+              alt='Dual-chamber cartridge: liquid part and lyophilised part'
+              className='h-full object-contain p-2'
+            />
           </div>
+          <ol className='grid gap-6 sm:grid-cols-3'>
+            {STEPS.map(item => (
+              <li key={item.step} className='flex gap-3'>
+                <span className='bg-foreground text-background flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold'>
+                  {item.step}
+                </span>
+                <div className='space-y-1'>
+                  <p className='font-semibold'>{item.title}</p>
+                  <p className='text-muted-foreground text-sm'>{item.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </ContentLayout>
     </section>
