@@ -44,7 +44,7 @@ const ProductCarousel = ({ images, alt }: Props) => {
       <Carousel
         setApi={setApi}
         opts={{ align: 'start' }}
-        className='group bg-muted relative overflow-hidden rounded-xl'
+        className='group bg-white ring-1 ring-border relative overflow-hidden rounded-xl'
       >
         <CarouselContent className='ml-0'>
           {images.map((src, index) => (

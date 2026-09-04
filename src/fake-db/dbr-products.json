@@ -20,7 +20,8 @@
     "description": "Retatrutide is a next-generation GLP-1 peptide, supplied as a pre-filled, ready-to-use pen. No reconstitution required.",
     "bodyHtml": "<h2>About</h2><p>Retatrutide is a next-generation GLP-1 peptide and the flagship of our metabolic wellness range, chosen by people focused on body composition, energy and daily balance.</p><p>Supplied as a pre-filled pen, ready straight from the fridge, with no reconstitution and no measuring. The 15 mg pen is the smaller of the two pen strengths. Every batch is tested for purity and documented before dispatch.</p><h2>What is included</h2><ul><li>Pre-filled Retatrutide pen, 15 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
     "images": [
-      "/images/products/dbr-reta-pen-15mg.png"
+      "/images/products/dbr-reta-pen-15mg.png",
+      "/images/products/dbr-reta-chamber.jpg"
     ],
     "colors": [],
     "highlights": [
@@ -60,7 +61,9 @@
     "description": "Retatrutide is a next-generation GLP-1 peptide, supplied as a pre-filled, ready-to-use pen. The 40 mg pen is the highest strength in the range. No reconstitution required.",
     "bodyHtml": "<h2>About</h2><p>Retatrutide is a next-generation GLP-1 peptide and the flagship of our metabolic wellness range, chosen by people focused on body composition, energy and daily balance.</p><p>Supplied as a pre-filled pen, ready straight from the fridge, with no reconstitution and no measuring. The 40 mg pen is the highest strength in the range. Every batch is tested for purity and documented before dispatch.</p><h2>What is included</h2><ul><li>Pre-filled Retatrutide pen, 40 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
     "images": [
-      "/images/products/dbr-reta-pen-40mg.png"
+      "/images/products/dbr-reta-pen-40mg.png",
+      "/images/products/dbr-reta-pen-40mg-stacked.jpg",
+      "/images/products/dbr-reta-chamber.jpg"
     ],
     "colors": [],
     "highlights": [
@@ -100,7 +103,9 @@
     "description": "GHK-Cu is a copper-binding tripeptide. Supplied as a pre-filled pen, with no reconstitution required.",
     "bodyHtml": "<h2>About</h2><p>GHK-Cu is a copper-binding tripeptide known for its role in tissue remodelling, collagen synthesis and skin health. In the Deep Beauty Research range it is the beauty-focused option for skin, tone and collagen.</p><p>Supplied as a pre-filled pen, ready to use, no reconstitution required. Every batch is produced to a high standard, tested for purity and documented before dispatch.</p><h2>What is included</h2><ul><li>Pre-filled GHK-Cu pen</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
     "images": [
-      "/images/products/dbr-ghk-cu-pen-100mg.png"
+      "/images/products/dbr-ghk-cu-pen-100mg.png",
+      "/images/products/dbr-ghk-cu-pen-100mg-stacked.jpg",
+      "/images/products/dbr-ghk-cu-chamber.jpg"
     ],
     "colors": [],
     "highlights": [
@@ -140,7 +145,8 @@
     "description": "Skin Glow is a pre-filled pen built on GHK-Cu, a copper-binding tripeptide. 70 mg, ready to use, no reconstitution required.",
     "bodyHtml": "<h2>About</h2><p>Skin Glow is the pen format in the Deep Beauty Research GHK-Cu line, at 70 mg. GHK-Cu is a copper-binding tripeptide known for its role in collagen synthesis and skin health.</p><p>Supplied as a pre-filled pen, ready to use, no reconstitution required. Every batch is produced to a high standard, tested for purity and documented before dispatch.</p><h2>What is included</h2><ul><li>Pre-filled Skin Glow pen, 70 mg</li><li>Tracked dispatch from Germany</li><li>Handling insert with storage and use guidance</li><li>Batch documentation</li></ul>",
     "images": [
-      "/images/products/dbr-ghk-skin-glow-pen-70mg.png"
+      "/images/products/dbr-ghk-skin-glow-pen-70mg.png",
+      "/images/products/dbr-ghk-cu-chamber.jpg"
     ],
     "colors": [],
     "highlights": [
