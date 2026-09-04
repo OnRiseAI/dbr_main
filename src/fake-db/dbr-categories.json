@@ -21,7 +21,7 @@
     "image": "/images/categories/dbr-tanning.jpg",
     "href": "/shop?category=Tanning",
     "description": "Melanotan I and II vials.",
-    "productsCount": 2
+    "productsCount": 1
   },
   {
     "name": "Calm & Focus",
@@ -45,6 +45,6 @@
     "image": "/images/products/dbr-reta-vial-10mg.png",
     "href": "/shop?category=Vials",
     "description": "Lyophilised vials, reconstitute before use.",
-    "productsCount": 5
+    "productsCount": 4
   }
 ]

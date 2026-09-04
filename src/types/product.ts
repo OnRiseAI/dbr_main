@@ -64,6 +64,8 @@ export type Product = {
   family?: string
   familyName?: string
   variantLabel?: string
+  /** What the selector chooses between: Strength by default, Type for MT1 and MT2. */
+  variantAxis?: string
   variantOrder?: number
   variantCount?: number
   hiddenVariant?: boolean

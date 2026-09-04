@@ -44,10 +44,19 @@ const buildFaq = (product: Product, variants: Product[]): FaqItem[] => {
   if (variants.length > 1) {
     const others = variants.filter(variant => variant.id !== product.id).map(variant => variant.variantLabel).join(' and ')
 
-    items.push({
-      q: `Which strength should I choose?`,
-      a: `${product.familyName ?? product.name} comes as ${variants.map(v => v.variantLabel).join(' and ')}. The higher strength means more ${compound} per ${isPen ? 'pen' : 'vial'}, not a different product. Pick by how much you use over a month; the calculator shows how long each option lasts. The other option here is ${others}.`
-    })
+    const axis = (product.variantAxis ?? 'Strength').toLowerCase()
+
+    items.push(
+      axis === 'type'
+        ? {
+            q: 'What is the difference between MT1 and MT2?',
+            a: `Two related melanocortin peptides supplied the same way, ${strength} lyophilised per vial at the same price. They are different compounds, not different strengths. The other option here is ${others}.`
+          }
+        : {
+            q: 'Which strength should I choose?',
+            a: `${product.familyName ?? product.name} comes as ${variants.map(v => v.variantLabel).join(' and ')}. The higher strength means more ${compound} per ${isPen ? 'pen' : 'vial'}, not a different product. Pick by how much you use over a month; the calculator shows how long each option lasts. The other option here is ${others}.`
+          }
+    )
   }
 
   items.push(

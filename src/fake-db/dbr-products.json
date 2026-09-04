@@ -66,7 +66,8 @@
     "variantLabel": "15 mg",
     "variantOrder": 0,
     "variantCount": 2,
-    "hiddenVariant": false
+    "hiddenVariant": false,
+    "variantAxis": "Strength"
   },
   {
     "id": "retatrutide-pen-40mg",
@@ -135,7 +136,8 @@
     "variantLabel": "40 mg",
     "variantOrder": 1,
     "variantCount": 2,
-    "hiddenVariant": true
+    "hiddenVariant": true,
+    "variantAxis": "Strength"
   },
   {
     "id": "ghk-cu-pen-100mg",
@@ -204,7 +206,8 @@
     "variantLabel": "100 mg",
     "variantOrder": 0,
     "variantCount": 2,
-    "hiddenVariant": false
+    "hiddenVariant": false,
+    "variantAxis": "Strength"
   },
   {
     "id": "ghk-skin-glow-pen-70mg",
@@ -271,7 +274,8 @@
     "variantLabel": "70 mg Skin Glow",
     "variantOrder": 1,
     "variantCount": 2,
-    "hiddenVariant": true
+    "hiddenVariant": true,
+    "variantAxis": "Strength"
   },
   {
     "id": "mots-c-pen-20mg",
@@ -391,7 +395,8 @@
     "variantLabel": "10 mg",
     "variantOrder": 0,
     "variantCount": 2,
-    "hiddenVariant": false
+    "hiddenVariant": false,
+    "variantAxis": "Strength"
   },
   {
     "id": "retatrutide-vial-20mg",
@@ -457,7 +462,8 @@
     "variantLabel": "20 mg",
     "variantOrder": 1,
     "variantCount": 2,
-    "hiddenVariant": true
+    "hiddenVariant": true,
+    "variantAxis": "Strength"
   },
   {
     "id": "ghk-cu-vial-100mg",
@@ -574,10 +580,17 @@
       "strengthMg": 10.0
     },
     "pairsWith": [
-      "mt2-vial-10mg",
       "selank-vial-10mg",
-      "ghk-cu-vial-100mg"
-    ]
+      "ghk-cu-vial-100mg",
+      "retatrutide-vial-10mg"
+    ],
+    "family": "melanotan-vial",
+    "familyName": "Melanotan vial",
+    "variantLabel": "MT1",
+    "variantOrder": 0,
+    "variantCount": 2,
+    "hiddenVariant": false,
+    "variantAxis": "Type"
   },
   {
     "id": "mt2-vial-10mg",
@@ -634,10 +647,17 @@
       "strengthMg": 10.0
     },
     "pairsWith": [
-      "mt1-vial-10mg",
       "selank-vial-10mg",
-      "ghk-cu-vial-100mg"
-    ]
+      "ghk-cu-vial-100mg",
+      "retatrutide-vial-10mg"
+    ],
+    "family": "melanotan-vial",
+    "familyName": "Melanotan vial",
+    "variantLabel": "MT2",
+    "variantOrder": 1,
+    "variantCount": 2,
+    "hiddenVariant": true,
+    "variantAxis": "Type"
   },
   {
     "id": "selank-vial-10mg",

@@ -102,7 +102,7 @@ const ProductInfo = ({ product, variants = [product] }: Props) => {
 
       {variants.length > 1 && (
         <div className='space-y-3'>
-          <p className='text-sm font-semibold'>Strength</p>
+          <p className='text-sm font-semibold'>{product.variantAxis ?? 'Strength'}</p>
           <div className='flex flex-wrap gap-2.5'>
             {variants.map(variant => {
               const active = variant.id === product.id
