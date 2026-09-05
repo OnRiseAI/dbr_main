@@ -21,7 +21,8 @@ import {
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu'
 import WishlistButton from '@/components/layout/wishlist-button'
-import CartButton from '@/components/layout/cart-button'
+import CartSheet from '@/components/layout/cart-sheet'
+import AccountButton from '@/components/layout/account-button'
 import AnnouncementBanner from '@/components/layout/announcement-banner'
 import ContentLayout from '@/components/layout/content-layout'
 import CommandMenu from '@/components/layout/command-menu'
@@ -252,7 +253,8 @@ const Header = () => {
             <CommandMenu />
             <div className='flex items-center gap-2'>
               <WishlistButton />
-              <CartButton />
+              <CartSheet />
+              <AccountButton />
               <ThemeCustomizer />
             </div>
           </div>
