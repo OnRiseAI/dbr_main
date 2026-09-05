@@ -39,7 +39,7 @@ Company
 
 Quality
 - Every lot is tested twice: during manufacture, and independently by an ISO 17025 accredited third-party laboratory.
-- Certificate of Analysis (CoA) ships with every order and is available on request before ordering.
+- CoAs exist but are NOT advertised (client, 2026-09-05: it creates work). Never promise a CoA, never write "on request" for documentation. Say: batch documentation is in the box with every order.
 - Release floor: greater than 99% purity by HPLC on every active. Identity confirmed by mass spectrometry.
 - Six-step QC. A lot that fails any stage is destroyed, never reworked or discounted.
 - Lot ID printed on the pen and the outer box. Full lot record kept ten years.

@@ -11,7 +11,7 @@ export type FaqGroup = {
 
 /**
  * FAQ content, grouped. Every answer is drawn from the approved company facts:
- * German dispatch, twice-tested lots, CoA in the box, pen and syringe readings,
+ * German dispatch, twice-tested lots, batch documentation in the box, pen and syringe readings,
  * and the two trade routes. Nothing here is invented, and nothing claims
  * temperature-controlled transit.
  */
@@ -27,10 +27,6 @@ export const FAQ_GROUPS: FaqGroup[] = [
       {
         q: 'How can I pay?',
         a: 'Card (Visa and Mastercard), SEPA bank transfer, or crypto (BTC, ETH and USDT). Pick the method that suits you at checkout. Whichever you use, the order dispatches within 2 business days of payment.'
-      },
-      {
-        q: 'Can I see the Certificate of Analysis before I order?',
-        a: 'Yes. Write to research@deepbeautyresearch.com and ask for the CoA on the product you are considering. A CoA also ships with every order, so you get the paperwork either way.'
       },
       {
         q: 'Can I order from outside the EU?',
@@ -119,8 +115,8 @@ export const FAQ_GROUPS: FaqGroup[] = [
         a: 'Greater than 99% by HPLC on every active. Identity is confirmed by mass spectrometry, so you know what is in the pen as well as how much.'
       },
       {
-        q: 'Do I get a Certificate of Analysis?',
-        a: 'Yes. A CoA ships with every order, and the batch documentation is in the box. You can also request the CoA before you buy, at research@deepbeautyresearch.com.'
+        q: 'What documentation comes with my order?',
+        a: 'The batch documentation for your product is in the box with every order. Every lot is tested twice before release, and the lot ID is printed on the pen and on the outer box.'
       },
       {
         q: 'What happens if a lot fails a test?',
@@ -128,7 +124,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
       },
       {
         q: 'Can I trace my order back to its lot?',
-        a: 'Yes. The lot ID is printed on the pen and on the outer box, and the full lot record is kept for ten years. Send the lot ID to research@deepbeautyresearch.com and the record can be pulled up.'
+        a: 'Yes. The lot ID is printed on the pen and on the outer box, and the full lot record is kept for ten years.'
       }
     ]
   },
@@ -146,7 +142,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
       },
       {
         q: 'What comes with a trade order?',
-        a: 'A CoA and lot records routed with every shipment, one named contact rather than a general inbox, and tracked dispatch from Germany. Anything damaged in transit is replaced on the same terms.'
+        a: 'Batch documentation with every shipment, one named contact rather than a general inbox, and tracked dispatch from Germany. Anything damaged in transit is replaced on the same terms.'
       },
       {
         q: 'How does the referral programme work?',

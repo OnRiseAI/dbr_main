@@ -16,12 +16,11 @@ const ctaButtonClass =
 const WHOLESALE_MAILTO = 'mailto:partners@deepbeautyresearch.com?subject=Wholesale%20enquiry'
 const REFERRAL_APPLY = 'https://app.deepbeautyresearch.com/partners/apply'
 
-/** The five facts a trade buyer checks first. One light numeral each, mono label beside it. */
+/** The four facts a trade buyer checks first. One light numeral each, mono label beside it. */
 const FACTS = [
   { value: '7', unit: 'years', label: 'In the peptide business' },
   { value: 'Germany', label: 'Where the stock sits' },
   { value: '>99', unit: '%', label: 'Purity floor by HPLC' },
-  { value: 'CoA', unit: 'per lot', label: 'With every order' },
   { value: '2 to 3', unit: 'days', label: 'EU delivery, typical' }
 ]
 
@@ -29,7 +28,7 @@ const WHOLESALE_ROWS = [
   { label: 'Who it is for', value: 'Clinics, shops, resellers' },
   { label: 'Pricing', value: 'Volume, agreed by email' },
   { label: 'Supply', value: 'Recurring, your cadence' },
-  { label: 'Every shipment', value: 'CoA and lot records' },
+  { label: 'In the box', value: 'Batch documentation' },
   { label: 'Your contact', value: 'One named person' },
   { label: 'Dispatch', value: 'Tracked, German stock' }
 ]
@@ -45,8 +44,7 @@ const REFERRAL_ROWS = [
 
 /** The dark statement band. What is in the box, and what stands behind it, on every trade order. */
 const INCLUDED = [
-  { lead: 'CoA per lot', body: 'In the box with your order, and on request before you order.' },
-  { lead: 'Lot records', body: 'Kept ten years and available on request. The lot ID is on the pen and the outer box.' },
+  { lead: 'Batch documentation', body: 'In the box with every order. The lot ID is on the pen and the outer box.' },
   { lead: 'Tracked dispatch', body: 'From German stock, within 2 business days of payment, in discreet packaging.' },
   { lead: 'Damaged in transit', body: 'Replaced. Photograph the parcel and contents within 48 hours of arrival.' },
   { lead: 'One named contact', body: 'The same person handles your account, your quotes and your reorders.' },
@@ -87,7 +85,7 @@ const DistributorsView = () => {
           </div>
 
           {/* Facts */}
-          <dl className='border-foreground mt-10 grid gap-y-8 border-t pt-8 sm:grid-cols-3 sm:gap-x-8 lg:mt-14 lg:grid-cols-5'>
+          <dl className='border-foreground mt-10 grid gap-y-8 border-t pt-8 sm:grid-cols-3 sm:gap-x-8 lg:mt-14 lg:grid-cols-4'>
             {FACTS.map(fact => (
               <div key={fact.label}>
                 <dt className={cn(eyebrow, 'sr-only')}>{fact.label}</dt>

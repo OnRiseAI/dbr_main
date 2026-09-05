@@ -60,7 +60,7 @@ const CHANNELS: Channel[] = [
   },
   {
     label: 'Product and documentation',
-    audience: 'CoA, lot records and how a product works.',
+    audience: 'Batch documentation and how a product works.',
     address: 'research@deepbeautyresearch.com',
     subject: 'Documentation request'
   }
@@ -87,7 +87,7 @@ const BEFORE_YOU_WRITE = [
   {
     href: '/faq#quality',
     label: 'Quality and documentation',
-    line: 'Testing, purity, CoA and lot records.'
+    line: 'Testing, purity and batch documentation.'
   }
 ]
 

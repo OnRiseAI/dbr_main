@@ -17,8 +17,7 @@ const FACTS = [
   { value: '7', label: 'Years in the business' },
   { value: 'Germany', label: 'Where we are based', tight: true },
   { value: '>99%', label: 'Purity floor by HPLC' },
-  { value: '2', label: 'Tests on every lot' },
-  { value: '10', label: 'Years of lot records' }
+  { value: '2', label: 'Tests on every lot' }
 ]
 
 const MADE = [
@@ -26,8 +25,7 @@ const MADE = [
   { label: 'Second test', value: 'ISO 17025' },
   { label: 'Purity floor', value: '>99%' },
   { label: 'Identity', value: 'Mass spec' },
-  { label: 'QC stages', value: '6' },
-  { label: 'Lot record kept', value: '10 years' }
+  { label: 'QC stages', value: '6' }
 ]
 
 const SHIPPING = [
@@ -118,7 +116,7 @@ const AboutView = () => {
       {/* Facts */}
       <section className='mt-12 sm:mt-16'>
         <ContentLayout>
-          <div className='border-foreground grid grid-cols-2 border-t sm:grid-cols-3 lg:grid-cols-5'>
+          <div className='border-foreground grid grid-cols-2 border-t sm:grid-cols-3 lg:grid-cols-4'>
             {FACTS.map(fact => (
               <div key={fact.label} className='border-foreground/15 border-b py-6 pr-6 sm:py-8'>
                 <p
@@ -156,8 +154,8 @@ const AboutView = () => {
                   never discounted.
                 </p>
                 <p>
-                  The Certificate of Analysis ships with every order and is available on request before you order. The
-                  lot ID is printed on the pen and on the outer box, and the full lot record is kept for ten years.
+                  The batch documentation for your product is in the box with every order. The lot ID is printed on
+                  the pen and on the outer box.
                 </p>
               </div>
             </div>
