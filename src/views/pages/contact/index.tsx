@@ -16,11 +16,30 @@ const mailLink =
 type Channel = {
   label: string
   audience: string
+
+  /** What is shown as the link text. */
   address: string
-  subject: string
+
+  /** Prefilled email subject; omitted for WhatsApp. */
+  subject?: string
+
+  /** Explicit link target; defaults to a mailto built from address and subject. */
+  href?: string
+  note?: string
 }
 
+/** Deep Beauty Research WhatsApp, given by the client 2026-09-05. */
+export const WHATSAPP_NUMBER = '+49 163 6444056'
+export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}`
+
 const CHANNELS: Channel[] = [
+  {
+    label: 'WhatsApp',
+    audience: 'Quickest for order questions and photos of a damaged parcel.',
+    address: WHATSAPP_NUMBER,
+    href: WHATSAPP_URL,
+    note: 'Opens a chat. Mon to Fri, 09:00 to 17:00 CET.'
+  },
   {
     label: 'General',
     audience: 'Anything that does not belong to one of the three below.',
@@ -72,7 +91,8 @@ const BEFORE_YOU_WRITE = [
   }
 ]
 
-const mailto = ({ address, subject }: Channel) => `mailto:${address}?subject=${encodeURIComponent(subject)}`
+const channelHref = ({ address, subject, href }: Channel) =>
+  href ?? `mailto:${address}?subject=${encodeURIComponent(subject ?? '')}`
 
 /**
  * Contact. There is no mail backend in this repo, so the page is four addressed
@@ -112,10 +132,16 @@ const ContactView = () => {
                   <p className='mt-1.5 text-sm'>{channel.audience}</p>
                 </div>
                 <dd className='sm:text-right'>
-                  <a href={mailto(channel)} className={mailLink}>
+                  <a
+                    href={channelHref(channel)}
+                    className={mailLink}
+                    {...(channel.href ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
                     {channel.address}
                   </a>
-                  <p className={cn(eyebrow, 'mt-1.5')}>Subject: {channel.subject}</p>
+                  <p className={cn(eyebrow, 'mt-1.5')}>
+                    {channel.subject ? `Subject: ${channel.subject}` : channel.note}
+                  </p>
                 </dd>
               </div>
             ))}

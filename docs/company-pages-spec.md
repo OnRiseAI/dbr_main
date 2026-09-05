@@ -63,7 +63,7 @@ Contact
 - research@deepbeautyresearch.com: documentation, CoA and lot records, how a product works.
 - Hours Mon to Fri 09:00 to 17:00 CET, closed on German public holidays. Reply within one business day.
 - Fulfilment address is shared with verified trade accounts on request, not published.
-- No phone number, no WhatsApp yet. Do not invent either.
+- WhatsApp: +49 163 6444056 (https://wa.me/491636444056), given by the client 2026-09-05. Show it on Contact and in the footer. No landline; do not invent one.
 - Contact forms: there is no mail backend in this repo. Use `mailto:` links with a prefilled subject per channel. Do not build a form that posts nowhere.
 
 Trade (Distributors page)

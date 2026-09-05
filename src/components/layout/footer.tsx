@@ -30,6 +30,7 @@ const COLUMNS = [
     links: [
       { title: 'About us', href: '/about' },
       { title: 'Contact', href: '/contact' },
+      { title: 'WhatsApp +49 163 6444056', href: 'https://wa.me/491636444056' },
       { title: 'Become a distributor', href: '/distributors' }
     ]
   }
