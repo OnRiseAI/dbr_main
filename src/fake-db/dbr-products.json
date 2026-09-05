@@ -136,7 +136,7 @@
     "variantLabel": "40 mg",
     "variantOrder": 1,
     "variantCount": 2,
-    "hiddenVariant": true,
+    "hiddenVariant": false,
     "variantAxis": "Strength"
   },
   {
@@ -274,7 +274,7 @@
     "variantLabel": "70 mg Skin Glow",
     "variantOrder": 1,
     "variantCount": 2,
-    "hiddenVariant": true,
+    "hiddenVariant": false,
     "variantAxis": "Strength"
   },
   {
@@ -290,9 +290,9 @@
     "href": "/product/mots-c-pen-20mg",
     "rating": 4.9,
     "reviewCount": 0,
-    "category": "Weight Management",
+    "category": "Energy & Vitality",
     "collections": [
-      "Weight Management",
+      "Energy & Vitality",
       "Pens"
     ],
     "description": "MOTS-c is a mitochondrial-derived peptide. Supplied as a pre-filled pen, with no reconstitution required.",
@@ -305,7 +305,7 @@
     "colors": [],
     "highlights": [
       {
-        "category": "Weight Management",
+        "category": "Energy & Vitality",
         "manufacture": "Deep Beauty Research",
         "material": "Pre-filled pen, ready to use",
         "compatibility": "Research use only",
@@ -462,7 +462,7 @@
     "variantLabel": "20 mg",
     "variantOrder": 1,
     "variantCount": 2,
-    "hiddenVariant": true,
+    "hiddenVariant": false,
     "variantAxis": "Strength"
   },
   {
@@ -656,7 +656,7 @@
     "variantLabel": "MT2",
     "variantOrder": 1,
     "variantCount": 2,
-    "hiddenVariant": true,
+    "hiddenVariant": false,
     "variantAxis": "Type"
   },
   {

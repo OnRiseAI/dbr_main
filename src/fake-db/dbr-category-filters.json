@@ -4,7 +4,7 @@
       "Deep Beauty Research"
     ],
     "priceMin": 74,
-    "priceMax": 390
+    "priceMax": 389
   },
   "Skin & Glow": {
     "brands": [
@@ -32,13 +32,20 @@
       "Deep Beauty Research"
     ],
     "priceMin": 109,
-    "priceMax": 390
+    "priceMax": 389
   },
   "Vials": {
     "brands": [
       "Deep Beauty Research"
     ],
     "priceMin": 39,
-    "priceMax": 121
+    "priceMax": 120
+  },
+  "Energy & Vitality": {
+    "brands": [
+      "Deep Beauty Research"
+    ],
+    "priceMin": 189,
+    "priceMax": 189
   }
 }

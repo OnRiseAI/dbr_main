@@ -104,13 +104,12 @@ const ProductCard = ({ product, badges, variant = 'default', galleryView = false
       <CardContent className='flex flex-col'>
         <h5 className='mb-0.5 overflow-hidden text-lg font-semibold text-nowrap text-ellipsis'>
           <Link href={product.href} className='hover:text-primary transition-colors'>
-            {product.familyName ?? product.name}
+            {product.name}
           </Link>
         </h5>
         <p className='text-muted-foreground mb-1.5 text-xs font-medium tracking-wide uppercase'>{product.brand}</p>
         <div className='flex items-center gap-1.5 text-sm'>
           <span className='font-semibold'>
-            {(product.variantCount ?? 1) > 1 ? 'From ' : ''}
             {formatPrice(product.price)}
           </span>
           {product.discount > 0 && (

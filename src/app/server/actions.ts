@@ -22,7 +22,7 @@ import { db as pages } from '@/fake-db/pages'
 
 // ---------- Products ----------
 
-/** Grid-facing catalogue: one entry per variant family. */
+/** Grid-facing catalogue: every SKU, each strength as its own card. */
 const listed = products.filter(product => !product.hiddenVariant)
 
 export const getProducts = async () => {

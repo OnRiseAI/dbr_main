@@ -5,7 +5,7 @@
     "image": "/images/categories/dbr-weight-management.jpg",
     "href": "/shop?category=Weight%20Management",
     "description": "Retatrutide pens and vials for metabolic wellness and body composition.",
-    "productsCount": 3
+    "productsCount": 4
   },
   {
     "name": "Skin & Glow",
@@ -13,7 +13,7 @@
     "image": "/images/categories/dbr-skin-glow.jpg",
     "href": "/shop?category=Skin%20%26%20Glow",
     "description": "GHK-Cu copper peptide in pens and vials for skin, tone and collagen support.",
-    "productsCount": 2
+    "productsCount": 3
   },
   {
     "name": "Tanning",
@@ -21,7 +21,7 @@
     "image": "/images/categories/dbr-tanning.jpg",
     "href": "/shop?category=Tanning",
     "description": "Melanotan I and II vials.",
-    "productsCount": 1
+    "productsCount": 2
   },
   {
     "name": "Calm & Focus",
@@ -32,12 +32,20 @@
     "productsCount": 1
   },
   {
+    "name": "Energy & Vitality",
+    "handle": "energy-vitality",
+    "image": "/images/products/dbr-mots-c-pen-20mg.png",
+    "href": "/shop?category=Energy%20%26%20Vitality",
+    "description": "MOTS-c pen for vitality, energy and body balance routines.",
+    "productsCount": 1
+  },
+  {
     "name": "Pens",
     "handle": "pens",
     "image": "/images/products/dbr-reta-pen-15mg.png",
     "href": "/shop?category=Pens",
     "description": "Pre-filled pens, ready straight from the fridge. No reconstitution.",
-    "productsCount": 3
+    "productsCount": 5
   },
   {
     "name": "Vials",
@@ -45,6 +53,6 @@
     "image": "/images/products/dbr-reta-vial-10mg.png",
     "href": "/shop?category=Vials",
     "description": "Lyophilised vials, reconstitute before use.",
-    "productsCount": 4
+    "productsCount": 6
   }
 ]

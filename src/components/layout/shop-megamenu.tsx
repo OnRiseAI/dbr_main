@@ -7,7 +7,7 @@ import type { Category } from '@/types/product'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
 import { MegamenuPromotionalCard2 } from '@/components/layout/megamenu-promotional-card-2'
 
-const GOALS = ['weight-management', 'skin-glow', 'tanning', 'calm-focus']
+const GOALS = ['weight-management', 'skin-glow', 'energy-vitality', 'tanning', 'calm-focus']
 const FORMATS = ['pens', 'vials']
 
 interface ShopMegamenuProps {

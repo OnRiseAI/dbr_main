@@ -11,6 +11,7 @@ const COLUMNS = [
       { title: 'Vials', href: '/shop?category=Vials' },
       { title: 'Weight Management', href: '/shop?category=Weight%20Management' },
       { title: 'Skin & Glow', href: '/shop?category=Skin%20%26%20Glow' },
+      { title: 'Energy & Vitality', href: '/shop?category=Energy%20%26%20Vitality' },
       { title: 'Tanning', href: '/shop?category=Tanning' },
       { title: 'Calm & Focus', href: '/shop?category=Calm%20%26%20Focus' }
     ]
