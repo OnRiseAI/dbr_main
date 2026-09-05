@@ -32,12 +32,30 @@ type BadgeData = {
 type Props = {
   product: Product
   badges?: BadgeData[]
+
+  /** Replaces the product name (e.g. the product line without a strength). */
+  title?: string
+
+  /** Replaces the meta line. */
+  meta?: string
+
+  /** Prefix the price with "From" (product lines with several strengths). */
+  fromPrice?: boolean
   variant?: 'deals' | 'new-arrivals' | 'popular' | 'default'
   galleryView?: boolean
   onWishlistClick?: (productId: string) => void
 }
 
-const ProductCard = ({ product, badges, variant = 'default', galleryView = false, onWishlistClick }: Props) => {
+const ProductCard = ({
+  product,
+  badges,
+  title,
+  meta,
+  fromPrice = false,
+  variant = 'default',
+  galleryView = false,
+  onWishlistClick
+}: Props) => {
   const liked = useIsWishlisted(product.id)
   const inCart = useIsInCart(product.id)
   const { toggleWishlist } = useWishlist()
@@ -104,12 +122,13 @@ const ProductCard = ({ product, badges, variant = 'default', galleryView = false
       <CardContent className='flex flex-col'>
         <h5 className='mb-0.5 overflow-hidden text-lg font-semibold text-nowrap text-ellipsis'>
           <Link href={product.href} className='hover:text-primary transition-colors'>
-            {product.name}
+            {title ?? product.name}
           </Link>
         </h5>
-        <p className='text-muted-foreground mb-1.5 text-xs font-medium'>{productMeta(product)}</p>
+        <p className='text-muted-foreground mb-1.5 text-xs font-medium'>{meta ?? productMeta(product)}</p>
         <div className='flex items-center gap-1.5 text-sm'>
           <span className='font-semibold'>
+            {fromPrice ? <span className='text-muted-foreground me-1 font-normal'>From</span> : null}
             {formatPrice(product.price)}
           </span>
           {product.discount > 0 && (

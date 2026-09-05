@@ -36,3 +36,47 @@ export function productMeta(product: Product): string {
 
   return 'Lyophilised vial · ≥99% HPLC'
 }
+
+/** Product-line name without the strength: "Retatrutide pen | 15 mg" -> "Retatrutide pen". */
+export function familyTitle(product: Product): string {
+  return product.familyName ?? product.name.split(' | ')[0]
+}
+
+/** Format only, no volumes or strengths. Used where the product page carries the detail. */
+export function formatMeta(product: Product): string {
+  if (!product.specs) return product.brand
+
+  return product.specs.form === 'pen' ? 'Pre-filled pen' : 'Lyophilised vial'
+}
+
+export type ProductLine = {
+
+  /** The cheapest member, whose price and href the card shows. */
+  product: Product
+  title: string
+
+  /** Number of strengths in the line. */
+  count: number
+}
+
+/**
+ * One entry per product line (variant family), in first-seen order. Singletons pass
+ * through. The card shows the cheapest member so a From price is honest.
+ */
+export function collapseFamilies(products: Product[]): ProductLine[] {
+  const lines = new Map<string, Product[]>()
+
+  products.forEach(product => {
+    const key = product.family ?? product.id
+    const members = lines.get(key) ?? []
+
+    members.push(product)
+    lines.set(key, members)
+  })
+
+  return [...lines.values()].map(members => {
+    const cheapest = [...members].sort((a, b) => a.price - b.price)[0]
+
+    return { product: cheapest, title: familyTitle(cheapest), count: members.length }
+  })
+}
