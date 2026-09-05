@@ -201,7 +201,7 @@ const ProductGridCalculator = ({ products }: Props) => {
                   }}
                   className='text-foreground font-mono text-[10px] tracking-[0.12em] uppercase underline underline-offset-4'
                 >
-                  Work out your clicks
+                  Dosage
                 </button>
               </div>
               {plan ? (
