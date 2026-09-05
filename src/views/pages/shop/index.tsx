@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { parseAsString, useQueryState } from 'nuqs'
 
 // Type Imports
-import type { Product, ProductColor } from '@/types/product'
+import type { Product } from '@/types/product'
 import type { SortKey } from '@/views/pages/shop/shop-toolbar'
 
 // Component Imports
@@ -49,19 +49,33 @@ type Props = {
   products: Product[]
 }
 
+/** Format categories, listed in their own group under the goals. */
+const FORMATS = ['Pens', 'Vials']
+
 const GRID_PAGE_SIZE = 12
 const LIST_PAGE_SIZE = 10
 
 const ShopView = ({ products }: Props) => {
-  const categories = useMemo(() => {
+  const { goals, formats, counts } = useMemo(() => {
     const names = new Set<string>()
+    const counts: Record<string, number> = { all: products.length }
 
     products.forEach(product => {
-      if (product.category) names.add(product.category)
-      product.collections?.forEach(name => names.add(name))
+      const own = new Set<string>([product.category, ...(product.collections ?? [])].filter(Boolean))
+
+      own.forEach(name => {
+        names.add(name)
+        counts[name] = (counts[name] ?? 0) + 1
+      })
     })
 
-    return [...names]
+    const all = [...names]
+
+    return {
+      goals: all.filter(name => !FORMATS.includes(name)),
+      formats: FORMATS.filter(name => names.has(name)),
+      counts
+    }
   }, [products])
 
   const [category, setCategory] = useQueryState(
@@ -86,32 +100,9 @@ const ShopView = ({ products }: Props) => {
     return categoryFilters[category].priceMax
   }, [products, category])
 
-  const brands = useMemo(() => {
-    if (category === 'all') {
-      return [...new Set(products.map(product => product.brand))]
-    }
-
-    // Only show brands from selected category
-    const categoryProducts = products.filter(p => p.category === category)
-
-    return [...new Set(categoryProducts.map(product => product.brand))]
-  }, [products, category])
-
-  const colors = useMemo(() => {
-    const byName = new Map<string, ProductColor>()
-
-    products.forEach(product => product.colors.forEach(color => byName.set(color.name, color)))
-
-    return [...byName.values()]
-  }, [products])
-
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([])
-  const [selectedColors, setSelectedColors] = useState<string[]>([])
   const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice])
-  const [minRating, setMinRating] = useState(0)
   const [minDiscount, setMinDiscount] = useState(0)
   const [isNew, setIsNew] = useState(false)
-  const [isPopular, setIsPopular] = useState(false)
   const [sort, setSort] = useState<SortKey>('recommended')
   const [view, setView] = useState<'grid' | 'list'>('grid')
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -129,14 +120,10 @@ const ShopView = ({ products }: Props) => {
         (category === 'all' ||
           product.category === category ||
           Boolean(product.collections?.includes(category))) &&
-        (selectedBrands.length === 0 || selectedBrands.includes(product.brand)) &&
-        (selectedColors.length === 0 || product.colors.some(color => selectedColors.includes(color.name))) &&
         product.price >= price[0] &&
         product.price <= price[1] &&
-        product.rating >= minRating &&
         product.discount >= minDiscount &&
-        (!isNew || product.isNew) &&
-        (!isPopular || product.isPopular)
+        (!isNew || product.isNew)
     )
 
     if (sort === 'price-asc') return [...list].sort((a, b) => a.price - b.price)
@@ -152,7 +139,7 @@ const ShopView = ({ products }: Props) => {
     }
 
     return list
-  }, [products, category, selectedBrands, selectedColors, price, minRating, minDiscount, isNew, isPopular, sort])
+  }, [products, category, price, minDiscount, isNew, sort])
 
   const pageSize = view === 'grid' ? GRID_PAGE_SIZE : LIST_PAGE_SIZE
 
@@ -163,44 +150,21 @@ const ShopView = ({ products }: Props) => {
   } = usePagination(filteredProducts, pageSize, currentPage)
 
   const filterProps = {
-    categories,
-    brands,
-    colors,
+    goals,
+    formats,
+    counts,
     minPrice,
     maxPrice,
-    filters: {
-      category,
-      brands: selectedBrands,
-      colors: selectedColors,
-      price,
-      minRating,
-      minDiscount,
-      isNew,
-      isPopular
-    },
+    filters: { category, price, minDiscount, isNew },
     onCategoryChange: setCategory,
-    onBrandToggle: (brand: string) =>
-      setSelectedBrands(current =>
-        current.includes(brand) ? current.filter(value => value !== brand) : [...current, brand]
-      ),
-    onColorToggle: (color: string) =>
-      setSelectedColors(current =>
-        current.includes(color) ? current.filter(value => value !== color) : [...current, color]
-      ),
     onPriceChange: setPrice,
-    onMinRatingChange: setMinRating,
     onMinDiscountChange: setMinDiscount,
     onIsNewToggle: () => setIsNew(current => !current),
-    onIsPopularToggle: () => setIsPopular(current => !current),
     onClearAll: () => {
       setCategory('all')
-      setSelectedBrands([])
-      setSelectedColors([])
       setPrice([minPrice, maxPrice])
-      setMinRating(0)
       setMinDiscount(0)
       setIsNew(false)
-      setIsPopular(false)
     }
   }
 
@@ -232,7 +196,7 @@ const ShopView = ({ products }: Props) => {
         </Breadcrumb>
 
         <div className='gap-4 max-lg:space-y-6 lg:grid lg:grid-cols-4'>
-          <aside className='border-border col-span-1 hidden h-fit rounded-xl border p-4 lg:block'>
+          <aside className='col-span-1 hidden h-fit lg:sticky lg:top-[calc(var(--header-height)+1.5rem)] lg:block'>
             <ShopFilters {...filterProps} />
           </aside>
 
