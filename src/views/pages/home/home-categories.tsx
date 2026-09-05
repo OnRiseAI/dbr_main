@@ -70,7 +70,7 @@ const HomeCategories = ({ categories }: Props) => {
                     <img
                       src={category.image}
                       alt={category.name}
-                      className='max-h-36 w-auto object-contain transition-transform duration-500 group-hover:scale-105 sm:max-h-40'
+                      className='max-h-36 w-auto object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105 sm:max-h-40'
                     />
                   </div>
                 </Link>

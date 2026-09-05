@@ -26,7 +26,8 @@ const FORMATS = [
 const PARTS = [
   { n: 1, title: 'Liquid chamber', body: 'Sterile diluent, sealed on its own until first use.' },
   { n: 2, title: 'Lyophilised chamber', body: 'The peptide is kept dry, which is how it stays stable in storage.' },
-  { n: 3, title: 'Pen cap', body: 'Covers the needle end between uses. Fridge-ready as a unit.' }
+  { n: 3, title: 'Pen body', body: 'The cartridge sits inside. Set your dose on the dial, inject at the needle end.' },
+  { n: 4, title: 'Pen cap', body: 'Covers the needle end between uses. Fridge-ready as a unit.' }
 ]
 
 /** Numbered callout hung below a part, with a thin leader line up to it. */
@@ -69,7 +70,7 @@ const HomeFormatCompare = () => {
           ))}
         </div>
 
-        <div className='grid items-center gap-8 border-t pt-10 lg:grid-cols-[minmax(240px,1fr)_2.2fr]'>
+        <div className='grid items-center gap-8 border-t pt-10 lg:grid-cols-[minmax(220px,1fr)_3fr]'>
           <div className='space-y-2'>
             <h4 className='text-xl font-bold sm:text-2xl'>Inside every pen</h4>
             <p className='text-muted-foreground text-sm'>Explore the construction and product specifications.</p>
@@ -79,24 +80,32 @@ const HomeFormatCompare = () => {
             </Link>
           </div>
 
-          <div className='grid grid-cols-[1.4fr_1fr] items-center gap-6 sm:gap-10'>
+          <div className='grid grid-cols-[0.9fr_2.3fr_1fr] items-center gap-4 sm:gap-8'>
             <figure className='relative pb-12'>
               <img
                 src='/images/products/dbr-reta-pen-15mg-cartridge.png'
                 alt='Dual-chamber cartridge: liquid chamber and lyophilised chamber'
                 className='w-full object-contain'
               />
-              <Marker n={1} left='38%' />
-              <Marker n={2} left='80%' />
+              <Marker n={1} left='40%' />
+              <Marker n={2} left='82%' />
+            </figure>
+            <figure className='relative pb-12'>
+              <img
+                src='/images/products/dbr-reta-pen-15mg-body.png'
+                alt='Pen body with needle end and dose dial'
+                className='w-full object-contain'
+              />
+              <Marker n={3} left='50%' />
             </figure>
             <figure className='relative pb-12'>
               <img src='/images/products/dbr-reta-pen-15mg-cap.png' alt='Pen cap' className='w-full object-contain' />
-              <Marker n={3} left='50%' />
+              <Marker n={4} left='50%' />
             </figure>
           </div>
         </div>
 
-        <ol className='grid gap-6 sm:grid-cols-3'>
+        <ol className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'>
           {PARTS.map(part => (
             <li key={part.n} className='flex gap-3'>
               <span className='ring-foreground flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold ring-1'>
