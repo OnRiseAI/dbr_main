@@ -19,7 +19,7 @@ import { useIsInCart, useIsWishlisted, useWishlist, useCart } from '@/store/use-
 
 // Utils Imports
 import { cn } from '@/lib/utils'
-import { formatPrice } from '@/utils/product-utils'
+import { formatPrice, productMeta } from '@/utils/product-utils'
 
 // SVGs Imports
 import Heart from '@/assets/svg/heart'
@@ -80,9 +80,10 @@ const ProductListCard = ({ product, badges }: Props) => {
         <div>
           <h5 className='mb-1 text-lg font-semibold'>
             <Link href={product.href} className='hover:text-primary transition-colors'>
-              {product.brand}
+              {product.name}
             </Link>
           </h5>
+          <p className='text-muted-foreground mb-1 text-xs font-medium'>{productMeta(product)}</p>
           <p className='text-muted-foreground mb-1.5 text-sm'>{product.description}</p>
           <div className='flex items-center gap-1.5 text-sm'>
             <span className='font-semibold'>{formatPrice(product.price)}</span>

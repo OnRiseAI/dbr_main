@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge'
 
 // Utils Imports
 import { cn } from '@/lib/utils'
-import { formatPrice } from '@/utils/product-utils'
+import { formatPrice, productMeta } from '@/utils/product-utils'
 
 type BadgeData = {
   label: string
@@ -65,7 +65,7 @@ const ProductCardStatic = ({ product, badges, variant = 'default', galleryView =
       </div>
       <CardContent className='flex flex-col'>
         <h5 className='mb-0.5 overflow-hidden text-lg font-semibold text-nowrap text-ellipsis'>{product.name}</h5>
-        <p className='text-muted-foreground mb-1.5 text-xs font-medium tracking-wide uppercase'>{product.brand}</p>
+        <p className='text-muted-foreground mb-1.5 text-xs font-medium'>{productMeta(product)}</p>
         <div className='flex items-center gap-1.5 text-sm'>
           <span className='font-semibold'>
             {formatPrice(product.price)}

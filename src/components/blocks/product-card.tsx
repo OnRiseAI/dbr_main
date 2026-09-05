@@ -19,7 +19,7 @@ import { useIsInCart, useIsWishlisted, useWishlist, useCart } from '@/store/use-
 
 // Utils Imports
 import { cn } from '@/lib/utils'
-import { formatPrice } from '@/utils/product-utils'
+import { formatPrice, productMeta } from '@/utils/product-utils'
 
 // SVGs Imports
 import Heart from '@/assets/svg/heart'
@@ -107,7 +107,7 @@ const ProductCard = ({ product, badges, variant = 'default', galleryView = false
             {product.name}
           </Link>
         </h5>
-        <p className='text-muted-foreground mb-1.5 text-xs font-medium tracking-wide uppercase'>{product.brand}</p>
+        <p className='text-muted-foreground mb-1.5 text-xs font-medium'>{productMeta(product)}</p>
         <div className='flex items-center gap-1.5 text-sm'>
           <span className='font-semibold'>
             {formatPrice(product.price)}
