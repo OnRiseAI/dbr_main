@@ -186,8 +186,8 @@ const ProductGridCalculator = ({ products }: Props) => {
               </div>
 
               <p className='text-muted-foreground text-xs'>
-                Trial averages at 24 and 48 weeks, interpolated between the published dose arms. Individual results vary.
-                Research use only.
+                Based on Deep Beauty Research client results at 1 mg a week. Other doses and the 48-week figure follow
+                the published dose curve. Individual results vary. Research use only.
               </p>
             </>
           ) : (
