@@ -34,7 +34,7 @@ import {
 } from '@/components/ui/pagination'
 import ProductCard from '@/components/blocks/product-card'
 import ProductListCard from '@/components/blocks/product-list-card'
-import ProductGridFiller from '@/components/blocks/product-grid-filler'
+import ProductGridCalculator from '@/components/blocks/product-grid-calculator'
 import ContentLayout from '@/components/layout/content-layout'
 import ShopFilters from '@/views/pages/shop/shop-filters'
 import ShopToolbar from '@/views/pages/shop/shop-toolbar'
@@ -272,7 +272,7 @@ const ShopView = ({ products }: Props) => {
                         />
                       )
                     })}
-                    <ProductGridFiller />
+                    <ProductGridCalculator products={filteredProducts} />
                   </div>
                 ) : (
                   <div className='space-y-4'>
