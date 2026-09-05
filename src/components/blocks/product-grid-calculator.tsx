@@ -20,7 +20,7 @@ import {
 import { cn } from '@/lib/utils'
 import { formatPrice } from '@/utils/product-utils'
 import { CLICKS_PER_TURN, ML_PER_CLICK, ML_PER_SYRINGE_UNIT, penReading, syringeUnits } from '@/lib/pen-dosing'
-import { WEEKLY_DOSES_MG, buildWeightPlan, unitsForPlan, weeklyLossPct, type WeeklyDoseMg } from '@/lib/weight-plan'
+import { WEEKLY_DOSES_MG, buildWeightOutlook, unitsForPlan, type WeeklyDoseMg } from '@/lib/weight-plan'
 
 const WATER = [1, 2, 3]
 const PLAN_COMPOUND = 'Retatrutide'
@@ -50,10 +50,11 @@ type Props = {
  *              count even     -> index 2n+1 -> hide
  *   1 column   always its own row, hide
  *
- * Units mode: pens read in clicks (1 click = 0.0125 ml, 60 per turn of the dial, from the
+ * Dose mode: pens read in clicks (1 click = 0.0125 ml, 60 per turn of the dial, from the
  * pen dosing note), vials in insulin-syringe units (1 unit = 0.01 ml). See lib/pen-dosing.
- * Plan mode: start weight and goal weight to weeks, total mg and pens or vials at a weekly
- * dose of at most 1.75 mg. Offered when a Retatrutide product is on screen. See lib/weight-plan.
+ * Plan mode: start weight and weekly dose (at most 1.75 mg) to the expected finish weight
+ * after 24 weeks and the pens that covers. Offered when a Retatrutide product is on screen.
+ * See lib/weight-plan.
  */
 const ProductGridCalculator = ({ products }: Props) => {
   const options = products.filter(product => product.specs)
@@ -64,8 +65,7 @@ const ProductGridCalculator = ({ products }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [water, setWater] = useState(2)
   const [doseText, setDoseText] = useState('1')
-  const [currentText, setCurrentText] = useState('100')
-  const [goalText, setGoalText] = useState('80')
+  const [startText, setStartText] = useState('100')
   const [weekly, setWeekly] = useState<WeeklyDoseMg>(1)
 
   const product = options.find(item => item.id === selectedId) ?? options[0]
@@ -75,7 +75,7 @@ const ProductGridCalculator = ({ products }: Props) => {
 
   const showPlan = canPlan && mode === 'plan'
 
-  // Units
+  // Dose
   const dose = parseNumber(doseText)
   const hasDose = Number.isFinite(dose) && dose > 0
   const isPen = specs.form === 'pen'
@@ -86,14 +86,13 @@ const ProductGridCalculator = ({ products }: Props) => {
   const noun = isPen ? 'pen' : 'vial'
 
   // Plan
-  const currentKg = parseNumber(currentText)
-  const goalKg = parseNumber(goalText)
-  const plan = buildWeightPlan(currentKg, goalKg, weekly)
+  const startKg = parseNumber(startText)
+  const outlook = buildWeightOutlook(startKg, weekly)
 
-  const planRows = plan
+  const planRows = outlook
     ? planOptions
         .map(item => {
-          const count = unitsForPlan(plan.totalMg, item.specs!.strengthMg)
+          const count = unitsForPlan(outlook.totalMg, item.specs!.strengthMg)
 
           return { item, count, cost: count * item.price }
         })
@@ -105,10 +104,10 @@ const ProductGridCalculator = ({ products }: Props) => {
       <Card className='bg-muted h-full gap-0 border py-0 ring-0'>
         <div className='flex flex-1 flex-col gap-4 p-4'>
           <div className='space-y-0.5'>
-            <h5 className='text-lg font-semibold'>{showPlan ? 'Weight plan' : 'Dose calculator'}</h5>
+            <h5 className='text-lg font-semibold'>{showPlan ? '24-week outlook' : 'Dose calculator'}</h5>
             <p className='text-muted-foreground text-xs'>
               {showPlan
-                ? 'Start weight and goal weight to weeks and pens.'
+                ? 'Start weight and weekly dose to an expected finish weight.'
                 : 'Read the clicks off the pen dial or the units off the syringe.'}
             </p>
           </div>
@@ -124,36 +123,19 @@ const ProductGridCalculator = ({ products }: Props) => {
 
           {showPlan ? (
             <>
-              <div className='grid grid-cols-2 gap-3'>
-                <div className='space-y-1.5'>
-                  <Label htmlFor='grid-plan-current' className='text-xs'>
-                    Current weight
-                  </Label>
-                  <div className='flex items-center gap-2'>
-                    <Input
-                      id='grid-plan-current'
-                      inputMode='decimal'
-                      value={currentText}
-                      onChange={event => setCurrentText(event.target.value)}
-                      className='h-9 bg-white text-right tabular-nums'
-                    />
-                    <span className='text-muted-foreground text-sm'>kg</span>
-                  </div>
-                </div>
-                <div className='space-y-1.5'>
-                  <Label htmlFor='grid-plan-goal' className='text-xs'>
-                    Goal weight
-                  </Label>
-                  <div className='flex items-center gap-2'>
-                    <Input
-                      id='grid-plan-goal'
-                      inputMode='decimal'
-                      value={goalText}
-                      onChange={event => setGoalText(event.target.value)}
-                      className='h-9 bg-white text-right tabular-nums'
-                    />
-                    <span className='text-muted-foreground text-sm'>kg</span>
-                  </div>
+              <div className='space-y-1.5'>
+                <Label htmlFor='grid-plan-start' className='text-xs'>
+                  Start weight
+                </Label>
+                <div className='flex items-center gap-2'>
+                  <Input
+                    id='grid-plan-start'
+                    inputMode='decimal'
+                    value={startText}
+                    onChange={event => setStartText(event.target.value)}
+                    className='h-9 bg-white text-right tabular-nums'
+                  />
+                  <span className='text-muted-foreground text-sm'>kg</span>
                 </div>
               </div>
 
@@ -170,16 +152,20 @@ const ProductGridCalculator = ({ products }: Props) => {
               </div>
 
               <div className='mt-auto rounded-lg bg-neutral-950 p-4 text-white'>
-                <p className='text-[11px] font-semibold tracking-[0.14em] text-white/55 uppercase'>Estimated time</p>
-                {plan ? (
+                <p className='text-[11px] font-semibold tracking-[0.14em] text-white/55 uppercase'>
+                  After {outlook?.weeks ?? 24} weeks
+                </p>
+                {outlook ? (
                   <>
-                    <p className='mt-1 text-4xl font-bold tracking-tight tabular-nums'>
-                      {plan.weeks}
-                      <span className='ms-2 text-base font-semibold text-white/60'>weeks</span>
-                    </p>
+                    <div className='mt-1 flex items-baseline gap-3 tabular-nums'>
+                      <span className='text-2xl font-semibold text-white/60'>{fmt(outlook.startKg, 0)} kg</span>
+                      <span className='text-white/40'>to</span>
+                      <span className='text-4xl font-bold tracking-tight'>{fmt(outlook.finishKg, 0)} kg</span>
+                    </div>
                     <p className='mt-2 text-xs text-white/70'>
-                      {fmt(plan.lossKg, 1)} kg is {fmt(plan.lossPct, 0)}% of {fmt(currentKg, 0)} kg. {fmt(weekly, 2)} mg a
-                      week for {plan.weeks} weeks is {fmt(plan.totalMg, 1)} mg in total.
+                      About {fmt(outlook.lossKg, 1)} kg ({fmt(outlook.lossPct, 1)}%) at {fmt(weekly, 2)} mg a week. Carrying on
+                      to {outlook.extendedWeeks} weeks: about {fmt(outlook.extendedFinishKg, 0)} kg. {fmt(outlook.totalMg, 0)}{' '}
+                      mg for the {outlook.weeks} weeks:
                     </p>
                     <ul className='mt-3 space-y-1.5 border-t border-white/15 pt-3 text-sm'>
                       {planRows.map(({ item, count, cost }, index) => (
@@ -195,13 +181,13 @@ const ProductGridCalculator = ({ products }: Props) => {
                     </ul>
                   </>
                 ) : (
-                  <p className='mt-2 text-sm text-white/70'>Enter a current weight and a lower goal weight, in kilograms.</p>
+                  <p className='mt-2 text-sm text-white/70'>Enter a start weight in kilograms.</p>
                 )}
               </div>
 
               <p className='text-muted-foreground text-xs'>
-                Rate: {fmt(weeklyLossPct(weekly), 2)}% of start weight a week at {fmt(weekly, 2)} mg, interpolated from
-                the 48-week trial arms. Individual results vary. Research use only.
+                Trial averages at 24 and 48 weeks, interpolated between the published dose arms. Individual results vary.
+                Research use only.
               </p>
             </>
           ) : (
