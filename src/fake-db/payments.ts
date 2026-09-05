@@ -10,7 +10,7 @@ export const paymentCards: PaymentCard[] = [
     expiry: '06/24',
     status: 'expired',
     number: '5555555555557830',
-    name: 'John Doe',
+    name: 'Anna Mustermann',
     cvc: '123'
   },
   {
@@ -22,7 +22,7 @@ export const paymentCards: PaymentCard[] = [
     status: 'default',
     isDefault: true,
     number: '5555555555554962',
-    name: 'John Doe',
+    name: 'Anna Mustermann',
     cvc: '456'
   },
   {

@@ -1,17 +1,21 @@
-import WishlistView from '@/views/pages/account/wishlist-view'
+// Next Imports
+import type { Metadata } from 'next'
 
-export const metadata = { title: 'Wishlist' }
+// Component Imports
+import { WishlistView } from '@/views/account/wishlist'
+
+// Utils Imports
+import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
+
+export const metadata: Metadata = generateSEOMetadata({
+  title: 'My Wishlist',
+  description: 'View and manage the products saved to your Deep Beauty Research wishlist.',
+  url: '/account/wishlist'
+})
 
 const WishlistPage = () => {
-  return (
-    <div className='space-y-8'>
-      <div className='space-y-1'>
-        <h1 className='text-2xl font-semibold tracking-tight sm:text-3xl'>Wishlist</h1>
-        <p className='text-muted-foreground'>Saved on this device. Sign in on another and it starts empty.</p>
-      </div>
-      <WishlistView />
-    </div>
-  )
+  // Wishlist state (and the catalog it resolves against) lives in the products store.
+  return <WishlistView />
 }
 
 export default WishlistPage

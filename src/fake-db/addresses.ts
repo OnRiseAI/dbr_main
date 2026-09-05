@@ -1,41 +1,30 @@
 // Type Imports
 import type { Address } from '@/types/addresses'
 
+/** Demo addresses until the account database is wired in. */
 export const addressesData: Address[] = [
   {
     id: 'address-1',
     title: 'Home',
     isDefault: true,
-    lines: ['Carlyle Hall', '25 Union Square W,', 'New York, NY 10003, USA'],
-    fullAddress: 'Carlyle Hall, 25 Union Square W, New York, NY 10003, USA',
-    street: '25 Union Square W',
-    city: 'New York',
-    state: 'NY',
-    zipCode: '10003',
-    country: 'USA'
+    lines: ['Anna Mustermann', 'Musterstrasse 12', '10115 Berlin, Germany'],
+    fullAddress: 'Anna Mustermann, Musterstrasse 12, 10115 Berlin, Germany',
+    street: 'Musterstrasse 12',
+    city: 'Berlin',
+    state: 'Berlin',
+    zipCode: '10115',
+    country: 'Germany'
   },
   {
     id: 'address-2',
-    title: 'Office',
+    title: 'Work',
     isDefault: false,
-    lines: ['Parkside Residence', '1B East 16th Street, Apt 7C', 'New York, NY 10003, USA'],
-    fullAddress: 'Parkside Residence, 1B East 16th Street, Apt 7C, New York, NY 10003, USA',
-    street: '1B East 16th Street',
-    city: 'New York',
-    state: 'NY',
-    zipCode: '10003',
-    country: 'USA'
-  },
-  {
-    id: 'address-3',
-    title: 'Home 2',
-    isDefault: false,
-    lines: ['Union Square Office', '25 Union Square West, Floor 5', 'New York, NY 10003, USA'],
-    fullAddress: 'Union Square Office, 25 Union Square West, Floor 5, New York, NY 10003, USA',
-    street: '25 Union Square West',
-    city: 'New York',
-    state: 'NY',
-    zipCode: '10003',
-    country: 'USA'
+    lines: ['Anna Mustermann', 'Beispielweg 4, 3. OG', '80331 Munich, Germany'],
+    fullAddress: 'Anna Mustermann, Beispielweg 4, 3. OG, 80331 Munich, Germany',
+    street: 'Beispielweg 4',
+    city: 'Munich',
+    state: 'Bavaria',
+    zipCode: '80331',
+    country: 'Germany'
   }
 ]

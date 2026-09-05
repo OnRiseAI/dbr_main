@@ -24,7 +24,6 @@ import { useCart, useIsInCart, useIsWishlisted, useWishlist } from '@/store/use-
 // Utils Imports
 import { cn } from '@/lib/utils'
 import { formatPrice } from '@/utils/product-utils'
-import { checkoutUrl, hasDashboard } from '@/lib/dashboard'
 
 type Props = {
   product: Product
@@ -168,18 +167,16 @@ const ProductInfo = ({ product, variants = [product] }: Props) => {
             <ShoppingBagIcon className='size-4' />
           </Button>
         )}
-        {hasDashboard ? (
-          <Button
+        <Button
             size='lg'
             variant='outline'
             className='group h-11 sm:flex-1'
-            render={<a href={checkoutUrl(product.id, quantity)} />}
+            render={<Link href='/checkout' />}
             nativeButton={false}
           >
             Buy now
             <ArrowRightIcon className='size-4 transition-transform duration-300 group-hover:translate-x-1' />
           </Button>
-        ) : null}
       </div>
 
       <ul className='divide-border divide-y rounded-xl border'>

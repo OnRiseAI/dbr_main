@@ -1,14 +1,15 @@
 // Type Imports
 import type { Order, OrderStatus, OrderDetailGroup } from '@/types/order'
 
+// Demo customer until the account database is wired in. Mustermann is the German placeholder surname.
 const customer = {
-  name: 'Cristofer Schleifer',
-  email: 'Christine@gmail.com',
-  phone: '+1 (954) 178 368',
-  address: '47 W 13th St, New York, NY 10011, USA'
+  name: 'Anna Mustermann',
+  email: 'anna.mustermann@example.com',
+  phone: '+49 30 000000',
+  address: 'Musterstrasse 12, 10115 Berlin, Germany'
 }
 
-const orderSummary = { subtotal: 599, discount: 50, shipment: 22.5, grandTotal: 571.5 }
+const orderSummary = { subtotal: 152.95, discount: 0, shipment: 0, grandTotal: 152.95 }
 
 const buildDetailItem = (
   id: string,
@@ -39,22 +40,22 @@ export const db: OrderDetailGroup[] = [
     id: 'latest',
     label: 'Latest Order',
     customer,
-    orderDate: 'Jul 11, 2024',
-    deliveryDate: 'Jul 16, 2024',
-    orderId: '#5648945',
+    orderDate: '2 September 2026',
+    deliveryDate: '5 September 2026',
+    orderId: 'DBR-240611',
     paymentMethod: '/images/account/mastercard.webp',
     items: [
       buildDetailItem(
         'detail-latest-1',
-        'delivered',
-        'Boat',
-        'This smartwatch features a large 1.83" HD display that delivers crisp visuals and a smooth user experience for everyday use. It comes with AI smart features.',
-        '/images/account/order-detail-01.webp',
-        225,
-        249,
-        'XYZ-42324234',
-        '29 January 2026',
-        '/product/boat-airdopes-138'
+        'in-progress',
+        'Retatrutide pen | 15 mg',
+        'Pre-filled pen, 3 ml, 5 mg/ml. Ready to use straight from the fridge, no reconstitution. Batch documentation in the box.',
+        '/images/products/dbr-reta-pen-15mg-upright.png',
+        152.95,
+        218.5,
+        'DBR-240611',
+        '2 September 2026',
+        '/product/retatrutide-pen-15mg'
       )
     ],
     summary: orderSummary

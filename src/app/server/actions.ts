@@ -10,6 +10,8 @@ import { db as categories } from '@/fake-db/categories'
 import { db as brands } from '@/fake-db/brands'
 import { db as announcements } from '@/fake-db/announcement'
 import { db as pages } from '@/fake-db/pages'
+import { db as orderDetailGroups } from '@/fake-db/order-details'
+import { db as orders } from '@/fake-db/orders'
 
 /**
  * Data-access layer (the single DB seam).
@@ -101,4 +103,14 @@ export const getPages = async () => {
 
 export const getPageByHandle = async (handle: string) => {
   return pages.find(page => page.handle === handle) ?? null
+}
+
+// ---------- Client area (demo data until the account database is wired) ----------
+
+export const getOrders = async () => {
+  return orders
+}
+
+export const getOrderDetails = async () => {
+  return orderDetailGroups
 }

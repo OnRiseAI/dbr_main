@@ -2,61 +2,56 @@
 import type { Order } from '@/types/order'
 
 /**
- * Orders store a snapshot of each line item at purchase time (title, price, image),
- * which is intentionally independent of the live product catalog - historical orders
- * should not change when a catalog product is later edited.
+ * Demo orders for the client area until the account database is wired in. Each order
+ * stores a snapshot of the line item (title, price, image), independent of the catalogue.
  */
 export const db: Order[] = [
   {
     id: 'order-1',
-    orderId: 'XYZ-42324568',
+    orderId: 'DBR-240611',
     status: 'in-progress',
-    date: '24 April 2022',
-    title: 'Running Shoes',
-    description:
-      'Lightweight breathable mesh running shoes with extra cushioned sole for maximum comfort and support during athletic activities. Features advanced moisture-wicking technology.',
-    image: '/images/account/watch.webp',
-    price: 100,
-    originalPrice: 249,
-    href: '/product/nike-drifit-tshirt'
+    date: '2 September 2026',
+    title: 'Retatrutide pen | 15 mg',
+    description: 'Pre-filled pen, 3 ml, 5 mg/ml. Ready to use straight from the fridge, no reconstitution.',
+    image: '/images/products/dbr-reta-pen-15mg-upright.png',
+    price: 152.95,
+    originalPrice: 218.5,
+    href: '/product/retatrutide-pen-15mg'
   },
   {
     id: 'order-2',
-    orderId: 'XYZ-42324569',
+    orderId: 'DBR-240587',
     status: 'delivered',
-    date: '24 April 2022',
-    title: 'AirPods Max',
-    description:
-      'Premium over-ear headphones with high-fidelity audio and active noise cancellation technology. Includes spatial audio support and seamless Apple ecosystem integration with up to 20 hours battery life.',
-    image: '/images/account/headphone.webp',
-    price: 100,
-    originalPrice: 249,
-    href: '/product/apple-airpods-max'
+    date: '18 August 2026',
+    title: 'GHK-Cu pen | 100 mg',
+    description: 'Pre-filled pen, 3 ml, 33.3 mg/ml. Copper peptide for skin, tone and collagen support.',
+    image: '/images/products/dbr-ghk-cu-pen-100mg-upright.png',
+    price: 109.25,
+    originalPrice: 109.25,
+    href: '/product/ghk-cu-pen-100mg'
   },
   {
     id: 'order-3',
-    orderId: 'XYZ-42324570',
-    status: 'cancelled',
-    date: '24 April 2022',
-    title: 'Casual Shirt',
-    description:
-      'Premium quality soft cotton blend casual shirt perfect for everyday wear and semi-formal occasions. Features comfortable fit, breathable fabric, and classic design that works with any outfit.',
-    image: '/images/account/shirt.webp',
-    price: 100,
-    originalPrice: 249,
-    href: '/product/tagdo-casual-shirt'
+    orderId: 'DBR-240512',
+    status: 'delivered',
+    date: '30 July 2026',
+    title: 'Retatrutide vial | 10 mg',
+    description: 'Lyophilised vial, reconstitute with bacteriostatic water and draw with an insulin syringe.',
+    image: '/images/products/dbr-reta-vial-10mg.png',
+    price: 74.75,
+    originalPrice: 74.75,
+    href: '/product/retatrutide-vial-10mg'
   },
   {
     id: 'order-4',
-    orderId: 'XYZ-42324572',
-    status: 'returned',
-    date: '15 March 2022',
-    title: 'Smart Watch',
-    description:
-      'Advanced smartwatch with fitness tracking, heart rate monitor, and GPS navigation. Features waterproof design, long battery life, and seamless smartphone integration for calls, messages, and notifications.',
-    image: '/images/product-listing/list-product-1.webp',
-    price: 85,
-    originalPrice: 199,
-    href: '/product/apple-smartwatch'
+    orderId: 'DBR-240433',
+    status: 'cancelled',
+    date: '12 July 2026',
+    title: 'Selank vial | 10 mg',
+    description: 'Lyophilised vial for calm and focus routines. Reconstitute before use.',
+    image: '/images/products/dbr-selank-vial-10mg.png',
+    price: 52.95,
+    originalPrice: 52.95,
+    href: '/product/selank-vial-10mg'
   }
 ]

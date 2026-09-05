@@ -6,7 +6,6 @@ import { ArrowRightIcon, MinusIcon, PlusIcon, ShoppingBagIcon, XIcon } from 'luc
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { checkoutUrl, hasDashboard } from '@/lib/dashboard'
 import { useCart, useCartCount, useCartItems } from '@/store/use-products-store'
 import { cn } from '@/lib/utils'
 import { formatPrice } from '@/utils/product-utils'
@@ -98,15 +97,6 @@ const CartSheet = () => {
                       </div>
                       <span className='text-sm font-semibold tabular-nums'>{formatPrice(product.price * quantity)}</span>
                     </div>
-                    {hasDashboard ? (
-                      <a
-                        href={checkoutUrl(product.id, quantity)}
-                        className='inline-flex items-center gap-1.5 text-xs font-semibold underline underline-offset-4'
-                      >
-                        Check out this item
-                        <ArrowRightIcon className='size-3.5' />
-                      </a>
-                    ) : null}
                   </div>
                 </li>
               ))}
@@ -116,11 +106,11 @@ const CartSheet = () => {
                 <span className='text-muted-foreground'>Subtotal</span>
                 <span className='font-semibold tabular-nums'>{formatPrice(total)}</span>
               </div>
-              {items.length === 1 && hasDashboard ? (
+              {items.length > 0 ? (
                 <Button
                   size='lg'
                   className='group h-11 w-full'
-                  render={<a href={checkoutUrl(items[0].product.id, items[0].quantity)} />}
+                  render={<Link href='/checkout' />}
                   nativeButton={false}
                 >
                   Check out

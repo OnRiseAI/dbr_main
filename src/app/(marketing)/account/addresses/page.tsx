@@ -1,36 +1,20 @@
-import { redirect } from 'next/navigation'
+// Next Imports
+import type { Metadata } from 'next'
 
-import AddressesManager from '@/views/pages/account/addresses-manager'
-import { createClient } from '@/lib/supabase/server'
-import type { Address } from '@/types/account'
+// Component Imports
+import { AddressesView } from '@/views/account/addresses'
 
-export const metadata = { title: 'Addresses' }
+// Utils Imports
+import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
 
-const AddressesPage = async () => {
-  const supabase = await createClient()
+export const metadata: Metadata = generateSEOMetadata({
+  title: 'My Addresses',
+  description: 'Manage your saved delivery and billing addresses on Deep Beauty Research.',
+  url: '/account/addresses'
+})
 
-  const {
-    data: { user }
-  } = await supabase.auth.getUser()
-
-  if (!user) redirect('/login?next=/account/addresses')
-
-  const { data } = await supabase
-    .from('addresses')
-    .select('*')
-    .eq('user_id', user.id)
-    .order('is_default_shipping', { ascending: false })
-    .order('created_at', { ascending: true })
-
-  return (
-    <div className='space-y-8'>
-      <div className='space-y-1'>
-        <h1 className='text-2xl font-semibold tracking-tight sm:text-3xl'>Addresses</h1>
-        <p className='text-muted-foreground'>Where orders ship. The default is offered first at checkout.</p>
-      </div>
-      <AddressesManager addresses={(data ?? []) as Address[]} />
-    </div>
-  )
+const AddressesPage = () => {
+  return <AddressesView />
 }
 
 export default AddressesPage
