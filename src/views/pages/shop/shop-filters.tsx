@@ -303,6 +303,7 @@ const ShopFilters = ({
         <h4 className='text-xl font-medium'>Discount</h4>
         <RadioGroup value={String(filters.minDiscount)} onValueChange={value => onMinDiscountChange(Number(value))}>
           {[
+            { value: 0, label: 'Any discount' },
             { value: 10, label: '10% and above' },
             { value: 20, label: '20% and above' },
             { value: 30, label: '30% and above' }
