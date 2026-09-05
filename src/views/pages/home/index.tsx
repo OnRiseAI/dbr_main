@@ -21,7 +21,7 @@ type Props = {
 const HomeView = ({ categories, pens, vials }: Props) => {
   return (
     <>
-      <HomeHero />
+      <HomeHero products={[...pens, ...vials]} />
       <HomeTrust />
       <HomeCategories categories={categories} />
       <HomeProductRow

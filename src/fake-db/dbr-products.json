@@ -4,9 +4,9 @@
     "brand": "Deep Beauty Research",
     "name": "Retatrutide pen | 15 mg",
     "image": "/images/products/dbr-reta-pen-15mg-upright.png",
-    "price": 218.5,
+    "price": 152.95,
     "originalPrice": 218.5,
-    "discount": 0,
+    "discount": 30,
     "isNew": false,
     "isPopular": true,
     "href": "/product/retatrutide-pen-15mg",
@@ -68,16 +68,17 @@
     "variantCount": 2,
     "hiddenVariant": false,
     "variantAxis": "Strength",
-    "dialImage": "/images/products/dbr-reta-pen-15mg-dial.png"
+    "dialImage": "/images/products/dbr-reta-pen-15mg-dial.png",
+    "showDiscountBadge": true
   },
   {
     "id": "retatrutide-pen-40mg",
     "brand": "Deep Beauty Research",
     "name": "Retatrutide pen | 40 mg",
     "image": "/images/products/dbr-reta-pen-40mg-upright.png",
-    "price": 389.0,
+    "price": 272.0,
     "originalPrice": 389.0,
-    "discount": 0,
+    "discount": 30,
     "isNew": false,
     "isPopular": true,
     "href": "/product/retatrutide-pen-40mg",
@@ -139,7 +140,8 @@
     "variantCount": 2,
     "hiddenVariant": false,
     "variantAxis": "Strength",
-    "dialImage": "/images/products/dbr-reta-pen-40mg-dial.png"
+    "dialImage": "/images/products/dbr-reta-pen-40mg-dial.png",
+    "showDiscountBadge": true
   },
   {
     "id": "ghk-cu-pen-100mg",
