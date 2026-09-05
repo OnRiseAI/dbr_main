@@ -20,7 +20,7 @@ import {
 import { cn } from '@/lib/utils'
 import { formatPrice } from '@/utils/product-utils'
 import { CLICKS_PER_TURN, ML_PER_CLICK, ML_PER_SYRINGE_UNIT, penReading, syringeUnits } from '@/lib/pen-dosing'
-import { WEEKLY_DOSES_MG, buildWeightOutlook, unitsForPlan, type WeeklyDoseMg } from '@/lib/weight-plan'
+import { PROTOCOL, buildWeightOutlook, unitsForPlan } from '@/lib/weight-plan'
 
 const WATER = [1, 2, 3]
 const PLAN_COMPOUND = 'Retatrutide'
@@ -52,9 +52,9 @@ type Props = {
  *
  * Dose mode: pens read in clicks (1 click = 0.0125 ml, 60 per turn of the dial, from the
  * pen dosing note), vials in insulin-syringe units (1 unit = 0.01 ml). See lib/pen-dosing.
- * Plan mode: start weight and weekly dose (at most 1.75 mg) to the expected finish weight
- * after 24 weeks and the pens that covers. Offered when a Retatrutide product is on screen.
- * See lib/weight-plan.
+ * Plan mode: start weight to the expected finish weight after 24 weeks on the shop's staged
+ * protocol (0.75 mg up to 1.75 mg), and the pens that covers. Offered when a Retatrutide
+ * product is on screen. See lib/weight-plan.
  */
 const ProductGridCalculator = ({ products }: Props) => {
   const options = products.filter(product => product.specs)
@@ -66,7 +66,6 @@ const ProductGridCalculator = ({ products }: Props) => {
   const [water, setWater] = useState(2)
   const [doseText, setDoseText] = useState('1')
   const [startText, setStartText] = useState('100')
-  const [weekly, setWeekly] = useState<WeeklyDoseMg>(1)
 
   const product = options.find(item => item.id === selectedId) ?? options[0]
   const specs = product?.specs
@@ -87,7 +86,7 @@ const ProductGridCalculator = ({ products }: Props) => {
 
   // Plan
   const startKg = parseNumber(startText)
-  const outlook = buildWeightOutlook(startKg, weekly)
+  const outlook = buildWeightOutlook(startKg)
 
   const planRows = outlook
     ? planOptions
@@ -107,7 +106,7 @@ const ProductGridCalculator = ({ products }: Props) => {
             <h5 className='text-lg font-semibold'>{showPlan ? '24-week outlook' : 'Dose calculator'}</h5>
             <p className='text-muted-foreground text-xs'>
               {showPlan
-                ? 'Start weight and weekly dose to an expected finish weight.'
+                ? 'Start weight to an expected finish weight on our staged plan.'
                 : 'Read the clicks off the pen dial or the units off the syringe.'}
             </p>
           </div>
@@ -140,15 +139,23 @@ const ProductGridCalculator = ({ products }: Props) => {
               </div>
 
               <div className='space-y-1.5'>
-                <Label className='text-xs'>Weekly dose</Label>
-                <div className='grid grid-cols-6 gap-1.5'>
-                  {WEEKLY_DOSES_MG.map(mg => (
-                    <SegmentButton key={mg} active={weekly === mg} onClick={() => setWeekly(mg)}>
-                      {fmt(mg, 2)}
-                    </SegmentButton>
-                  ))}
-                </div>
-                <p className='text-muted-foreground text-[11px]'>mg a week. 1.75 mg is the most we recommend.</p>
+                <Label className='text-xs'>Weekly dose, stepped up every 4 weeks</Label>
+                <ol className='grid grid-cols-5 gap-1.5 text-center'>
+                  {PROTOCOL.map((step, index) => {
+                    const from = PROTOCOL.slice(0, index).reduce((weeks, s) => weeks + s.weeks, 0) + 1
+                    const last = index === PROTOCOL.length - 1
+
+                    return (
+                      <li key={step.mg} className={cn('rounded-md border px-1 py-1.5', last ? 'border-foreground bg-foreground text-background' : 'border-border bg-white')}>
+                        <span className='block text-sm font-semibold tabular-nums'>{fmt(step.mg, 2)}</span>
+                        <span className={cn('block text-[10px] tabular-nums', last ? 'text-background/70' : 'text-muted-foreground')}>
+                          {last ? `wk ${from}+` : `wk ${from}-${from + step.weeks - 1}`}
+                        </span>
+                      </li>
+                    )
+                  })}
+                </ol>
+                <p className='text-muted-foreground text-[11px]'>mg a week. 1.75 mg is the most we recommend, and where it settles.</p>
               </div>
 
               <div className='mt-auto rounded-lg bg-neutral-950 p-4 text-white'>
@@ -163,9 +170,9 @@ const ProductGridCalculator = ({ products }: Props) => {
                       <span className='text-4xl font-bold tracking-tight'>{fmt(outlook.finishKg, 0)} kg</span>
                     </div>
                     <p className='mt-2 text-xs text-white/70'>
-                      About {fmt(outlook.lossKg, 1)} kg ({fmt(outlook.lossPct, 1)}%) at {fmt(weekly, 2)} mg a week. Carrying on
-                      to {outlook.extendedWeeks} weeks: about {fmt(outlook.extendedFinishKg, 0)} kg. {fmt(outlook.totalMg, 0)}{' '}
-                      mg for the {outlook.weeks} weeks:
+                      About {fmt(outlook.lossKg, 1)} kg ({fmt(outlook.lossPct, 0)}%). Stable on 1.75 mg from week{' '}
+                      {outlook.stableFromWeek}. Carrying on to {outlook.extendedWeeks} weeks: about{' '}
+                      {fmt(outlook.extendedFinishKg, 0)} kg. {fmt(outlook.totalMg, 2)} mg for the {outlook.weeks} weeks:
                     </p>
                     <ul className='mt-3 space-y-1.5 border-t border-white/15 pt-3 text-sm'>
                       {planRows.map(({ item, count, cost }, index) => (
@@ -186,8 +193,7 @@ const ProductGridCalculator = ({ products }: Props) => {
               </div>
 
               <p className='text-muted-foreground text-xs'>
-                Based on Deep Beauty Research client results at 1 mg a week. Other doses and the 48-week figure follow
-                the published dose curve. Individual results vary. Research use only.
+                Based on Deep Beauty Research client results on this plan. Individual results vary. Research use only.
               </p>
             </>
           ) : (
