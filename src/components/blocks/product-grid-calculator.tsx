@@ -106,7 +106,7 @@ const ProductGridCalculator = ({ products }: Props) => {
     <div className='max-sm:hidden sm:max-xl:nth-[2n]:col-[2/-1] sm:max-xl:nth-[2n+1]:hidden xl:nth-[3n+2]:col-[2/-1] xl:nth-[3n]:col-[3/-1] xl:nth-[3n+1]:hidden'>
       <section
         aria-label='Calculator'
-        className='ring-foreground/10 flex h-full flex-col rounded-xl bg-white px-5 pt-4 pb-5 text-sm ring-1'
+        className='ring-foreground/10 @container flex h-full flex-col rounded-xl bg-white px-5 pt-4 pb-5 text-sm ring-1'
       >
         {/* Mode tabs as ruled text */}
         <div role='tablist' className='border-foreground flex gap-6 border-b'>
@@ -272,25 +272,24 @@ const ProductGridCalculator = ({ products }: Props) => {
               </Field>
             ) : null}
 
-            {/* Reading, with the dial end of the selected pen beside it */}
-            <div className='mt-auto pt-6'>
-              <div className='flex items-end justify-between gap-4'>
-                <div>
-                  <p className={eyebrow}>{isPen ? 'On your pen dial' : 'On your syringe'}</p>
-                  <p className='mt-1 flex items-baseline gap-2 leading-none tabular-nums'>
-                    <span className='text-6xl font-light tracking-tight'>{Math.round(reading)}</span>
-                    <span className='text-muted-foreground font-mono text-xs uppercase'>{isPen ? 'clicks' : 'units'}</span>
-                  </p>
-                </div>
-                {isPen && product.dialImage ? (
-                  <img
-                    src={product.dialImage}
-                    alt={`Dial end of the ${product.name.replace(' | ', ' ')}: knob, dial ring and dose window`}
-                    className='h-24 w-auto shrink-0 object-contain object-bottom'
-                  />
-                ) : null}
+            {/* Reading. The dial end of the selected pen stands as a full-height column on the right. */}
+            <div className='mt-auto grid grid-cols-[minmax(0,1fr)_auto] gap-x-5 pt-6'>
+              <div className='self-end'>
+                <p className={eyebrow}>{isPen ? 'On your pen dial' : 'On your syringe'}</p>
+                <p className='mt-1 flex items-baseline gap-2 leading-none tabular-nums'>
+                  <span className='text-6xl font-light tracking-tight'>{Math.round(reading)}</span>
+                  <span className='text-muted-foreground font-mono text-xs uppercase'>{isPen ? 'clicks' : 'units'}</span>
+                </p>
               </div>
-              <dl className='border-foreground mt-4 border-t text-xs'>
+              {isPen && product.dialImage ? (
+                <img
+                  src={product.dialImage}
+                  alt={`Dial end of the ${product.name.replace(' | ', ' ')}: knob, dial ring and dose window`}
+                  className='row-span-1 h-40 w-auto self-end object-contain object-bottom @md:row-span-2 @md:h-60'
+                />
+              ) : null}
+              <dl className='border-foreground col-span-2 mt-4 border-t text-xs @md:col-span-1 @md:col-start-1'>
+
                 {pen ? (
                   <>
                     <Row label='Volume' value={`${fmt(pen.ml, 2)} ml`} />
@@ -318,7 +317,7 @@ const ProductGridCalculator = ({ products }: Props) => {
                   />
                 )}
               </dl>
-              <p className='text-muted-foreground mt-3 flex items-baseline justify-between gap-3 font-mono text-[10px] leading-relaxed'>
+              <p className='text-muted-foreground col-span-2 mt-3 flex items-baseline justify-between gap-3 font-mono text-[10px] leading-relaxed'>
                 <span>
                   {isPen
                     ? `1 click = ${ML_PER_CLICK} ml · ${CLICKS_PER_TURN} per turn`
