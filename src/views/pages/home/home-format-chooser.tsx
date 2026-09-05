@@ -39,7 +39,7 @@ const HomeFormatChooser = () => {
         </div>
         <div className='grid gap-6 lg:grid-cols-2'>
           {OPTIONS.map(option => (
-            <div key={option.name} className='flex flex-col gap-5 rounded-xl border p-6 sm:p-8'>
+            <div key={option.name} className='ring-border flex flex-col gap-5 rounded-xl bg-white p-6 ring-1 sm:p-8'>
               <h4 className='text-xl font-bold'>{option.name}</h4>
               <ul className='space-y-2.5'>
                 {option.points.map(point => (

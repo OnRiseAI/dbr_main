@@ -17,7 +17,7 @@ const CategoryCard = ({ category }: Props) => {
         className={
           isRender
             ? 'aspect-[4/3] overflow-hidden rounded-xl bg-white ring-1 ring-border'
-            : 'bg-muted aspect-[4/3] overflow-hidden rounded-xl'
+            : 'ring-border aspect-[4/3] overflow-hidden rounded-xl bg-white ring-1'
         }
       >
         <img

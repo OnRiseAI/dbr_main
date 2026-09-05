@@ -8,21 +8,21 @@ const PILLARS = [
 ]
 
 /**
- * The standard. One statement, four facts. Typographic, on a dark band, with
- * the pen render bleeding off the right edge.
+ * The standard. One statement, four facts. Typographic, on a full-bleed dark band, with
+ * the pen render bleeding off the right edge of the content column.
  */
 const HomeTrust = () => {
   return (
-    <section className='pt-8 sm:pt-12'>
+    <section className='mt-8 bg-neutral-950 text-white sm:mt-12'>
       <ContentLayout>
-        <div className='relative overflow-hidden rounded-xl bg-neutral-950 text-white'>
+        <div className='relative overflow-hidden'>
           <img
             src='/images/products/dbr-reta-pen-15mg-upright.png'
             alt=''
             aria-hidden
             className='pointer-events-none absolute -right-10 -bottom-24 hidden h-[125%] w-auto rotate-[18deg] object-contain opacity-90 lg:block'
           />
-          <div className='relative grid gap-10 p-8 sm:p-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:p-14'>
+          <div className='relative grid gap-10 py-12 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-20'>
             <div className='space-y-4'>
               <p className='text-xs font-semibold tracking-[0.16em] text-white/55 uppercase'>The standard</p>
               <h2 className='text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]'>

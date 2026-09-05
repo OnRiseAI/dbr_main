@@ -23,24 +23,34 @@ const HomeView = ({ categories, pens, vials }: Props) => {
     <>
       <HomeHero products={[...pens, ...vials]} />
       <HomeTrust />
-      <HomeCategories categories={categories} />
-      <HomeProductRow
-        title='Pens'
-        subtitle='Pre-filled, ready straight from the fridge.'
-        href='/shop?category=Pens'
-        products={pens}
-      />
-      <HomeProductRow
-        title='Vials'
-        subtitle='Lyophilised, reconstitute before use.'
-        href='/shop?category=Vials'
-        products={vials}
-      />
+
+      {/* The shop: one muted band, white cards lift off it. */}
+      <div className='bg-muted pb-8 sm:pb-16 lg:pb-24'>
+        <HomeCategories categories={categories} />
+        <HomeProductRow
+          title='Pens'
+          subtitle='Pre-filled, ready straight from the fridge.'
+          href='/shop?category=Pens'
+          products={pens}
+        />
+        <HomeProductRow
+          title='Vials'
+          subtitle='Lyophilised, reconstitute before use.'
+          href='/shop?category=Vials'
+          products={vials}
+        />
+      </div>
+
+      {/* The pen story and the calculator, on white. */}
       <HomePenBreakdown />
       <HomeHowToUse />
       <HomeCalculator />
-      <HomeFormatChooser />
-      <HomeFaq />
+
+      {/* Closing band. */}
+      <div className='bg-muted'>
+        <HomeFormatChooser />
+        <HomeFaq />
+      </div>
     </>
   )
 }

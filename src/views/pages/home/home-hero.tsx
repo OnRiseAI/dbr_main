@@ -47,7 +47,8 @@ const HomeHero = ({ products }: Props) => {
       <ContentLayout>
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
           {/* Retatrutide */}
-          <Card className='bg-muted shadow-none ring-0'>
+          {/* Tile tints are product-coded: the pen's teal for Retatrutide, copper for GHK-Cu. */}
+          <Card className='bg-[#0592b3]/10 shadow-none ring-0'>
             <CardContent className='space-y-4'>
               <Badges
                 items={[
@@ -88,7 +89,7 @@ const HomeHero = ({ products }: Props) => {
           </Card>
 
           {/* GHK-Cu */}
-          <Card className='bg-amber-600/10 shadow-none ring-0'>
+          <Card className='bg-[#b87333]/10 shadow-none ring-0'>
             <MotionPreset
               component='img'
               fade
