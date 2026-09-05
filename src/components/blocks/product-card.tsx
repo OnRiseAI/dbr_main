@@ -135,7 +135,11 @@ const ProductCard = ({
             <span className='text-muted-foreground line-through'>{formatPrice(product.originalPrice)}</span>
           )}
         </div>
-        {inCart ? (
+        {product.available === false ? (
+          <Button variant='outline' className='border-border mt-3 w-full' disabled>
+            Currently unavailable
+          </Button>
+        ) : inCart ? (
           <Button className='border-border mt-3 w-full' disabled>
             In cart
             <ShoppingBagIcon className='size-4' />

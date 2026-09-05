@@ -156,7 +156,11 @@ const ProductInfo = ({ product, variants = [product] }: Props) => {
             <span className='sr-only'>Increase quantity</span>
           </Button>
         </div>
-        {inCart ? (
+        {product.available === false ? (
+          <Button size='lg' variant='outline' className='h-11 sm:flex-1' disabled>
+            Currently unavailable
+          </Button>
+        ) : inCart ? (
           <Button size='lg' className='h-11 sm:flex-1' disabled>
             In cart
             <ShoppingBagIcon className='size-4' />

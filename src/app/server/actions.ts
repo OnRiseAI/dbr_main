@@ -5,7 +5,8 @@ import type { Product } from '@/types/product'
 import { selectProductsByIds } from '@/utils/product-utils'
 
 // Data Imports
-import { db as products, dealIds, newArrivalIds, defaultWishlistIds } from '@/fake-db/products'
+import { dealIds, newArrivalIds, defaultWishlistIds } from '@/fake-db/products'
+import { loadCatalogue } from '@/lib/catalogue'
 import { db as categories } from '@/fake-db/categories'
 import { db as brands } from '@/fake-db/brands'
 import { db as announcements } from '@/fake-db/announcement'
@@ -24,16 +25,21 @@ import { db as orders } from '@/fake-db/orders'
 
 // ---------- Products ----------
 
-/** Grid-facing catalogue: every SKU, each strength as its own card. */
-const listed = products.filter(product => !product.hiddenVariant)
-
+/**
+ * Products come from the database (price, stock, active) merged with the storefront's
+ * display metadata. See lib/catalogue.ts. Grids list every SKU, each strength its own card.
+ */
 export const getProducts = async () => {
-  return listed
+  const products = await loadCatalogue()
+
+  return products.filter(product => !product.hiddenVariant)
 }
 
 /** Every SKU in the same variant family, in display order. */
 export const getProductVariants = async (product: Product) => {
   if (!product.family) return [product]
+
+  const products = await loadCatalogue()
 
   return products
     .filter(item => item.family === product.family)
@@ -41,28 +47,34 @@ export const getProductVariants = async (product: Product) => {
 }
 
 export const getProductById = async (id: string) => {
+  const products = await loadCatalogue()
+
   return products.find(product => product.id === id) ?? null
 }
 
 /** Catalog ids - used by the dynamic product route's generateStaticParams. */
 export const getProductIds = async () => {
+  const products = await loadCatalogue()
+
   return products.map(product => product.id)
 }
 
 export const getProductsByIds = async (ids: string[]): Promise<Product[]> => {
-  return selectProductsByIds(products, ids)
+  return selectProductsByIds(await loadCatalogue(), ids)
 }
 
 export const getDeals = async () => {
-  return selectProductsByIds(products, dealIds)
+  return selectProductsByIds(await loadCatalogue(), dealIds)
 }
 
 export const getNewArrivals = async () => {
-  return selectProductsByIds(products, newArrivalIds)
+  return selectProductsByIds(await loadCatalogue(), newArrivalIds)
 }
 
 export const getProductsByCategory = async (category: string) => {
-  return listed.filter(
+  const products = await getProducts()
+
+  return products.filter(
     product => product.category === category || Boolean(product.collections?.includes(category))
   )
 }
@@ -82,6 +94,9 @@ export const getBrands = async () => {
 }
 
 export const getHomeData = async () => {
+  const products = await loadCatalogue()
+  const listed = products.filter(product => !product.hiddenVariant)
+
   return {
     categories,
     brands,

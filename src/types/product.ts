@@ -87,6 +87,15 @@ export type Product = {
   /** Close crop of the pen's dial end (knob, dial ring, dose window). Pens only. */
   dialImage?: string
 
+  /** Database row id, once the catalogue is read from the database. */
+  dbId?: string
+
+  /** Units in stock from the database; null means not tracked. */
+  stock?: number | null
+
+  /** Active in the database and in stock. False renders the card but blocks purchase. */
+  available?: boolean
+
   /** Optional short clip (mp4 path). Rendered in the gallery when present. */
   video?: string
 }
