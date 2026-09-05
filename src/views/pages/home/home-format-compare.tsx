@@ -24,10 +24,10 @@ const FORMATS = [
 ]
 
 const PARTS = [
-  { n: 1, title: 'Liquid chamber', body: 'Sterile diluent, sealed on its own until first use.' },
-  { n: 2, title: 'Lyophilised chamber', body: 'The peptide is kept dry, which is how it stays stable in storage.' },
-  { n: 3, title: 'Pen body', body: 'The cartridge sits inside. Set your dose on the dial, inject at the needle end.' },
-  { n: 4, title: 'Pen cap', body: 'Covers the needle end between uses. Fridge-ready as a unit.' }
+  { n: 1, title: 'Cartridge holder', body: 'Holds the cartridge and attaches to the pen body. The needle screws onto the front.' },
+  { n: 2, title: 'Liquid chamber', body: 'Sterile diluent, sealed on its own until first use.' },
+  { n: 3, title: 'Lyophilised chamber', body: 'The peptide is kept dry, which is how it stays stable in storage.' },
+  { n: 4, title: 'Pen body', body: 'The cartridge sits inside. Set your dose on the dial, inject at the needle end.' }
 ]
 
 /** Numbered callout hung below a part, with a thin leader line up to it. */
@@ -81,26 +81,27 @@ const HomeFormatCompare = () => {
           </div>
 
           <div className='grid grid-cols-[0.9fr_2.3fr_1fr] items-center gap-4 sm:gap-8'>
+            {/* Markers use percentages of each figure's width, so they stay on their part at any size. */}
             <figure className='relative pb-12'>
               <img
                 src='/images/products/dbr-reta-pen-15mg-cartridge.png'
-                alt='Dual-chamber cartridge: liquid chamber and lyophilised chamber'
+                alt='Dual-chamber cartridge: liquid chamber at the gold cap end, lyophilised chamber at the plunger end'
                 className='w-full object-contain'
               />
-              <Marker n={1} left='40%' />
-              <Marker n={2} left='82%' />
+              <Marker n={2} left='30%' />
+              <Marker n={3} left='82%' />
             </figure>
             <figure className='relative pb-12'>
               <img
                 src='/images/products/dbr-reta-pen-15mg-body.png'
-                alt='Pen body with needle end and dose dial'
+                alt='Pen: cartridge holder with needle thread and windows, then the body with dose window and dial'
                 className='w-full object-contain'
               />
-              <Marker n={3} left='50%' />
+              <Marker n={1} left='17%' />
+              <Marker n={4} left='66%' />
             </figure>
-            <figure className='relative pb-12'>
+            <figure className='pb-12'>
               <img src='/images/products/dbr-reta-pen-15mg-cap.png' alt='Pen cap' className='w-full object-contain' />
-              <Marker n={4} left='50%' />
             </figure>
           </div>
         </div>
