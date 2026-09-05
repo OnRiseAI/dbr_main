@@ -17,7 +17,7 @@ import {
 import { cn } from '@/lib/utils'
 import { formatPrice } from '@/utils/product-utils'
 import { CLICKS_PER_TURN, ML_PER_CLICK, ML_PER_SYRINGE_UNIT, penReading, syringeUnits } from '@/lib/pen-dosing'
-import { PROTOCOL, buildWeightOutlook, unitsForPlan } from '@/lib/weight-plan'
+import { MAX_PLAN_WEEKS, PROTOCOL, buildGoalPlan, unitsForPlan } from '@/lib/weight-plan'
 
 const WATER = [1, 2, 3]
 const PLAN_COMPOUND = 'Retatrutide'
@@ -55,19 +55,21 @@ type Props = {
  *
  * Dose mode: pens read in clicks (1 click = 0.0125 ml, 60 per turn of the dial, from the
  * pen dosing note), vials in insulin-syringe units (1 unit = 0.01 ml). See lib/pen-dosing.
- * Plan mode: start weight to the expected finish weight after 24 weeks on the shop's staged
- * protocol (0.75 mg up to 1.75 mg), and the pens that covers. See lib/weight-plan.
+ * Plan mode (first tab when a Retatrutide product is on screen): current and goal weight to
+ * the weeks it takes on the shop's staged protocol (0.75 mg up to 1.75 mg) and the pens that
+ * covers. See lib/weight-plan.
  */
 const ProductGridCalculator = ({ products }: Props) => {
   const options = products.filter(product => product.specs)
   const planOptions = options.filter(product => product.specs?.compound === PLAN_COMPOUND)
   const canPlan = planOptions.length > 0
 
-  const [mode, setMode] = useState<Mode>('units')
+  const [mode, setMode] = useState<Mode>(canPlan ? 'plan' : 'units')
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [water, setWater] = useState(2)
   const [doseText, setDoseText] = useState('1')
   const [startText, setStartText] = useState('100')
+  const [goalText, setGoalText] = useState('80')
 
   const product = options.find(item => item.id === selectedId) ?? options[0]
   const specs = product?.specs
@@ -87,12 +89,13 @@ const ProductGridCalculator = ({ products }: Props) => {
 
   // Plan
   const startKg = parseNumber(startText)
-  const outlook = buildWeightOutlook(startKg)
+  const goalKg = parseNumber(goalText)
+  const plan = buildGoalPlan(startKg, goalKg)
 
-  const planRows = outlook
+  const planRows = plan?.weeks
     ? planOptions
         .map(item => {
-          const count = unitsForPlan(outlook.totalMg, item.specs!.strengthMg)
+          const count = unitsForPlan(plan.totalMg, item.specs!.strengthMg)
 
           return { item, count, cost: count * item.price }
         })
@@ -110,27 +113,38 @@ const ProductGridCalculator = ({ products }: Props) => {
       >
         {/* Mode tabs as ruled text */}
         <div role='tablist' className='border-foreground flex gap-6 border-b'>
+          {canPlan ? (
+            <ModeTab active={mode === 'plan'} onClick={() => setMode('plan')}>
+              Weight goal
+            </ModeTab>
+          ) : null}
           <ModeTab active={mode === 'units'} onClick={() => setMode('units')}>
             Dose
           </ModeTab>
-          {canPlan ? (
-            <ModeTab active={mode === 'plan'} onClick={() => setMode('plan')}>
-              24-week plan
-            </ModeTab>
-          ) : null}
         </div>
 
         {showPlan ? (
           <>
-            <Field label='Start weight' unit='kg' htmlFor='grid-plan-start'>
-              <Input
-                id='grid-plan-start'
-                inputMode='decimal'
-                value={startText}
-                onChange={event => setStartText(event.target.value)}
-                className={fieldInput}
-              />
-            </Field>
+            <div className='grid grid-cols-2 gap-x-5'>
+              <Field label='Current weight' unit='kg' htmlFor='grid-plan-start'>
+                <Input
+                  id='grid-plan-start'
+                  inputMode='decimal'
+                  value={startText}
+                  onChange={event => setStartText(event.target.value)}
+                  className={fieldInput}
+                />
+              </Field>
+              <Field label='Goal weight' unit='kg' htmlFor='grid-plan-goal'>
+                <Input
+                  id='grid-plan-goal'
+                  inputMode='decimal'
+                  value={goalText}
+                  onChange={event => setGoalText(event.target.value)}
+                  className={fieldInput}
+                />
+              </Field>
+            </div>
 
             {/* Schedule */}
             <table className='mt-5 w-full border-collapse text-xs'>
@@ -176,38 +190,45 @@ const ProductGridCalculator = ({ products }: Props) => {
 
             {/* Reading */}
             <div className='mt-auto pt-6'>
-              <p className={eyebrow}>After 24 weeks</p>
-              {outlook ? (
-                <>
-                  <p className='mt-1 flex items-baseline gap-3 leading-none tabular-nums'>
-                    <span className='text-muted-foreground text-2xl font-light tracking-tight'>
-                      {fmt(outlook.startKg, 0)}
-                    </span>
-                    <span aria-hidden className='bg-foreground/30 h-px w-6 self-center' />
-                    <span className='text-5xl font-light tracking-tight'>{fmt(outlook.finishKg, 0)}</span>
-                    <span className='text-muted-foreground font-mono text-xs'>kg</span>
+              <p className={eyebrow}>Time to your goal</p>
+              {plan ? (
+                plan.weeks ? (
+                  <>
+                    <p className='mt-1 flex items-baseline gap-2 leading-none tabular-nums'>
+                      <span className='text-6xl font-light tracking-tight'>{plan.weeks}</span>
+                      <span className='text-muted-foreground font-mono text-xs uppercase'>weeks</span>
+                    </p>
+                    <dl className='border-foreground mt-4 border-t text-xs'>
+                      <Row label='To lose' value={`${fmt(plan.lossKg, 1)} kg · ${fmt(plan.lossPct, 0)}%`} />
+                      <Row label='After 24 weeks' value={`${fmt(plan.at24Kg, 0)} kg`} />
+                      <Row label='Stable on 1.75 mg from' value={`week ${plan.stableFromWeek}`} />
+                      <Row label='Total peptide' value={`${fmt(plan.totalMg, 1)} mg`} />
+                    </dl>
+                    <p className={cn(eyebrow, 'mt-4')}>What you need</p>
+                    <ul className='mt-1 text-xs'>
+                      {planRows.map(({ item, count, cost }, index) => (
+                        <li key={item.id} className='border-foreground/15 flex items-baseline gap-3 border-b py-1.5'>
+                          <span className='w-7 shrink-0 font-mono tabular-nums'>{count}×</span>
+                          <Link href={item.href} className='min-w-0 flex-1 truncate hover:underline'>
+                            {item.name}
+                          </Link>
+                          <span className={cn('shrink-0 font-mono tabular-nums', index > 0 && 'text-muted-foreground')}>
+                            {formatPrice(cost)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <p className='mt-2 text-xs'>
+                    Losing {fmt(plan.lossKg, 1)} kg ({fmt(plan.lossPct, 0)}%) takes more than {MAX_PLAN_WEEKS / 52} years on
+                    this plan. After 24 weeks expect about {fmt(plan.at24Kg, 0)} kg.
                   </p>
-                  <dl className='border-foreground mt-4 border-t text-xs'>
-                    <Row label='Expected loss' value={`${fmt(outlook.lossKg, 1)} kg · ${fmt(outlook.lossPct, 0)}%`} />
-                    <Row label={`At ${outlook.extendedWeeks} weeks`} value={`${fmt(outlook.extendedFinishKg, 0)} kg`} />
-                    <Row label='Total peptide' value={`${fmt(outlook.totalMg, 0)} mg`} />
-                  </dl>
-                  <ul className='mt-3 text-xs'>
-                    {planRows.map(({ item, count, cost }, index) => (
-                      <li key={item.id} className='border-foreground/15 flex items-baseline gap-3 border-b py-1.5'>
-                        <span className='w-7 shrink-0 font-mono tabular-nums'>{count}×</span>
-                        <Link href={item.href} className='min-w-0 flex-1 truncate hover:underline'>
-                          {item.name}
-                        </Link>
-                        <span className={cn('shrink-0 font-mono tabular-nums', index > 0 && 'text-muted-foreground')}>
-                          {formatPrice(cost)}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </>
+                )
               ) : (
-                <p className='text-muted-foreground mt-2 text-xs'>Enter a start weight between 30 and 300 kg.</p>
+                <p className='text-muted-foreground mt-2 text-xs'>
+                  Enter a current weight between 30 and 300 kg and a goal weight below it.
+                </p>
               )}
               <p className='text-muted-foreground mt-3 font-mono text-[10px] leading-relaxed'>
                 Based on Deep Beauty Research client results on this plan. Individual results vary. Research use only.

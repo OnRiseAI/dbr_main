@@ -107,5 +107,75 @@ export function buildWeightOutlook(startKg: number): WeightOutlook | null {
   }
 }
 
+/**
+ * Loss curve on the protocol: percent of start weight lost by week. Client figure at 24
+ * weeks, the trial's 24-to-48 ratio for the second half, then the same slope carried on.
+ */
+const LOSS_CURVE: Array<[number, number]> = [
+  [0, 0],
+  [OUTLOOK_WEEKS, CLIENT_LOSS_PCT_24W],
+  [EXTENDED_WEEKS, CLIENT_LOSS_PCT_48W]
+]
+
+/** Longest plan the card will quote. */
+export const MAX_PLAN_WEEKS = 104
+
+/** Weeks needed to lose `pct` of start weight, or null if it is beyond MAX_PLAN_WEEKS. */
+export function weeksToLosePct(pct: number): number | null {
+  if (!(pct > 0)) return null
+
+  for (let i = 1; i < LOSS_CURVE.length; i++) {
+    const [w0, p0] = LOSS_CURVE[i - 1]
+    const [w1, p1] = LOSS_CURVE[i]
+
+    if (pct <= p1) return Math.ceil(w0 + ((pct - p0) / (p1 - p0)) * (w1 - w0))
+  }
+
+  const [w0, p0] = LOSS_CURVE[LOSS_CURVE.length - 2]
+  const [w1, p1] = LOSS_CURVE[LOSS_CURVE.length - 1]
+  const weeks = Math.ceil(w1 + ((pct - p1) / (p1 - p0)) * (w1 - w0))
+
+  return weeks <= MAX_PLAN_WEEKS ? weeks : null
+}
+
+export type GoalPlan = {
+  startKg: number
+  goalKg: number
+  lossKg: number
+  lossPct: number
+
+  /** Weeks to reach the goal on the protocol, null when beyond MAX_PLAN_WEEKS. */
+  weeks: number | null
+
+  /** Total milligrams over those weeks (0 when weeks is null). */
+  totalMg: number
+
+  /** Expected weight after 24 weeks, for reference. */
+  at24Kg: number
+  stableFromWeek: number
+}
+
+export const isValidGoal = (startKg: number, goalKg: number) =>
+  isValidWeight(startKg) && Number.isFinite(goalKg) && goalKg >= MIN_WEIGHT_KG && goalKg < startKg
+
+export function buildGoalPlan(startKg: number, goalKg: number): GoalPlan | null {
+  if (!isValidGoal(startKg, goalKg)) return null
+
+  const lossKg = startKg - goalKg
+  const lossPct = (lossKg / startKg) * 100
+  const weeks = weeksToLosePct(lossPct)
+
+  return {
+    startKg,
+    goalKg,
+    lossKg,
+    lossPct,
+    weeks,
+    totalMg: weeks ? protocolTotalMg(weeks) : 0,
+    at24Kg: startKg - (startKg * CLIENT_LOSS_PCT_24W) / 100,
+    stableFromWeek: stableFromWeek()
+  }
+}
+
 /** Whole pens or vials needed to cover a total. */
 export const unitsForPlan = (totalMg: number, strengthMg: number) => Math.ceil(totalMg / strengthMg)
