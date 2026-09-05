@@ -274,7 +274,7 @@ const ProductGridCalculator = ({ products }: Props) => {
 
             {/* Reading */}
             <div className='mt-auto pt-6'>
-              <p className={eyebrow}>{isPen ? 'On the dial' : 'On the syringe'}</p>
+              <p className={eyebrow}>{isPen ? 'On your pen dial' : 'On your syringe'}</p>
               <p className='mt-1 flex items-baseline gap-2 leading-none tabular-nums'>
                 <span className='text-6xl font-light tracking-tight'>{Math.round(reading)}</span>
                 <span className='text-muted-foreground font-mono text-xs uppercase'>{isPen ? 'clicks' : 'units'}</span>

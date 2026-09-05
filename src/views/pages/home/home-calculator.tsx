@@ -94,7 +94,7 @@ const HomeCalculator = ({
   defaultFormat = 'pen',
   defaultProductId,
   title = 'Dose calculator',
-  subtitle = 'Set the amount you work with and read the clicks off the pen dial or the units off the syringe.'
+  subtitle = 'Set the amount you work with and read the clicks off your pen dial or the units off your syringe.'
 }: Props) => {
   const [format, setFormat] = useState<Format>(defaultFormat)
   const [pen, setPen] = useState(PENS.find(p => p.value === defaultProductId)?.value ?? PENS[0].value)
@@ -254,7 +254,7 @@ const HomeCalculator = ({
               <div className='flex items-center justify-between gap-4'>
                 <div>
                   <p className='text-xs font-semibold tracking-[0.14em] text-white/55 uppercase'>
-                    {format === 'pen' ? 'On the dial' : 'On the syringe'}
+                    {format === 'pen' ? 'On your pen dial' : 'On your syringe'}
                   </p>
                   <p className='font-semibold'>{product?.label}</p>
                 </div>
@@ -280,7 +280,7 @@ const HomeCalculator = ({
                       ? `${fmt(dose, 2)} mg is ${fmt(result.pen.ml, 2)} ml, ${fmt(result.pen.mgPerClick, 4)} mg per click`
                       : `${fmt(dose, 2)} mg is ${fmt(result.unitsPerDose / 100, 2)} ml at ${fmt(result.mgPerMl, 2)} mg/ml`
                     : format === 'pen'
-                      ? 'Enter an amount to read the dial.'
+                      ? 'Enter an amount to read your pen dial.'
                       : 'Enter an amount to read the units.'}
                 </p>
                 {result?.pen && result.pen.turns > 0 ? (
