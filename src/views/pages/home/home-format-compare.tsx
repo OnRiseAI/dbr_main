@@ -70,7 +70,7 @@ const HomeFormatCompare = () => {
           ))}
         </div>
 
-        <div className='grid items-center gap-8 border-t pt-10 lg:grid-cols-[minmax(220px,1fr)_3fr]'>
+        <div className='grid items-center gap-8 border-t pt-10 lg:grid-cols-[minmax(220px,1fr)_3.4fr]'>
           <div className='space-y-2'>
             <h4 className='text-xl font-bold sm:text-2xl'>Inside every pen</h4>
             <p className='text-muted-foreground text-sm'>Explore the construction and product specifications.</p>
@@ -80,7 +80,7 @@ const HomeFormatCompare = () => {
             </Link>
           </div>
 
-          <div className='grid grid-cols-[0.9fr_2.3fr_1fr] items-center gap-4 sm:gap-8'>
+          <div className='grid grid-cols-[0.9fr_2.3fr] items-center gap-6 sm:gap-10'>
             {/* Markers use percentages of each figure's width, so they stay on their part at any size. */}
             <figure className='relative pb-12'>
               <img
@@ -99,9 +99,6 @@ const HomeFormatCompare = () => {
               />
               <Marker n={1} left='17%' />
               <Marker n={4} left='66%' />
-            </figure>
-            <figure className='pb-12'>
-              <img src='/images/products/dbr-reta-pen-15mg-cap.png' alt='Pen cap' className='w-full object-contain' />
             </figure>
           </div>
         </div>
