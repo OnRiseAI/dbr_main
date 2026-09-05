@@ -5,21 +5,19 @@ import type { Category } from '@/types/product'
 
 type Props = {
   category: Category
+
+  /** Photo tiles read best tall; renders sit in a landscape box. */
+  aspect?: 'landscape' | 'portrait'
 }
 
-const CategoryCard = ({ category }: Props) => {
+const CategoryCard = ({ category, aspect = 'landscape' }: Props) => {
   // Product renders are transparent or white-ground PNGs; photos are JPGs.
   const isRender = category.image.endsWith('.png')
+  const ratio = aspect === 'portrait' ? 'aspect-[3/4]' : 'aspect-[4/3]'
 
   return (
     <Link href={category.href} className='group block focus-visible:outline-none'>
-      <div
-        className={
-          isRender
-            ? 'aspect-[4/3] overflow-hidden rounded-xl bg-white ring-1 ring-border'
-            : 'ring-border aspect-[4/3] overflow-hidden rounded-xl bg-white ring-1'
-        }
-      >
+      <div className={`ring-border ${ratio} overflow-hidden rounded-xl bg-white ring-1`}>
         <img
           src={category.image}
           alt={category.name}
