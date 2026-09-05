@@ -5,10 +5,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import type { Product } from '@/types/product'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Select,
   SelectContent,
@@ -24,6 +21,9 @@ import { PROTOCOL, buildWeightOutlook, unitsForPlan } from '@/lib/weight-plan'
 
 const WATER = [1, 2, 3]
 const PLAN_COMPOUND = 'Retatrutide'
+
+/** The teal of the pen body, sampled from the render. Marks the stable dose only. */
+const ACCENT = '#0592b3'
 
 const fmt = (n: number, digits = 1) =>
   Number.isFinite(n) ? n.toLocaleString('en-GB', { maximumFractionDigits: digits }) : '0'
@@ -50,11 +50,13 @@ type Props = {
  *              count even     -> index 2n+1 -> hide
  *   1 column   always its own row, hide
  *
+ * Visual system: white card like the product cards, 1px rules instead of boxes, mono
+ * labels for data, one oversized light numeral as the reading. No fills, no shadows.
+ *
  * Dose mode: pens read in clicks (1 click = 0.0125 ml, 60 per turn of the dial, from the
  * pen dosing note), vials in insulin-syringe units (1 unit = 0.01 ml). See lib/pen-dosing.
  * Plan mode: start weight to the expected finish weight after 24 weeks on the shop's staged
- * protocol (0.75 mg up to 1.75 mg), and the pens that covers. Offered when a Retatrutide
- * product is on screen. See lib/weight-plan.
+ * protocol (0.75 mg up to 1.75 mg), and the pens that covers. See lib/weight-plan.
  */
 const ProductGridCalculator = ({ products }: Props) => {
   const options = products.filter(product => product.specs)
@@ -82,7 +84,6 @@ const ProductGridCalculator = ({ products }: Props) => {
   const vial = !isPen && hasDose ? syringeUnits(dose, specs.strengthMg, water) : null
   const reading = pen ? pen.clicks : vial ? vial.units : 0
   const uses = hasDose ? specs.strengthMg / dose : 0
-  const noun = isPen ? 'pen' : 'vial'
 
   // Plan
   const startKg = parseNumber(startText)
@@ -98,229 +99,284 @@ const ProductGridCalculator = ({ products }: Props) => {
         .sort((a, b) => a.cost - b.cost)
     : []
 
+  // Clicks column for the schedule, read against the first pen on screen.
+  const schedulePen = planOptions.find(item => item.specs?.form === 'pen' && item.specs.fillMl)
+
   return (
     <div className='max-sm:hidden sm:max-xl:nth-[2n]:col-[2/-1] sm:max-xl:nth-[2n+1]:hidden xl:nth-[3n+2]:col-[2/-1] xl:nth-[3n]:col-[3/-1] xl:nth-[3n+1]:hidden'>
-      <Card className='bg-muted h-full gap-0 border py-0 ring-0'>
-        <div className='flex flex-1 flex-col gap-4 p-4'>
-          <div className='space-y-0.5'>
-            <h5 className='text-lg font-semibold'>{showPlan ? '24-week outlook' : 'Dose calculator'}</h5>
-            <p className='text-muted-foreground text-xs'>
-              {showPlan
-                ? 'Start weight to an expected finish weight on our staged plan.'
-                : 'Read the clicks off the pen dial or the units off the syringe.'}
-            </p>
-          </div>
-
+      <section
+        aria-label='Calculator'
+        className='ring-foreground/10 flex h-full flex-col rounded-xl bg-white px-5 pt-4 pb-5 text-sm ring-1'
+      >
+        {/* Mode tabs as ruled text */}
+        <div role='tablist' className='border-foreground flex gap-6 border-b'>
+          <ModeTab active={mode === 'units'} onClick={() => setMode('units')}>
+            Dose
+          </ModeTab>
           {canPlan ? (
-            <Tabs value={mode} onValueChange={value => setMode(value as Mode)}>
-              <TabsList className='grid w-full grid-cols-2 bg-white'>
-                <TabsTrigger value='units'>Dose</TabsTrigger>
-                <TabsTrigger value='plan'>Plan</TabsTrigger>
-              </TabsList>
-            </Tabs>
+            <ModeTab active={mode === 'plan'} onClick={() => setMode('plan')}>
+              24-week plan
+            </ModeTab>
           ) : null}
+        </div>
 
-          {showPlan ? (
-            <>
-              <div className='space-y-1.5'>
-                <Label htmlFor='grid-plan-start' className='text-xs'>
-                  Start weight
-                </Label>
-                <div className='flex items-center gap-2'>
-                  <Input
-                    id='grid-plan-start'
-                    inputMode='decimal'
-                    value={startText}
-                    onChange={event => setStartText(event.target.value)}
-                    className='h-9 bg-white text-right tabular-nums'
-                  />
-                  <span className='text-muted-foreground text-sm'>kg</span>
-                </div>
-              </div>
+        {showPlan ? (
+          <>
+            <Field label='Start weight' unit='kg' htmlFor='grid-plan-start'>
+              <Input
+                id='grid-plan-start'
+                inputMode='decimal'
+                value={startText}
+                onChange={event => setStartText(event.target.value)}
+                className={fieldInput}
+              />
+            </Field>
 
-              <div className='space-y-1.5'>
-                <Label className='text-xs'>Weekly dose, stepped up every 4 weeks</Label>
-                <ol className='grid grid-cols-5 gap-1.5 text-center'>
-                  {PROTOCOL.map((step, index) => {
-                    const from = PROTOCOL.slice(0, index).reduce((weeks, s) => weeks + s.weeks, 0) + 1
-                    const last = index === PROTOCOL.length - 1
+            {/* Schedule */}
+            <table className='mt-5 w-full border-collapse text-xs'>
+              <thead>
+                <tr className='text-muted-foreground border-foreground/15 border-b font-mono text-[10px] tracking-[0.12em] uppercase'>
+                  <th className='py-1.5 text-left font-medium'>Week</th>
+                  <th className='py-1.5 text-right font-medium'>mg / wk</th>
+                  {schedulePen ? <th className='py-1.5 text-right font-medium'>Clicks</th> : null}
+                </tr>
+              </thead>
+              <tbody className='tabular-nums'>
+                {PROTOCOL.map((step, index) => {
+                  const from = PROTOCOL.slice(0, index).reduce((weeks, s) => weeks + s.weeks, 0) + 1
+                  const last = index === PROTOCOL.length - 1
 
-                    return (
-                      <li key={step.mg} className={cn('rounded-md border px-1 py-1.5', last ? 'border-foreground bg-foreground text-background' : 'border-border bg-white')}>
-                        <span className='block text-sm font-semibold tabular-nums'>{fmt(step.mg, 2)}</span>
-                        <span className={cn('block text-[10px] tabular-nums', last ? 'text-background/70' : 'text-muted-foreground')}>
-                          {last ? `wk ${from}+` : `wk ${from}-${from + step.weeks - 1}`}
+                  const clicks = schedulePen
+                    ? Math.round(penReading(step.mg, schedulePen.specs!.strengthMg, schedulePen.specs!.fillMl!).clicks)
+                    : null
+
+                  return (
+                    <tr key={step.mg} className={cn('border-foreground/15 border-b', last && 'font-semibold')}>
+                      <td className='py-1.5 text-left'>
+                        {last ? (
+                          <span className='inline-flex items-center gap-1.5'>
+                            <span aria-hidden className='size-1.5 rounded-full' style={{ backgroundColor: ACCENT }} />
+                            {from} onward
+                          </span>
+                        ) : (
+                          `${from}–${from + step.weeks - 1}`
+                        )}
+                      </td>
+                      <td className='py-1.5 text-right'>{fmt(step.mg, 2)}</td>
+                      {clicks !== null ? <td className='py-1.5 text-right'>{clicks}</td> : null}
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            <p className='text-muted-foreground mt-1.5 font-mono text-[10px]'>
+              Stepped up every 4 weeks. 1.75 mg is the most we recommend, and where it settles.
+              {schedulePen ? ` Clicks on the ${schedulePen.name.replace(' | ', ' ')}.` : ''}
+            </p>
+
+            {/* Reading */}
+            <div className='mt-auto pt-6'>
+              <p className={eyebrow}>After 24 weeks</p>
+              {outlook ? (
+                <>
+                  <p className='mt-1 flex items-baseline gap-3 leading-none tabular-nums'>
+                    <span className='text-muted-foreground text-2xl font-light tracking-tight'>
+                      {fmt(outlook.startKg, 0)}
+                    </span>
+                    <span aria-hidden className='bg-foreground/30 h-px w-6 self-center' />
+                    <span className='text-5xl font-light tracking-tight'>{fmt(outlook.finishKg, 0)}</span>
+                    <span className='text-muted-foreground font-mono text-xs'>kg</span>
+                  </p>
+                  <dl className='border-foreground mt-4 border-t text-xs'>
+                    <Row label='Expected loss' value={`${fmt(outlook.lossKg, 1)} kg · ${fmt(outlook.lossPct, 0)}%`} />
+                    <Row label={`At ${outlook.extendedWeeks} weeks`} value={`${fmt(outlook.extendedFinishKg, 0)} kg`} />
+                    <Row label='Total peptide' value={`${fmt(outlook.totalMg, 0)} mg`} />
+                  </dl>
+                  <ul className='mt-3 text-xs'>
+                    {planRows.map(({ item, count, cost }, index) => (
+                      <li key={item.id} className='border-foreground/15 flex items-baseline gap-3 border-b py-1.5'>
+                        <span className='w-7 shrink-0 font-mono tabular-nums'>{count}×</span>
+                        <Link href={item.href} className='min-w-0 flex-1 truncate hover:underline'>
+                          {item.name}
+                        </Link>
+                        <span className={cn('shrink-0 font-mono tabular-nums', index > 0 && 'text-muted-foreground')}>
+                          {formatPrice(cost)}
                         </span>
                       </li>
-                    )
-                  })}
-                </ol>
-                <p className='text-muted-foreground text-[11px]'>mg a week. 1.75 mg is the most we recommend, and where it settles.</p>
-              </div>
-
-              <div className='mt-auto rounded-lg bg-neutral-950 p-4 text-white'>
-                <p className='text-[11px] font-semibold tracking-[0.14em] text-white/55 uppercase'>
-                  After {outlook?.weeks ?? 24} weeks
-                </p>
-                {outlook ? (
-                  <>
-                    <div className='mt-1 flex items-baseline gap-3 tabular-nums'>
-                      <span className='text-2xl font-semibold text-white/60'>{fmt(outlook.startKg, 0)} kg</span>
-                      <span className='text-white/40'>to</span>
-                      <span className='text-4xl font-bold tracking-tight'>{fmt(outlook.finishKg, 0)} kg</span>
-                    </div>
-                    <p className='mt-2 text-xs text-white/70'>
-                      About {fmt(outlook.lossKg, 1)} kg ({fmt(outlook.lossPct, 0)}%). Stable on 1.75 mg from week{' '}
-                      {outlook.stableFromWeek}. Carrying on to {outlook.extendedWeeks} weeks: about{' '}
-                      {fmt(outlook.extendedFinishKg, 0)} kg. {fmt(outlook.totalMg, 2)} mg for the {outlook.weeks} weeks:
-                    </p>
-                    <ul className='mt-3 space-y-1.5 border-t border-white/15 pt-3 text-sm'>
-                      {planRows.map(({ item, count, cost }, index) => (
-                        <li key={item.id} className='flex items-baseline justify-between gap-3'>
-                          <Link href={item.href} className='min-w-0 truncate hover:underline'>
-                            <span className='font-semibold tabular-nums'>{count} ×</span> {item.name}
-                          </Link>
-                          <span className={cn('shrink-0 tabular-nums', index === 0 ? 'font-semibold' : 'text-white/60')}>
-                            {formatPrice(cost)}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : (
-                  <p className='mt-2 text-sm text-white/70'>Enter a start weight in kilograms.</p>
-                )}
-              </div>
-
-              <p className='text-muted-foreground text-xs'>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <p className='text-muted-foreground mt-2 text-xs'>Enter a start weight between 30 and 300 kg.</p>
+              )}
+              <p className='text-muted-foreground mt-3 font-mono text-[10px] leading-relaxed'>
                 Based on Deep Beauty Research client results on this plan. Individual results vary. Research use only.
               </p>
-            </>
-          ) : (
-            <>
-              <div className='space-y-1.5'>
-                <Label htmlFor='grid-calc-product' className='text-xs'>
-                  Product
-                </Label>
-                <Select
-                  items={options.map(item => ({ value: item.id, label: item.name }))}
-                  value={product.id}
-                  onValueChange={value => value && setSelectedId(value)}
+            </div>
+          </>
+        ) : (
+          <>
+            <Field label='Product' htmlFor='grid-calc-product'>
+              <Select
+                items={options.map(item => ({ value: item.id, label: item.name }))}
+                value={product.id}
+                onValueChange={value => value && setSelectedId(value)}
+              >
+                <SelectTrigger
+                  id='grid-calc-product'
+                  className='h-8 w-full rounded-none border-0 bg-transparent px-0 shadow-none focus-visible:ring-0'
                 >
-                  <SelectTrigger id='grid-calc-product' className='w-full bg-white'>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent alignItemWithTrigger={false}>
-                    <SelectGroup>
-                      {options.map(item => (
-                        <SelectItem key={item.id} value={item.id}>
-                          {item.name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {!isPen ? (
-                <div className='space-y-1.5'>
-                  <Label className='text-xs'>Bacteriostatic water added</Label>
-                  <div className='grid grid-cols-3 gap-1.5'>
-                    {WATER.map(ml => (
-                      <SegmentButton key={ml} active={water === ml} onClick={() => setWater(ml)}>
-                        {ml} ml
-                      </SegmentButton>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent alignItemWithTrigger={false}>
+                  <SelectGroup>
+                    {options.map(item => (
+                      <SelectItem key={item.id} value={item.id}>
+                        {item.name}
+                      </SelectItem>
                     ))}
-                  </div>
-                </div>
-              ) : null}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </Field>
 
-              <div className='space-y-1.5'>
-                <Label htmlFor='grid-calc-dose' className='text-xs'>
-                  Amount per use
-                </Label>
-                <div className='flex items-center gap-2'>
-                  <Input
-                    id='grid-calc-dose'
-                    inputMode='decimal'
-                    value={doseText}
-                    onChange={event => setDoseText(event.target.value)}
-                    className='h-9 bg-white text-right tabular-nums'
-                    aria-describedby='grid-calc-dose-unit'
+            <Field label='Amount per use' unit='mg' htmlFor='grid-calc-dose'>
+              <Input
+                id='grid-calc-dose'
+                inputMode='decimal'
+                value={doseText}
+                onChange={event => setDoseText(event.target.value)}
+                className={fieldInput}
+              />
+            </Field>
+
+            {!isPen ? (
+              <Field label='Bacteriostatic water'>
+                <div role='radiogroup' className='flex h-8 items-center gap-4'>
+                  {WATER.map(ml => (
+                    <button
+                      key={ml}
+                      type='button'
+                      role='radio'
+                      aria-checked={water === ml}
+                      onClick={() => setWater(ml)}
+                      className={cn(
+                        'font-mono text-xs tabular-nums underline-offset-4 transition-colors',
+                        water === ml ? 'text-foreground underline' : 'text-muted-foreground hover:text-foreground'
+                      )}
+                    >
+                      {ml} ml
+                    </button>
+                  ))}
+                </div>
+              </Field>
+            ) : null}
+
+            {/* Reading */}
+            <div className='mt-auto pt-6'>
+              <p className={eyebrow}>{isPen ? 'On the dial' : 'On the syringe'}</p>
+              <p className='mt-1 flex items-baseline gap-2 leading-none tabular-nums'>
+                <span className='text-6xl font-light tracking-tight'>{Math.round(reading)}</span>
+                <span className='text-muted-foreground font-mono text-xs uppercase'>{isPen ? 'clicks' : 'units'}</span>
+              </p>
+              <dl className='border-foreground mt-4 border-t text-xs'>
+                {pen ? (
+                  <>
+                    <Row label='Volume' value={`${fmt(pen.ml, 2)} ml`} />
+                    <Row label='Per click' value={`${fmt(pen.mgPerClick, 4)} mg`} />
+                    <Row label='Uses per pen' value={fmt(uses, 1)} />
+                    {pen.turns > 0 ? (
+                      <Row
+                        label='Dial'
+                        value={`${pen.turns} full ${pen.turns === 1 ? 'turn' : 'turns'}${pen.remainder > 0 ? ` + ${pen.remainder}` : ''}`}
+                        accent
+                      />
+                    ) : null}
+                  </>
+                ) : vial ? (
+                  <>
+                    <Row label='Volume' value={`${fmt(vial.ml, 2)} ml`} />
+                    <Row label='Concentration' value={`${fmt(vial.mgPerMl, 2)} mg/ml`} />
+                    <Row label='Uses per vial' value={fmt(uses, 1)} />
+                    {vial.units > 100 ? <Row label='Syringe' value='Over one draw, split it' accent /> : null}
+                  </>
+                ) : (
+                  <Row
+                    label='Reading'
+                    value={isPen && !specs.fillMl ? 'Fill volume not on file' : 'Enter an amount'}
                   />
-                  <span id='grid-calc-dose-unit' className='text-muted-foreground text-sm'>
-                    mg
-                  </span>
-                </div>
-              </div>
-
-              <div className='mt-auto rounded-lg bg-neutral-950 p-4 text-white'>
-                <p className='text-[11px] font-semibold tracking-[0.14em] text-white/55 uppercase'>
-                  {isPen ? 'On the dial' : 'On the syringe'}
-                </p>
-                <p className='mt-1 text-4xl font-bold tracking-tight tabular-nums'>
-                  {Math.round(reading)}
-                  <span className='ms-2 text-base font-semibold text-white/60'>{isPen ? 'clicks' : 'units'}</span>
-                </p>
-                <p className='mt-2 text-xs text-white/70'>
-                  {pen
-                    ? `${fmt(dose, 2)} mg is ${fmt(pen.ml, 2)} ml at ${fmt(pen.mgPerClick, 4)} mg per click. ${fmt(uses, 1)} uses per pen.`
-                    : vial
-                      ? `${fmt(dose, 2)} mg is ${fmt(vial.ml, 2)} ml at ${fmt(vial.mgPerMl, 2)} mg/ml. ${fmt(uses, 1)} uses per ${noun}.`
-                      : isPen && !specs.fillMl
-                        ? 'Fill volume not on file for this pen.'
-                        : 'Enter an amount to read the dial.'}
-                </p>
-                {pen && pen.turns > 0 ? (
-                  <p className='mt-1 text-xs font-semibold text-[#0592b3]'>
-                    {pen.turns} full {pen.turns === 1 ? 'turn' : 'turns'} of the dial
-                    {pen.remainder > 0 ? ` and ${pen.remainder} more clicks` : ''}.
-                  </p>
-                ) : null}
-                {vial && vial.units > 100 ? (
-                  <p className='mt-1 text-xs font-semibold text-[#0592b3]'>Over one full draw. Split it.</p>
-                ) : null}
-              </div>
-
-              <div className='flex items-center justify-between gap-3 text-xs'>
-                <span className='text-muted-foreground'>
+                )}
+              </dl>
+              <p className='text-muted-foreground mt-3 flex items-baseline justify-between gap-3 font-mono text-[10px] leading-relaxed'>
+                <span>
                   {isPen
-                    ? `1 click = ${ML_PER_CLICK} ml, ${CLICKS_PER_TURN} clicks a turn.`
-                    : `1 unit = ${ML_PER_SYRINGE_UNIT} ml on the syringe.`}{' '}
-                  Research use only.
+                    ? `1 click = ${ML_PER_CLICK} ml · ${CLICKS_PER_TURN} per turn`
+                    : `1 unit = ${ML_PER_SYRINGE_UNIT} ml`}
+                  . Research use only.
                 </span>
-                <Link href='/#calculator' className='shrink-0 font-medium underline underline-offset-4'>
+                <Link href='/#calculator' className='text-foreground shrink-0 underline underline-offset-4'>
                   Full calculator
                 </Link>
-              </div>
-            </>
-          )}
-        </div>
-      </Card>
+              </p>
+            </div>
+          </>
+        )}
+      </section>
     </div>
   )
 }
 
-const SegmentButton = ({
-  active,
-  onClick,
-  children
-}: {
-  active: boolean
-  onClick: () => void
-  children: React.ReactNode
-}) => (
+const eyebrow = 'text-muted-foreground font-mono text-[10px] tracking-[0.12em] uppercase'
+
+const fieldInput =
+  'h-8 rounded-none border-0 bg-transparent px-0 text-right text-sm tabular-nums shadow-none focus-visible:ring-0'
+
+const ModeTab = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
   <button
     type='button'
+    role='tab'
+    aria-selected={active}
     onClick={onClick}
-    aria-pressed={active}
     className={cn(
-      'h-8 rounded-md border text-sm font-medium tabular-nums transition-colors',
-      active ? 'border-foreground bg-foreground text-background' : 'hover:border-foreground/40 border-border bg-white'
+      '-mb-px border-b pb-2.5 font-mono text-[11px] tracking-[0.12em] uppercase transition-colors',
+      active ? 'border-foreground text-foreground' : 'text-muted-foreground hover:text-foreground border-transparent'
     )}
   >
     {children}
   </button>
+)
+
+/** Label above, control below, one rule underneath. */
+const Field = ({
+  label,
+  unit,
+  htmlFor,
+  children
+}: {
+  label: string
+  unit?: string
+  htmlFor?: string
+  children: React.ReactNode
+}) => (
+  <div className='border-foreground/15 mt-4 border-b pb-1'>
+    <label htmlFor={htmlFor} className={eyebrow}>
+      {label}
+    </label>
+    <div className='flex items-center gap-2'>
+      <div className='min-w-0 flex-1'>{children}</div>
+      {unit ? <span className='text-muted-foreground font-mono text-xs'>{unit}</span> : null}
+    </div>
+  </div>
+)
+
+/** Definition row: label left, value right, rule underneath. */
+const Row = ({ label, value, accent }: { label: string; value: string; accent?: boolean }) => (
+  <div className='border-foreground/15 flex items-baseline justify-between gap-3 border-b py-1.5'>
+    <dt className='text-muted-foreground'>{label}</dt>
+    <dd className={cn('font-mono tabular-nums', accent && 'font-semibold')} style={accent ? { color: ACCENT } : undefined}>
+      {value}
+    </dd>
+  </div>
 )
 
 export default ProductGridCalculator
