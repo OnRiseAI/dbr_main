@@ -190,7 +190,20 @@ const ProductGridCalculator = ({ products }: Props) => {
 
             {/* Reading */}
             <div className='mt-auto pt-6'>
-              <p className={eyebrow}>Time to your goal</p>
+              <div className='flex items-baseline justify-between gap-3'>
+                <p className={eyebrow}>Time to your goal</p>
+                <button
+                  type='button'
+                  onClick={() => {
+                    if (schedulePen) setSelectedId(schedulePen.id)
+                    setDoseText(String(PROTOCOL[PROTOCOL.length - 1].mg))
+                    setMode('units')
+                  }}
+                  className='text-foreground font-mono text-[10px] tracking-[0.12em] uppercase underline underline-offset-4'
+                >
+                  Work out your clicks
+                </button>
+              </div>
               {plan ? (
                 plan.weeks ? (
                   <>
