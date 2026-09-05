@@ -22,15 +22,15 @@ const COLUMNS = [
       { title: 'How each format works', href: '/#how-it-works' },
       { title: 'Units calculator', href: '/#calculator' },
       { title: 'Pen or vial', href: '/#pen-or-vial' },
-      { title: 'FAQ', href: '/pages/faq' }
+      { title: 'FAQ', href: '/faq' }
     ]
   },
   {
     title: 'Company',
     links: [
-      { title: 'About us', href: '/pages/about-us' },
-      { title: 'Contact', href: '/pages/contacts' },
-      { title: 'Become a distributor', href: '/pages/become-our-distributor' }
+      { title: 'About us', href: '/about' },
+      { title: 'Contact', href: '/contact' },
+      { title: 'Become a distributor', href: '/distributors' }
     ]
   }
 ]

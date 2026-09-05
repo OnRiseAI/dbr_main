@@ -15,6 +15,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '',
     '/shop',
     '/category',
+    '/about',
+    '/faq',
+    '/contact',
+    '/distributors',
     ...pages.map(page => `/pages/${page.handle}`),
     ...productIds.map(id => `/product/${id}`)
   ]

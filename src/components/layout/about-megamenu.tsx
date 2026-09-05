@@ -9,22 +9,22 @@ const LINKS = [
   {
     title: 'About us',
     body: 'Who is behind Deep Beauty Research and how the range is made.',
-    href: '/pages/about-us'
+    href: '/about'
   },
   {
     title: 'FAQ',
     body: 'Shipping, what arrives in the box, documentation, pens versus vials.',
-    href: '/pages/faq'
+    href: '/faq'
   },
   {
     title: 'Contact',
     body: 'Questions about an order or a product. We answer the same day.',
-    href: '/pages/contacts'
+    href: '/contact'
   },
   {
     title: 'Become a distributor',
     body: 'Wholesale and partner terms for clinics, shops and resellers.',
-    href: '/pages/become-our-distributor'
+    href: '/distributors'
   }
 ]
 

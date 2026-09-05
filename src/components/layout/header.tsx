@@ -80,19 +80,19 @@ const Header = () => {
       <div className='bg-muted hidden lg:block'>
         <ContentLayout className='flex items-center justify-between gap-4 py-2'>
           <div className='flex items-center gap-4 text-sm font-medium whitespace-nowrap'>
-            <Link href='#' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
-              Shipping & Returns
+            <Link href='/faq#shipping' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
+              Shipping
             </Link>
-            <Link href='#' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
+            <Link href='/faq#ordering' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
               Payment
             </Link>
-            <Link href='#' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
-              Warranty
+            <Link href='/faq#quality' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
+              Documentation
             </Link>
-            <Link href='#' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
-              Location
+            <Link href='/distributors' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
+              Trade
             </Link>
-            <Link href='#' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
+            <Link href='/contact' className='opacity-80 transition-opacity duration-300 hover:opacity-100'>
               Contact
             </Link>
           </div>
