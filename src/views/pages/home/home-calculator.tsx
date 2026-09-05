@@ -16,6 +16,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
+import { CLICKS_PER_TURN, ML_PER_CLICK, ML_PER_SYRINGE_UNIT, maxPerUseMg, penReading, syringeUnits } from '@/lib/pen-dosing'
 
 type Format = 'pen' | 'vial'
 
@@ -24,6 +25,7 @@ const PENS = [
   {
     value: 'retatrutide-pen-15mg',
     label: 'Retatrutide pen 15 mg',
+    compound: 'Retatrutide',
     mg: 15,
     ml: 3,
     image: '/images/products/dbr-reta-pen-15mg-upright.png'
@@ -31,6 +33,7 @@ const PENS = [
   {
     value: 'retatrutide-pen-40mg',
     label: 'Retatrutide pen 40 mg',
+    compound: 'Retatrutide',
     mg: 40,
     ml: 4,
     image: '/images/products/dbr-reta-pen-40mg-upright.png'
@@ -38,6 +41,7 @@ const PENS = [
   {
     value: 'ghk-cu-pen-100mg',
     label: 'GHK-Cu pen 100 mg',
+    compound: 'GHK-Cu',
     mg: 100,
     ml: 3,
     image: '/images/products/dbr-ghk-cu-pen-100mg-upright.png'
@@ -45,6 +49,7 @@ const PENS = [
   {
     value: 'mots-c-pen-20mg',
     label: 'MOTS-c pen 20 mg',
+    compound: 'MOTS-c',
     mg: 20,
     ml: 4,
     image: '/images/products/dbr-mots-c-pen-20mg-upright.png'
@@ -52,12 +57,12 @@ const PENS = [
 ]
 
 const VIALS = [
-  { value: 'retatrutide-vial-10mg', label: 'Retatrutide vial 10 mg', mg: 10, image: '/images/products/dbr-reta-vial-10mg.png' },
-  { value: 'retatrutide-vial-20mg', label: 'Retatrutide vial 20 mg', mg: 20, image: '/images/products/dbr-reta-vial-20mg.png' },
-  { value: 'ghk-cu-vial-100mg', label: 'GHK-Cu vial 100 mg', mg: 100, image: '/images/products/dbr-ghk-cu-vial-100mg.png' },
-  { value: 'mt1-vial-10mg', label: 'Melanotan I (MT1) vial 10 mg', mg: 10, image: '/images/products/dbr-mt1-vial-10mg.png' },
-  { value: 'mt2-vial-10mg', label: 'Melanotan II (MT2) vial 10 mg', mg: 10, image: '/images/products/dbr-mt2-vial-10mg.png' },
-  { value: 'selank-vial-10mg', label: 'Selank vial 10 mg', mg: 10, image: '/images/products/dbr-selank-vial-10mg.png' }
+  { value: 'retatrutide-vial-10mg', label: 'Retatrutide vial 10 mg', compound: 'Retatrutide', mg: 10, image: '/images/products/dbr-reta-vial-10mg.png' },
+  { value: 'retatrutide-vial-20mg', label: 'Retatrutide vial 20 mg', compound: 'Retatrutide', mg: 20, image: '/images/products/dbr-reta-vial-20mg.png' },
+  { value: 'ghk-cu-vial-100mg', label: 'GHK-Cu vial 100 mg', compound: 'GHK-Cu', mg: 100, image: '/images/products/dbr-ghk-cu-vial-100mg.png' },
+  { value: 'mt1-vial-10mg', label: 'Melanotan I (MT1) vial 10 mg', compound: 'Melanotan I', mg: 10, image: '/images/products/dbr-mt1-vial-10mg.png' },
+  { value: 'mt2-vial-10mg', label: 'Melanotan II (MT2) vial 10 mg', compound: 'Melanotan II', mg: 10, image: '/images/products/dbr-mt2-vial-10mg.png' },
+  { value: 'selank-vial-10mg', label: 'Selank vial 10 mg', compound: 'Selank', mg: 10, image: '/images/products/dbr-selank-vial-10mg.png' }
 ]
 
 const WATER = [1, 2, 3]
@@ -81,14 +86,15 @@ type Props = {
 }
 
 /**
- * Units calculator. 1 unit on an insulin syringe or pen dial = 0.01 ml.
- * Pure arithmetic from the label values; no guidance on amounts.
+ * Dose calculator. Pens read in clicks (1 click = 0.0125 ml, 60 clicks per turn of the
+ * dial, from the pen dosing note). Vials read in insulin-syringe units (1 unit = 0.01 ml).
+ * Pure arithmetic from the label values; the per-use range is capped per compound.
  */
 const HomeCalculator = ({
   defaultFormat = 'pen',
   defaultProductId,
-  title = 'Units calculator',
-  subtitle = 'Set the amount you work with and read the units off the dial or the syringe.'
+  title = 'Dose calculator',
+  subtitle = 'Set the amount you work with and read the clicks off the pen dial or the units off the syringe.'
 }: Props) => {
   const [format, setFormat] = useState<Format>(defaultFormat)
   const [pen, setPen] = useState(PENS.find(p => p.value === defaultProductId)?.value ?? PENS[0].value)
@@ -104,20 +110,24 @@ const HomeCalculator = ({
   const hasDose = Number.isFinite(dose) && dose > 0
 
   // Slider range scales with the product: fine steps for small strengths.
-  const sliderMax = product ? Math.min(product.mg, 10) : 10
+  const sliderMax = product ? maxPerUseMg(product.compound, product.mg) : 10
   const sliderStep = 0.1
 
   const result = useMemo(() => {
     if (!product) return null
 
-    const volumeMl = format === 'pen' ? (product as (typeof PENS)[number]).ml : water
-    const mgPerMl = product.mg / volumeMl
-    const unitsPerDose = hasDose ? (dose / mgPerMl) * 100 : 0
+    const safeDose = hasDose ? dose : 0
+    const pen = format === 'pen' ? penReading(safeDose, product.mg, (product as (typeof PENS)[number]).ml) : null
+    const vial = format === 'vial' ? syringeUnits(safeDose, product.mg, water) : null
+    const mgPerMl = format === 'pen' ? product.mg / (product as (typeof PENS)[number]).ml : vial!.mgPerMl
+
+    // Pens: clicks on the dial. Vials: units on the syringe.
+    const unitsPerDose = pen ? pen.clicks : vial!.units
     const usesPerUnit = hasDose ? product.mg / dose : 0
     const weeks = hasDose ? usesPerUnit / perWeek : 0
     const unitsForPlan = hasDose ? Math.ceil(PLAN_WEEKS / weeks) : 0
 
-    return { mgPerMl, unitsPerDose, usesPerUnit, weeks, unitsForPlan }
+    return { mgPerMl, unitsPerDose, usesPerUnit, weeks, unitsForPlan, pen }
   }, [product, format, water, dose, hasDose, perWeek])
 
   const noun = format === 'pen' ? 'pen' : 'vial'
@@ -230,8 +240,11 @@ const HomeCalculator = ({
             </div>
 
             <p className='text-muted-foreground text-xs'>
-              Arithmetic from the label values only. 1 unit = 0.01 ml. Research use only, not guidance on how much to
-              use.
+              Arithmetic from the label values only.{' '}
+              {format === 'pen'
+                ? `1 click = ${ML_PER_CLICK} ml, ${CLICKS_PER_TURN} clicks per turn of the dial.`
+                : `1 unit = ${ML_PER_SYRINGE_UNIT} ml on an insulin syringe.`}{' '}
+              Research use only, not guidance on how much to use.
             </p>
           </div>
 
@@ -263,10 +276,20 @@ const HomeCalculator = ({
               <div className='flex items-baseline justify-between gap-4 border-t border-white/15 pt-4'>
                 <p className='text-sm text-white/70'>
                   {hasDose && result
-                    ? `${fmt(dose, 2)} mg is ${fmt(result.unitsPerDose / 100, 2)} ml at ${fmt(result.mgPerMl, 2)} mg/ml`
-                    : 'Enter an amount to read the units.'}
+                    ? result.pen
+                      ? `${fmt(dose, 2)} mg is ${fmt(result.pen.ml, 2)} ml, ${fmt(result.pen.mgPerClick, 4)} mg per click`
+                      : `${fmt(dose, 2)} mg is ${fmt(result.unitsPerDose / 100, 2)} ml at ${fmt(result.mgPerMl, 2)} mg/ml`
+                    : format === 'pen'
+                      ? 'Enter an amount to read the dial.'
+                      : 'Enter an amount to read the units.'}
                 </p>
-                {result && result.unitsPerDose > 100 ? (
+                {result?.pen && result.pen.turns > 0 ? (
+                  <p className='text-sm font-semibold' style={{ color: ACCENT }}>
+                    {result.pen.turns} full {result.pen.turns === 1 ? 'turn' : 'turns'}
+                    {result.pen.remainder > 0 ? ` and ${result.pen.remainder} clicks` : ''}.
+                  </p>
+                ) : null}
+                {result && format === 'vial' && result.unitsPerDose > 100 ? (
                   <p className='text-sm font-semibold' style={{ color: ACCENT }}>Over one full draw. Split it.</p>
                 ) : null}
               </div>
@@ -323,14 +346,16 @@ const Stat = ({ label, value, note }: { label: string; value: string; note?: str
   </div>
 )
 
-/** A pen dose dial: 270 degree sweep, 0 to 100 units, ticks every 10, the reading in the window. */
+/** A pen dose dial: 270 degree sweep, one full turn = 60 clicks, ticks every 10, the reading in the window. Beyond one turn the arc shows the remainder. */
 const PenDial = ({ units }: { units: number }) => {
   const size = 240
   const c = size / 2
   const r = 96
   const start = 135
   const sweep = 270
-  const clamped = Math.max(0, Math.min(100, units))
+  const total = Math.round(units)
+  const remainder = total % CLICKS_PER_TURN
+  const clamped = total > 0 && remainder === 0 ? CLICKS_PER_TURN : remainder
 
   const toXY = (deg: number, radius: number) => {
     const rad = (deg * Math.PI) / 180
@@ -346,7 +371,7 @@ const PenDial = ({ units }: { units: number }) => {
     return `M ${x1} ${y1} A ${radius} ${radius} 0 ${large} 1 ${x2} ${y2}`
   }
 
-  const valueEnd = round2(start + (sweep * clamped) / 100)
+  const valueEnd = round2(start + (sweep * clamped) / CLICKS_PER_TURN)
 
   return (
     <div className='flex justify-center'>
@@ -355,7 +380,7 @@ const PenDial = ({ units }: { units: number }) => {
         height={size}
         viewBox={`0 0 ${size} ${size}`}
         role='img'
-        aria-label={`${Math.round(units)} units`}
+        aria-label={`${total} clicks`}
       >
         <path
           d={arc(start, start + sweep, r)}
@@ -375,10 +400,10 @@ const PenDial = ({ units }: { units: number }) => {
             className='transition-all duration-300'
           />
         ) : null}
-        {Array.from({ length: 11 }).map((_, i) => {
-          const deg = start + (sweep * i) / 10
+        {Array.from({ length: 13 }).map((_, i) => {
+          const deg = start + (sweep * i) / 12
           const [x1, y1] = toXY(deg, r - 14)
-          const [x2, y2] = toXY(deg, r - (i % 5 === 0 ? 26 : 20))
+          const [x2, y2] = toXY(deg, r - (i % 2 === 0 ? 26 : 20))
           const [lx, ly] = toXY(deg, r - 38)
 
           return (
@@ -389,10 +414,10 @@ const PenDial = ({ units }: { units: number }) => {
                 x2={x2}
                 y2={y2}
                 stroke='currentColor'
-                strokeOpacity={i % 5 === 0 ? 0.8 : 0.35}
+                strokeOpacity={i % 2 === 0 ? 0.8 : 0.35}
                 strokeWidth='1.5'
               />
-              {i % 5 === 0 ? (
+              {i % 2 === 0 ? (
                 <text
                   x={lx}
                   y={ly}
@@ -402,7 +427,7 @@ const PenDial = ({ units }: { units: number }) => {
                   fill='currentColor'
                   fillOpacity='0.6'
                 >
-                  {i * 10}
+                  {i * 5}
                 </text>
               ) : null}
             </g>
@@ -417,7 +442,7 @@ const PenDial = ({ units }: { units: number }) => {
           fontWeight='700'
           fill='currentColor'
         >
-          {Math.round(units)}
+          {total}
         </text>
         <text
           x={c}
@@ -429,7 +454,7 @@ const PenDial = ({ units }: { units: number }) => {
           fillOpacity='0.6'
           letterSpacing='1.5'
         >
-          UNITS
+          CLICKS
         </text>
       </svg>
     </div>

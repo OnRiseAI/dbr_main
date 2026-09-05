@@ -19,13 +19,8 @@ import {
 } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 import { formatPrice } from '@/utils/product-utils'
-import {
-  MAINTENANCE_DOSES_MG,
-  buildWeightPlan,
-  unitsForPlan,
-  weeklyLossPct,
-  type MaintenanceDoseMg
-} from '@/lib/weight-plan'
+import { CLICKS_PER_TURN, ML_PER_CLICK, ML_PER_SYRINGE_UNIT, penReading, syringeUnits } from '@/lib/pen-dosing'
+import { WEEKLY_DOSES_MG, buildWeightPlan, unitsForPlan, weeklyLossPct, type WeeklyDoseMg } from '@/lib/weight-plan'
 
 const WATER = [1, 2, 3]
 const PLAN_COMPOUND = 'Retatrutide'
@@ -55,9 +50,10 @@ type Props = {
  *              count even     -> index 2n+1 -> hide
  *   1 column   always its own row, hide
  *
- * Units mode: 1 unit = 0.01 ml, label values only (same as the homepage calculator).
- * Plan mode: start weight and goal weight to weeks, total mg and pens or vials. Only
- * offered when a Retatrutide product is on screen. Assumptions live in lib/weight-plan.
+ * Units mode: pens read in clicks (1 click = 0.0125 ml, 60 per turn of the dial, from the
+ * pen dosing note), vials in insulin-syringe units (1 unit = 0.01 ml). See lib/pen-dosing.
+ * Plan mode: start weight and goal weight to weeks, total mg and pens or vials at a weekly
+ * dose of at most 1.75 mg. Offered when a Retatrutide product is on screen. See lib/weight-plan.
  */
 const ProductGridCalculator = ({ products }: Props) => {
   const options = products.filter(product => product.specs)
@@ -70,7 +66,7 @@ const ProductGridCalculator = ({ products }: Props) => {
   const [doseText, setDoseText] = useState('1')
   const [currentText, setCurrentText] = useState('100')
   const [goalText, setGoalText] = useState('80')
-  const [maintenance, setMaintenance] = useState<MaintenanceDoseMg>(12)
+  const [weekly, setWeekly] = useState<WeeklyDoseMg>(1)
 
   const product = options.find(item => item.id === selectedId) ?? options[0]
   const specs = product?.specs
@@ -82,16 +78,17 @@ const ProductGridCalculator = ({ products }: Props) => {
   // Units
   const dose = parseNumber(doseText)
   const hasDose = Number.isFinite(dose) && dose > 0
-  const volumeMl = specs.form === 'pen' ? specs.fillMl : water
-  const mgPerMl = volumeMl ? specs.strengthMg / volumeMl : null
-  const units = hasDose && mgPerMl ? (dose / mgPerMl) * 100 : 0
+  const isPen = specs.form === 'pen'
+  const pen = isPen && specs.fillMl && hasDose ? penReading(dose, specs.strengthMg, specs.fillMl) : null
+  const vial = !isPen && hasDose ? syringeUnits(dose, specs.strengthMg, water) : null
+  const reading = pen ? pen.clicks : vial ? vial.units : 0
   const uses = hasDose ? specs.strengthMg / dose : 0
-  const noun = specs.form === 'pen' ? 'pen' : 'vial'
+  const noun = isPen ? 'pen' : 'vial'
 
   // Plan
   const currentKg = parseNumber(currentText)
   const goalKg = parseNumber(goalText)
-  const plan = buildWeightPlan(currentKg, goalKg, maintenance)
+  const plan = buildWeightPlan(currentKg, goalKg, weekly)
 
   const planRows = plan
     ? planOptions
@@ -108,18 +105,18 @@ const ProductGridCalculator = ({ products }: Props) => {
       <Card className='bg-muted h-full gap-0 border py-0 ring-0'>
         <div className='flex flex-1 flex-col gap-4 p-4'>
           <div className='space-y-0.5'>
-            <h5 className='text-lg font-semibold'>{showPlan ? 'Weight plan' : 'Units calculator'}</h5>
+            <h5 className='text-lg font-semibold'>{showPlan ? 'Weight plan' : 'Dose calculator'}</h5>
             <p className='text-muted-foreground text-xs'>
               {showPlan
                 ? 'Start weight and goal weight to weeks and pens.'
-                : 'Read the units off the dial or the syringe.'}
+                : 'Read the clicks off the pen dial or the units off the syringe.'}
             </p>
           </div>
 
           {canPlan ? (
             <Tabs value={mode} onValueChange={value => setMode(value as Mode)}>
               <TabsList className='grid w-full grid-cols-2 bg-white'>
-                <TabsTrigger value='units'>Units</TabsTrigger>
+                <TabsTrigger value='units'>Dose</TabsTrigger>
                 <TabsTrigger value='plan'>Plan</TabsTrigger>
               </TabsList>
             </Tabs>
@@ -161,14 +158,15 @@ const ProductGridCalculator = ({ products }: Props) => {
               </div>
 
               <div className='space-y-1.5'>
-                <Label className='text-xs'>Weekly dose once escalated</Label>
-                <div className='grid grid-cols-3 gap-1.5'>
-                  {MAINTENANCE_DOSES_MG.map(mg => (
-                    <SegmentButton key={mg} active={maintenance === mg} onClick={() => setMaintenance(mg)}>
-                      {mg} mg
+                <Label className='text-xs'>Weekly dose</Label>
+                <div className='grid grid-cols-6 gap-1.5'>
+                  {WEEKLY_DOSES_MG.map(mg => (
+                    <SegmentButton key={mg} active={weekly === mg} onClick={() => setWeekly(mg)}>
+                      {fmt(mg, 2)}
                     </SegmentButton>
                   ))}
                 </div>
+                <p className='text-muted-foreground text-[11px]'>mg a week. 1.75 mg is the most we recommend.</p>
               </div>
 
               <div className='mt-auto rounded-lg bg-neutral-950 p-4 text-white'>
@@ -180,9 +178,8 @@ const ProductGridCalculator = ({ products }: Props) => {
                       <span className='ms-2 text-base font-semibold text-white/60'>weeks</span>
                     </p>
                     <p className='mt-2 text-xs text-white/70'>
-                      {fmt(plan.lossKg, 1)} kg is {fmt(plan.lossPct, 0)}% of {fmt(currentKg, 0)} kg.{' '}
-                      {plan.schedule.map(step => `${step.weeks} wk at ${step.mg} mg`).join(', ')}. {fmt(plan.totalMg, 0)} mg
-                      in total.
+                      {fmt(plan.lossKg, 1)} kg is {fmt(plan.lossPct, 0)}% of {fmt(currentKg, 0)} kg. {fmt(weekly, 2)} mg a
+                      week for {plan.weeks} weeks is {fmt(plan.totalMg, 1)} mg in total.
                     </p>
                     <ul className='mt-3 space-y-1.5 border-t border-white/15 pt-3 text-sm'>
                       {planRows.map(({ item, count, cost }, index) => (
@@ -203,8 +200,8 @@ const ProductGridCalculator = ({ products }: Props) => {
               </div>
 
               <p className='text-muted-foreground text-xs'>
-                Trial average at {maintenance} mg: {fmt(weeklyLossPct(maintenance), 2)}% of start weight a week over 48
-                weeks. Individual results vary. Research use only.
+                Rate: {fmt(weeklyLossPct(weekly), 2)}% of start weight a week at {fmt(weekly, 2)} mg, interpolated from
+                the 48-week trial arms. Individual results vary. Research use only.
               </p>
             </>
           ) : (
@@ -233,7 +230,7 @@ const ProductGridCalculator = ({ products }: Props) => {
                 </Select>
               </div>
 
-              {specs.form === 'vial' ? (
+              {!isPen ? (
                 <div className='space-y-1.5'>
                   <Label className='text-xs'>Bacteriostatic water added</Label>
                   <div className='grid grid-cols-3 gap-1.5'>
@@ -267,26 +264,39 @@ const ProductGridCalculator = ({ products }: Props) => {
 
               <div className='mt-auto rounded-lg bg-neutral-950 p-4 text-white'>
                 <p className='text-[11px] font-semibold tracking-[0.14em] text-white/55 uppercase'>
-                  {specs.form === 'pen' ? 'On the dial' : 'On the syringe'}
+                  {isPen ? 'On the dial' : 'On the syringe'}
                 </p>
                 <p className='mt-1 text-4xl font-bold tracking-tight tabular-nums'>
-                  {Math.round(units)}
-                  <span className='ms-2 text-base font-semibold text-white/60'>units</span>
+                  {Math.round(reading)}
+                  <span className='ms-2 text-base font-semibold text-white/60'>{isPen ? 'clicks' : 'units'}</span>
                 </p>
                 <p className='mt-2 text-xs text-white/70'>
-                  {hasDose && mgPerMl
-                    ? `${fmt(dose, 2)} mg is ${fmt(units / 100, 2)} ml at ${fmt(mgPerMl, 2)} mg/ml. ${fmt(uses, 1)} uses per ${noun}.`
-                    : mgPerMl
-                      ? 'Enter an amount to read the units.'
-                      : 'Fill volume not on file for this pen.'}
+                  {pen
+                    ? `${fmt(dose, 2)} mg is ${fmt(pen.ml, 2)} ml at ${fmt(pen.mgPerClick, 4)} mg per click. ${fmt(uses, 1)} uses per pen.`
+                    : vial
+                      ? `${fmt(dose, 2)} mg is ${fmt(vial.ml, 2)} ml at ${fmt(vial.mgPerMl, 2)} mg/ml. ${fmt(uses, 1)} uses per ${noun}.`
+                      : isPen && !specs.fillMl
+                        ? 'Fill volume not on file for this pen.'
+                        : 'Enter an amount to read the dial.'}
                 </p>
-                {units > 100 ? (
+                {pen && pen.turns > 0 ? (
+                  <p className='mt-1 text-xs font-semibold text-[#0592b3]'>
+                    {pen.turns} full {pen.turns === 1 ? 'turn' : 'turns'} of the dial
+                    {pen.remainder > 0 ? ` and ${pen.remainder} more clicks` : ''}.
+                  </p>
+                ) : null}
+                {vial && vial.units > 100 ? (
                   <p className='mt-1 text-xs font-semibold text-[#0592b3]'>Over one full draw. Split it.</p>
                 ) : null}
               </div>
 
               <div className='flex items-center justify-between gap-3 text-xs'>
-                <span className='text-muted-foreground'>1 unit = 0.01 ml. Research use only.</span>
+                <span className='text-muted-foreground'>
+                  {isPen
+                    ? `1 click = ${ML_PER_CLICK} ml, ${CLICKS_PER_TURN} clicks a turn.`
+                    : `1 unit = ${ML_PER_SYRINGE_UNIT} ml on the syringe.`}{' '}
+                  Research use only.
+                </span>
                 <Link href='/#calculator' className='shrink-0 font-medium underline underline-offset-4'>
                   Full calculator
                 </Link>
