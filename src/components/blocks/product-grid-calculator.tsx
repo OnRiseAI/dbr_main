@@ -272,13 +272,24 @@ const ProductGridCalculator = ({ products }: Props) => {
               </Field>
             ) : null}
 
-            {/* Reading */}
+            {/* Reading, with the dial end of the selected pen beside it */}
             <div className='mt-auto pt-6'>
-              <p className={eyebrow}>{isPen ? 'On your pen dial' : 'On your syringe'}</p>
-              <p className='mt-1 flex items-baseline gap-2 leading-none tabular-nums'>
-                <span className='text-6xl font-light tracking-tight'>{Math.round(reading)}</span>
-                <span className='text-muted-foreground font-mono text-xs uppercase'>{isPen ? 'clicks' : 'units'}</span>
-              </p>
+              <div className='flex items-end justify-between gap-4'>
+                <div>
+                  <p className={eyebrow}>{isPen ? 'On your pen dial' : 'On your syringe'}</p>
+                  <p className='mt-1 flex items-baseline gap-2 leading-none tabular-nums'>
+                    <span className='text-6xl font-light tracking-tight'>{Math.round(reading)}</span>
+                    <span className='text-muted-foreground font-mono text-xs uppercase'>{isPen ? 'clicks' : 'units'}</span>
+                  </p>
+                </div>
+                {isPen && product.dialImage ? (
+                  <img
+                    src={product.dialImage}
+                    alt={`Dial end of the ${product.name.replace(' | ', ' ')}: knob, dial ring and dose window`}
+                    className='h-24 w-auto shrink-0 object-contain object-bottom'
+                  />
+                ) : null}
+              </div>
               <dl className='border-foreground mt-4 border-t text-xs'>
                 {pen ? (
                   <>

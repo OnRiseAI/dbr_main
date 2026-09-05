@@ -56,6 +56,7 @@ export type Product = {
   sizes?: ProductSize[]
   highlights: ProductHighlight[]
   reviews: ProductReview[]
+
   /**
    * Variant family. Members are separate SKUs (own id, price, cart line) that
    * share one product page name. One member is listed in grids; the rest are
@@ -64,19 +65,28 @@ export type Product = {
   family?: string
   familyName?: string
   variantLabel?: string
+
   /** What the selector chooses between: Strength by default, Type for MT1 and MT2. */
   variantAxis?: string
   variantOrder?: number
   variantCount?: number
   hiddenVariant?: boolean
+
   /** Plain paragraphs for the Overview tab (bodyHtml is the same content as HTML). */
   overview?: string[]
+
   /** What ships in the box. */
   contents?: string[]
+
   /** Label facts. Concentration and units per mg derive from strengthMg and fillMl. */
   specs?: ProductSpecs
+
   /** Hand-picked companions, shown as Pairs with. */
   pairsWith?: string[]
+
+  /** Close crop of the pen's dial end (knob, dial ring, dose window). Pens only. */
+  dialImage?: string
+
   /** Optional short clip (mp4 path). Rendered in the gallery when present. */
   video?: string
 }

@@ -67,7 +67,8 @@
     "variantOrder": 0,
     "variantCount": 2,
     "hiddenVariant": false,
-    "variantAxis": "Strength"
+    "variantAxis": "Strength",
+    "dialImage": "/images/products/dbr-reta-pen-15mg-dial.png"
   },
   {
     "id": "retatrutide-pen-40mg",
@@ -137,7 +138,8 @@
     "variantOrder": 1,
     "variantCount": 2,
     "hiddenVariant": false,
-    "variantAxis": "Strength"
+    "variantAxis": "Strength",
+    "dialImage": "/images/products/dbr-reta-pen-40mg-dial.png"
   },
   {
     "id": "ghk-cu-pen-100mg",
@@ -207,7 +209,8 @@
     "variantOrder": 0,
     "variantCount": 2,
     "hiddenVariant": false,
-    "variantAxis": "Strength"
+    "variantAxis": "Strength",
+    "dialImage": "/images/products/dbr-ghk-cu-pen-100mg-dial.png"
   },
   {
     "id": "ghk-skin-glow-pen-70mg",
@@ -275,7 +278,8 @@
     "variantOrder": 1,
     "variantCount": 2,
     "hiddenVariant": false,
-    "variantAxis": "Strength"
+    "variantAxis": "Strength",
+    "dialImage": "/images/products/dbr-ghk-skin-glow-pen-70mg-dial.png"
   },
   {
     "id": "mots-c-pen-20mg",
@@ -329,7 +333,8 @@
       "retatrutide-pen-15mg",
       "retatrutide-vial-10mg",
       "ghk-cu-pen-100mg"
-    ]
+    ],
+    "dialImage": "/images/products/dbr-mots-c-pen-20mg-dial.png"
   },
   {
     "id": "retatrutide-vial-10mg",
