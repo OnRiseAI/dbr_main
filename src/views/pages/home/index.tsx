@@ -11,7 +11,6 @@ import HomeHowToUse from '@/views/pages/home/home-how-to-use'
 import HomeCalculator from '@/views/pages/home/home-calculator'
 import HomeFormatChooser from '@/views/pages/home/home-format-chooser'
 import HomeFaq from '@/views/pages/home/home-faq'
-import HomeFormatCompare from '@/views/pages/home/home-format-compare'
 
 type Props = {
   categories: Category[]
@@ -53,7 +52,6 @@ const HomeView = ({ categories, pens, vials }: Props) => {
         <HomeFaq />
       </div>
 
-      <HomeFormatCompare />
     </>
   )
 }
