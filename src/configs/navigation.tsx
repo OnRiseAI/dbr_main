@@ -50,6 +50,10 @@ export const mainNavigation: NavigationSection[] = [
     href: '/#how-it-works'
   },
   {
+    title: 'Calculator',
+    href: '/retatrutide-calculator'
+  },
+  {
     title: 'About',
     groups: [
       {

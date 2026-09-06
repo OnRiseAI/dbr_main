@@ -9,7 +9,7 @@ import HomeProductRow from '@/views/pages/home/home-product-row'
 import HomePenBreakdown from '@/views/pages/home/home-pen-breakdown'
 import HomeEasyToUse from '@/views/pages/home/home-easy-to-use'
 import HomeHowToUse from '@/views/pages/home/home-how-to-use'
-import HomeCalculator from '@/views/pages/home/home-calculator'
+import HomeCalculatorCta from '@/views/pages/home/home-calculator-cta'
 import HomeFormatChooser from '@/views/pages/home/home-format-chooser'
 import HomeFaq from '@/views/pages/home/home-faq'
 
@@ -46,7 +46,7 @@ const HomeView = ({ categories, pens, vials }: Props) => {
       <HomePenBreakdown />
       <HomeEasyToUse />
       <HomeHowToUse />
-      <HomeCalculator />
+      <HomeCalculatorCta />
 
       {/* Closing band. */}
       <div className='bg-muted'>

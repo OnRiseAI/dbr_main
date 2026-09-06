@@ -35,7 +35,7 @@ export const searchData: SearchData[] = [
       { icon: ShoppingBagIcon, name: 'All products', href: '/shop', keywords: 'shop catalogue' },
       { icon: SyringeIcon, name: 'Pens', href: '/shop?category=Pens', keywords: 'pre-filled pen' },
       { icon: FlaskConicalIcon, name: 'Vials', href: '/shop?category=Vials', keywords: 'lyophilised vial' },
-      { icon: CalculatorIcon, name: 'Units calculator', href: '/#calculator', keywords: 'dose dosage clicks' },
+      { icon: CalculatorIcon, name: 'Retatrutide calculator', href: '/retatrutide-calculator', keywords: 'dose dosage clicks weight loss weeks' },
       { icon: FileTextIcon, name: 'How it works', href: '/#how-it-works', keywords: 'pen cartridge inside' },
       { icon: FileTextIcon, name: 'FAQ', href: '/faq', keywords: 'questions shipping payment' },
       { icon: FileTextIcon, name: 'About us', href: '/about' },

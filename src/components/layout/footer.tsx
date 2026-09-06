@@ -20,7 +20,7 @@ const COLUMNS = [
     title: 'Learn',
     links: [
       { title: 'How each format works', href: '/#how-it-works' },
-      { title: 'Units calculator', href: '/#calculator' },
+      { title: 'Retatrutide calculator', href: '/retatrutide-calculator' },
       { title: 'Pen or vial', href: '/#pen-or-vial' },
       { title: 'FAQ', href: '/faq' }
     ]
