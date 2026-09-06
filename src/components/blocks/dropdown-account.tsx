@@ -5,7 +5,7 @@ import type { ReactElement } from 'react'
 import Link from 'next/link'
 
 // Third-party Imports
-import { UserIcon, HeartIcon, PackageIcon, MapPinIcon, LogOutIcon } from 'lucide-react'
+import { UserIcon, HeartIcon, PackageIcon, MapPinIcon, GiftIcon, RefreshCwIcon, LogOutIcon } from 'lucide-react'
 
 // Component Imports
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
@@ -31,9 +31,14 @@ type Props = {
 
 const menuItems = [
   { title: 'My Profile', href: '/account', icon: UserIcon },
+  { title: 'My Wishlist', href: '/account/wishlist', icon: HeartIcon },
   { title: 'My Orders', href: '/account/orders', icon: PackageIcon },
-  { title: 'My Addresses', href: '/account/addresses', icon: MapPinIcon },
-  { title: 'My Wishlist', href: '/account/wishlist', icon: HeartIcon }
+  { title: 'My Addresses', href: '/account/addresses', icon: MapPinIcon }
+]
+
+const secondaryItems = [
+  { title: 'Gift Cards', href: '/account/gift-cards', icon: GiftIcon },
+  { title: 'Return & Refunds', href: '/account/return-refunds', icon: RefreshCwIcon }
 ]
 
 const AccountDropdown = ({ trigger, defaultOpen, align = 'end' }: Props) => {
@@ -59,6 +64,17 @@ const AccountDropdown = ({ trigger, defaultOpen, align = 'end' }: Props) => {
 
         <DropdownMenuGroup>
           {menuItems.map(item => (
+            <DropdownMenuItem key={item.title} render={<Link href={item.href} />} className='gap-2 px-3 py-2.5 text-base'>
+              <item.icon className='text-foreground size-5' />
+              <span>{item.title}</span>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuGroup>
+          {secondaryItems.map(item => (
             <DropdownMenuItem key={item.title} render={<Link href={item.href} />} className='gap-2 px-3 py-2.5 text-base'>
               <item.icon className='text-foreground size-5' />
               <span>{item.title}</span>

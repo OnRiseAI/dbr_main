@@ -5,7 +5,20 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 // Third-party Imports
-import { UserIcon, HeartIcon, BoxIcon, MapPinIcon, LogOutIcon } from 'lucide-react'
+import {
+  UserIcon,
+  HeartIcon,
+  BoxIcon,
+  ListTodoIcon,
+  MapPinIcon,
+  WalletIcon,
+  MailsIcon,
+  DollarSignIcon,
+  GiftIcon,
+  ArrowRightLeftIcon,
+  TicketIcon,
+  LogOutIcon
+} from 'lucide-react'
 
 // Component Imports
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -22,12 +35,24 @@ import { useFileUpload } from '@/hooks/use-file-upload'
 // Utils Imports
 import { cn } from '@/lib/utils'
 
-const links = [
+const mainLinks = [
   { title: 'Profile', href: '/account', icon: UserIcon },
+  { title: 'My Wishlist', href: '/account/wishlist', icon: HeartIcon },
   { title: 'My Orders', href: '/account/orders', icon: BoxIcon },
+  { title: 'Order Details', href: '/account/orders/details', icon: ListTodoIcon },
   { title: 'My Addresses', href: '/account/addresses', icon: MapPinIcon },
-  { title: 'My Wishlist', href: '/account/wishlist', icon: HeartIcon }
+  { title: 'My Wallet', href: '/account/wallet', icon: WalletIcon }
 ]
+
+const secondaryLinks = [
+  { title: 'Payment', href: '/account/payments', icon: DollarSignIcon },
+  { title: 'Gift Cards', href: '/account/gift-cards', icon: GiftIcon },
+  { title: 'Returns & Refund', href: '/account/return-refunds', icon: ArrowRightLeftIcon },
+  { title: 'Email Newsletter', href: '/account/email-newsletter', icon: MailsIcon },
+  { title: 'Support Tickets', href: '/account/support-ticket', icon: TicketIcon }
+]
+
+type NavLink = (typeof mainLinks)[number]
 
 const AccountSidebar = () => {
   const pathname = usePathname()
@@ -40,6 +65,24 @@ const AccountSidebar = () => {
     multiple: false,
     onFilesChange: files => setAvatarUrl(files[0]?.preview ?? null)
   })
+
+  const renderLink = ({ title, href, icon: Icon }: NavLink) => {
+    const isActive = pathname === href || (href !== '/account' && pathname.startsWith(`${href}/`) && href !== '/account/orders')
+
+    return (
+      <Link
+        key={title}
+        href={href}
+        className={cn('flex items-center gap-2 rounded-sm px-3 py-2.5 transition-colors', {
+          'bg-muted text-primary': isActive,
+          'hover:bg-muted': !isActive
+        })}
+      >
+        <Icon className='size-5 shrink-0' />
+        <span className='text-base font-medium'>{title}</span>
+      </Link>
+    )
+  }
 
   return (
     <div className='border-border rounded-xl border p-4'>
@@ -61,23 +104,9 @@ const AccountSidebar = () => {
       <Separator className='my-4' />
 
       <div className='space-y-0.5'>
-        {links.map(({ title, href, icon: Icon }) => {
-          const isActive = pathname === href || (href !== '/account' && pathname.startsWith(`${href}/`))
-
-          return (
-            <Link
-              key={title}
-              href={href}
-              className={cn('flex items-center gap-2 rounded-sm px-3 py-2.5 transition-colors', {
-                'bg-muted text-primary': isActive,
-                'hover:bg-muted': !isActive
-              })}
-            >
-              <Icon className='size-5 shrink-0' />
-              <span className='text-base font-medium'>{title}</span>
-            </Link>
-          )
-        })}
+        {mainLinks.map(renderLink)}
+        <Separator className='my-2' />
+        {secondaryLinks.map(renderLink)}
         <Separator className='my-4' />
         <SignOutButton className='hover:bg-muted flex w-full items-center gap-2 rounded-sm px-3 py-2.5 text-left transition-colors'>
           <LogOutIcon className='size-5 shrink-0' />
