@@ -3,108 +3,77 @@ import { ArrowRightIcon } from 'lucide-react'
 
 import ContentLayout from '@/components/layout/content-layout'
 
-const PENS = [
-  {
-    name: 'Retatrutide pen',
-    strength: '15 mg and 40 mg',
-    image: '/images/products/dbr-reta-pen-40mg-stacked.jpg',
-    href: '/product/retatrutide-pen-15mg'
-  },
-  {
-    name: 'GHK-Cu pen',
-    strength: '100 mg',
-    image: '/images/products/dbr-ghk-cu-pen-100mg-stacked.jpg',
-    href: '/product/ghk-cu-pen-100mg'
-  },
-  {
-    name: 'MOTS-c pen',
-    strength: '20 mg',
-    image: '/images/products/dbr-mots-c-pen-stacked.jpg',
-    href: '/product/mots-c-pen-20mg'
-  }
+const PARTS = [
+  { n: 1, title: 'Cartridge holder', body: 'Holds the cartridge and attaches to the pen body. The needle screws onto the front.' },
+  { n: 2, title: 'Liquid chamber', body: 'Sterile diluent, sealed on its own until first use.' },
+  { n: 3, title: 'Lyophilised chamber', body: 'The peptide is kept dry, which is how it stays stable in storage.' },
+  { n: 4, title: 'Pen body', body: 'The cartridge sits inside. Set your dose on the dial, inject at the needle end.' }
 ]
 
-const STEPS = [
-  {
-    step: '1',
-    title: 'Liquid chamber',
-    body: 'Sterile diluent, sealed on its own until first use.'
-  },
-  {
-    step: '2',
-    title: 'Lyophilised chamber',
-    body: 'The peptide is kept dry, which is how it stays stable in storage.'
-  },
-  {
-    step: '3',
-    title: 'Mixed inside the pen',
-    body: 'The two chambers combine in the pen on first use. No vial, no syringe, nothing to measure.'
-  }
-]
+/** Numbered callout hung below a part, with a thin leader line up to it. */
+const Marker = ({ n, left }: { n: number; left: string }) => (
+  <span className='absolute bottom-0 flex -translate-x-1/2 flex-col items-center' style={{ left }}>
+    <span className='bg-foreground/40 h-5 w-px' />
+    <span className='ring-foreground text-foreground flex size-6 items-center justify-center rounded-full bg-white text-xs font-semibold ring-1'>
+      {n}
+    </span>
+  </span>
+)
 
-/** Homepage section: what is inside a Deep Beauty Research pen. */
+/**
+ * Homepage section: the pen taken apart on one line, numbered left to right. The parts are
+ * cut from the product photography of the 15 mg pen.
+ */
 const HomePenBreakdown = () => {
   return (
     <section id='how-it-works' className='scroll-mt-(--header-height) pt-8 sm:pt-16 lg:pt-24'>
-      <ContentLayout className='space-y-8'>
-        <div className='flex items-end justify-between gap-4'>
-          <div className='space-y-1'>
+      <ContentLayout className='space-y-10'>
+        <div className='grid items-center gap-8 lg:grid-cols-[minmax(220px,1fr)_3.4fr]'>
+          <div className='space-y-2'>
             <h3 className='text-2xl font-bold sm:text-3xl'>Inside every pen</h3>
-            <p className='text-muted-foreground text-base'>
-              A dual-chamber cartridge, pre-filled and ready when you are.
-            </p>
-          </div>
-          <Link
-            href='/shop?category=Pens'
-            className='text-muted-foreground hover:text-foreground shrink-0 text-base font-medium'
-          >
-            Shop pens
-          </Link>
-        </div>
-
-        <div className='grid gap-6 sm:grid-cols-3'>
-          {PENS.map(pen => (
-            <Link key={pen.name} href={pen.href} className='group flex flex-col gap-3 focus-visible:outline-none'>
-              <div className='ring-border flex aspect-[2/3] items-center justify-center overflow-hidden rounded-xl bg-white ring-1'>
-                <img
-                  src={pen.image}
-                  alt={`${pen.name} breakdown`}
-                  className='size-full object-contain p-3 transition-transform duration-500 group-hover:scale-105'
-                />
-              </div>
-              <div className='flex items-center justify-between gap-2'>
-                <div>
-                  <p className='font-semibold'>{pen.name}</p>
-                  <p className='text-muted-foreground text-sm'>{pen.strength}</p>
-                </div>
-                <ArrowRightIcon className='text-muted-foreground size-4 transition-transform duration-300 group-hover:translate-x-1' />
-              </div>
+            <p className='text-muted-foreground text-sm'>Explore the construction and product specifications.</p>
+            <Link href='/product/retatrutide-pen-15mg' className='group inline-flex items-center gap-1.5 pt-2 text-sm font-semibold'>
+              See product details
+              <ArrowRightIcon className='size-4 transition-transform duration-300 group-hover:translate-x-1' />
             </Link>
-          ))}
+          </div>
+
+          <div className='grid grid-cols-[0.9fr_2.3fr] items-center gap-6 sm:gap-10'>
+            {/* Markers use percentages of each figure's width, so they stay on their part at any size. */}
+            <figure className='relative pb-12'>
+              <img
+                src='/images/products/dbr-reta-pen-15mg-cartridge.png'
+                alt='Dual-chamber cartridge: liquid chamber at the gold cap end, lyophilised chamber at the plunger end'
+                className='w-full object-contain'
+              />
+              <Marker n={2} left='30%' />
+              <Marker n={3} left='82%' />
+            </figure>
+            <figure className='relative pb-12'>
+              <img
+                src='/images/products/dbr-reta-pen-15mg-body.png'
+                alt='Pen: cartridge holder with needle thread and windows, then the body with dose window and dial'
+                className='w-full object-contain'
+              />
+              <Marker n={1} left='17%' />
+              <Marker n={4} left='66%' />
+            </figure>
+          </div>
         </div>
 
-        <div className='bg-muted grid items-center gap-8 rounded-xl p-6 sm:p-8 lg:grid-cols-[260px_1fr]'>
-          <div className='flex h-64 items-center justify-center overflow-hidden rounded-lg bg-white'>
-            <img
-              src='/images/products/dbr-reta-chamber.jpg'
-              alt='Dual-chamber cartridge: liquid part and lyophilised part'
-              className='h-full object-contain p-2'
-            />
-          </div>
-          <ol className='grid gap-6 sm:grid-cols-3'>
-            {STEPS.map(item => (
-              <li key={item.step} className='flex gap-3'>
-                <span className='bg-foreground text-background flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold'>
-                  {item.step}
-                </span>
-                <div className='space-y-1'>
-                  <p className='font-semibold'>{item.title}</p>
-                  <p className='text-muted-foreground text-sm'>{item.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <ol className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'>
+          {PARTS.map(part => (
+            <li key={part.n} className='flex gap-3'>
+              <span className='ring-foreground flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold ring-1'>
+                {part.n}
+              </span>
+              <div className='space-y-1'>
+                <p className='font-semibold'>{part.title}</p>
+                <p className='text-muted-foreground text-sm'>{part.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </ContentLayout>
     </section>
   )

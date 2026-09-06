@@ -53,7 +53,6 @@ const HomeView = ({ categories, pens, vials }: Props) => {
         <HomeFaq />
       </div>
 
-      {/* Candidate to replace "Inside every pen" above; sits at the bottom for review. */}
       <HomeFormatCompare />
     </>
   )
