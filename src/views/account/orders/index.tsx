@@ -1,90 +1,62 @@
 'use client'
 
 // React Imports
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 // Type Imports
-import type { Order, OrderStatus } from '@/types/order'
+import type { AccountOrder, AccountStatus } from '@/lib/account/data'
 
 // Component Imports
 import { Button } from '@/components/ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup } from '@/components/ui/select'
 import OrderCard from '@/views/account/orders/order-card'
 
 // Utils Imports
 import { cn } from '@/lib/utils'
 
 type Props = {
-  orders: Order[]
+  orders: AccountOrder[]
 }
 
-const statusFilters: { label: string; value: OrderStatus | 'all' }[] = [
+type Filter = 'all' | AccountStatus
+
+const FILTERS: { label: string; value: Filter }[] = [
   { label: 'All', value: 'all' },
-  { label: 'In Progress', value: 'in-progress' },
-  { label: 'Delivered', value: 'delivered' },
-  { label: 'Returned', value: 'returned' },
-  { label: 'Cancelled', value: 'cancelled' }
+  { label: 'Awaiting payment', value: 'awaiting_payment' },
+  { label: 'Paid', value: 'paid' },
+  { label: 'Shipped', value: 'shipped' },
+  { label: 'Delivered', value: 'delivered' }
 ]
 
 const OrdersView = ({ orders }: Props) => {
-  const [status, setStatus] = useState<OrderStatus | 'all'>('all')
-  const [orderId, setOrderId] = useState('all')
-
-  const orderIdItems = useMemo(
-    () => [
-      { label: 'All Order IDs', value: 'all' },
-      ...orders.map(order => ({ label: order.orderId, value: order.orderId }))
-    ],
-    [orders]
-  )
-
-  const filteredOrders = orders.filter(order => {
-    const matchesStatus = status === 'all' || order.status === status
-    const matchesOrderId = orderId === 'all' || order.orderId === orderId
-
-    return matchesStatus && matchesOrderId
-  })
+  const [filter, setFilter] = useState<Filter>('all')
+  const shown = orders.filter(order => filter === 'all' || order.status === filter)
 
   return (
     <div className='space-y-3.5'>
       <h3 className='text-xl font-semibold'>My Orders</h3>
 
-      <div className='flex flex-wrap items-center justify-between gap-3.5'>
-        <div className='flex flex-wrap gap-2.5'>
-          {statusFilters.map(filter => (
-            <Button
-              key={filter.value}
-              variant='outline'
-              size='xs'
-              className={cn('rounded-full', status === filter.value && 'border-primary dark:border-primary')}
-              onClick={() => setStatus(filter.value)}
-            >
-              {filter.label}
-            </Button>
-          ))}
-        </div>
-
-        <Select items={orderIdItems} value={orderId} onValueChange={value => setOrderId(value ?? 'all')}>
-          <SelectTrigger className='input-lg w-56 text-xs'>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {orderIdItems.map(item => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+      <div className='flex flex-wrap gap-2.5'>
+        {FILTERS.map(f => (
+          <Button
+            key={f.value}
+            variant='outline'
+            size='xs'
+            className={cn('rounded-full', filter === f.value && 'border-primary dark:border-primary')}
+            onClick={() => setFilter(f.value)}
+          >
+            {f.label}
+            {f.value !== 'all' ? <span className='text-muted-foreground ml-1'>{orders.filter(o => o.status === f.value).length}</span> : null}
+          </Button>
+        ))}
       </div>
 
       <div className='space-y-5'>
-        {filteredOrders.length > 0 ? (
-          filteredOrders.map(order => <OrderCard key={order.id} order={order} />)
+        {shown.length > 0 ? (
+          shown.map(order => <OrderCard key={order.id} order={order} />)
         ) : (
-          <p className='text-muted-foreground py-10 text-center'>No orders found.</p>
+          <p className='text-muted-foreground py-10 text-center'>
+            {orders.length === 0 ? 'No orders yet. Your orders will appear here as soon as you place one.' : 'No orders with that status.'}
+          </p>
         )}
       </div>
     </div>

@@ -1,41 +1,52 @@
 'use client'
 
+// React Imports
+import { useState, useTransition } from 'react'
+
+// Next Imports
+import { useRouter } from 'next/navigation'
+
 // Third-party Imports
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+// Type Imports
+import type { Profile } from '@/lib/account/data'
+
 // Component Imports
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 
-const genderItems = [
-  { label: 'Male', value: 'male' },
-  { label: 'Female', value: 'female' }
-]
+// Server Actions
+import { updateProfile } from '@/lib/account/actions'
 
-const personalInformationSchema = z.object({
-  firstName: z.string().min(1, 'Please enter your First name.'),
-  lastName: z.string().min(1, 'Please enter your Last name.'),
-  email: z.string().email('Please enter a valid email'),
-  phone: z.string().min(1, 'Please enter your Phone Number.'),
-  birthday: z.string().min(1, 'Please select your DOB'),
-  gender: z.string().min(1, 'Please select your gender')
+const schema = z.object({
+  firstName: z.string().trim().min(1, 'Please enter your first name.').max(80),
+  lastName: z.string().trim().min(1, 'Please enter your last name.').max(80),
+  phone: z.string().trim().max(40)
 })
 
-type PersonalInformationValues = z.infer<typeof personalInformationSchema>
+type Values = z.infer<typeof schema>
 
-const PersonalInformationForm = () => {
-  const form = useForm<PersonalInformationValues>({
-    resolver: zodResolver(personalInformationSchema),
-    defaultValues: { firstName: '', lastName: '', email: '', phone: '', birthday: '', gender: 'male' }
+const PersonalInformationForm = ({ profile }: { profile: Profile }) => {
+  const router = useRouter()
+  const [pending, start] = useTransition()
+  const [note, setNote] = useState<{ ok: boolean; text: string } | null>(null)
+
+  const form = useForm<Values>({
+    resolver: zodResolver(schema),
+    defaultValues: { firstName: profile.firstName, lastName: profile.lastName, phone: profile.phone }
   })
 
-  const onSubmit = () => {
-    // TODO: persist personal information
-  }
+  const onSubmit = (values: Values) =>
+    start(async () => {
+      const result = await updateProfile(values)
+
+      setNote(result.ok ? { ok: true, text: 'Saved.' } : { ok: false, text: result.error })
+      if (result.ok) router.refresh()
+    })
 
   return (
     <div>
@@ -52,7 +63,7 @@ const PersonalInformationForm = () => {
                     First name <span className='text-destructive'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder='John' {...field} className='input-lg' />
+                    <Input autoComplete='given-name' {...field} className='input-lg' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -67,89 +78,36 @@ const PersonalInformationForm = () => {
                     Last name <span className='text-destructive'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder='Doe' {...field} className='input-lg' />
+                    <Input autoComplete='family-name' {...field} className='input-lg' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem className='gap-3.5'>
-                  <FormLabel className='gap-0 leading-5'>
-                    Email Address <span className='text-destructive'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input type='email' placeholder='John@gmail.com' {...field} className='input-lg' />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FormItem className='gap-3.5'>
+              <FormLabel className='leading-5'>Email address</FormLabel>
+              <Input value={profile.email} readOnly className='input-lg' />
+              <FormDescription>Your email is your sign-in. Contact us if it needs to change.</FormDescription>
+            </FormItem>
             <FormField
               control={form.control}
               name='phone'
               render={({ field }) => (
                 <FormItem className='gap-3.5'>
-                  <FormLabel className='gap-0 leading-5'>
-                    Phone Number <span className='text-destructive'>*</span>
-                  </FormLabel>
+                  <FormLabel className='leading-5'>Phone number</FormLabel>
                   <FormControl>
-                    <Input type='tel' placeholder='123-456-7890' {...field} className='input-lg' />
+                    <Input type='tel' autoComplete='tel' placeholder='+49 …' {...field} className='input-lg' />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='birthday'
-              render={({ field }) => (
-                <FormItem className='gap-3.5'>
-                  <FormLabel className='gap-0 leading-5'>
-                    Birthday <span className='text-destructive'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder='DD-MM-YYYY' {...field} className='input-lg' />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='gender'
-              render={({ field }) => (
-                <FormItem className='gap-3.5'>
-                  <FormLabel className='gap-0 leading-5'>
-                    Gender <span className='text-destructive'>*</span>
-                  </FormLabel>
-                  <Select items={genderItems} value={field.value} onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger className='input-lg w-full'>
-                        <SelectValue />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup>
-                        {genderItems.map(item => (
-                          <SelectItem key={item.value} value={item.value}>
-                            {item.label}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  <FormDescription>Used by the courier if a delivery needs arranging.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <div className='flex justify-end'>
-            <Button type='submit' size='lg'>
-              Save Changes
+          <div className='flex items-center justify-end gap-4'>
+            {note ? <p className={note.ok ? 'text-sm text-emerald-700' : 'text-destructive text-sm'}>{note.text}</p> : null}
+            <Button type='submit' size='lg' disabled={pending}>
+              {pending ? 'Saving…' : 'Save Changes'}
             </Button>
           </div>
         </form>

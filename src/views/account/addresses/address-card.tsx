@@ -1,81 +1,93 @@
 'use client'
 
+// React Imports
+import { useTransition } from 'react'
+
 // Type Imports
-import type { Address } from '@/types/addresses'
+import type { AccountAddress } from '@/lib/account/data'
 
 // Component Imports
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { countryName } from './address-form-schema'
 
-// Store Imports
-import { useAddressesStore } from '@/store/addresses-store'
+// Server Actions
+import { deleteAddress, setDefaultAddress } from '@/lib/account/actions'
 
-type AddressCardProps = {
-  address: Address
+type Props = {
+  address: AccountAddress
+  onEdit: () => void
 }
 
-const AddressCard = ({ address }: AddressCardProps) => {
-  const { removeAddress, setDefaultAddress, setEditingAddress } = useAddressesStore()
+const AddressCard = ({ address, onEdit }: Props) => {
+  const [pending, start] = useTransition()
 
-  const handleEdit = () => {
-    setEditingAddress(address.id)
-  }
-
-  const handleRemove = () => {
-    removeAddress(address.id)
-  }
-
-  const handleSetDefault = () => {
-    setDefaultAddress(address.id)
-  }
+  const lines = [
+    `${address.firstName} ${address.lastName}`.trim(),
+    address.company,
+    address.address1,
+    address.address2,
+    `${address.postalCode} ${address.city}${address.province ? `, ${address.province}` : ''}`,
+    countryName(address.country),
+    address.phone
+  ].filter(Boolean)
 
   return (
     <div className='border-border hover:border-primary relative rounded-xl border p-4 transition-colors duration-300'>
-      {address.isDefault && (
-        <Badge
-          variant='outline'
-          className='text-destructive border-destructive absolute top-4 right-4 rounded-full text-xs font-medium'
-        >
-          Default
-        </Badge>
-      )}
-      <h4 className='text-muted-foreground mb-1 text-base font-medium'>{address.title}</h4>
-      <div className='mb-4'>
-        {address.lines.map((line, index) => (
-          <p key={index} className='text-base'>
+      <div className='absolute top-4 right-4 flex gap-1.5'>
+        {address.isDefaultShipping ? (
+          <Badge variant='outline' className='rounded-full text-xs font-medium'>
+            Shipping
+          </Badge>
+        ) : null}
+        {address.isDefaultBilling ? (
+          <Badge variant='outline' className='rounded-full text-xs font-medium'>
+            Billing
+          </Badge>
+        ) : null}
+      </div>
+      <div className='mb-4 pr-28'>
+        {lines.map((line, index) => (
+          <p key={index} className={index === 0 ? 'text-base font-medium' : 'text-base'}>
             {line}
           </p>
         ))}
       </div>
-      <div className='flex gap-4'>
-        <Button
-          variant='link'
-          size='sm'
-          className='h-auto border-0 p-0 text-base font-normal underline underline-offset-2'
-          onClick={handleEdit}
-        >
+      <div className='flex flex-wrap gap-4'>
+        <Button variant='link' size='sm' className='h-auto border-0 p-0 text-base font-normal underline underline-offset-2' onClick={onEdit}>
           Edit
         </Button>
         <Button
           variant='link'
           size='sm'
           className='h-auto border-0 p-0 text-base font-normal underline underline-offset-2'
-          onClick={handleRemove}
+          disabled={pending}
+          onClick={() => start(async () => void (await deleteAddress(address.id)))}
         >
           Remove
         </Button>
-        {address.isDefault ? (
-          <span className='text-muted-foreground cursor-default text-base font-normal'>Set as Default</span>
-        ) : (
+        {!address.isDefaultShipping ? (
           <Button
             variant='link'
             size='sm'
             className='h-auto border-0 p-0 text-base font-normal underline underline-offset-2'
-            onClick={handleSetDefault}
+            disabled={pending}
+            onClick={() => start(async () => void (await setDefaultAddress(address.id, 'shipping')))}
           >
-            Set as Default
+            Use for shipping
           </Button>
-        )}
+        ) : null}
+        {!address.isDefaultBilling ? (
+          <Button
+            variant='link'
+            size='sm'
+            className='h-auto border-0 p-0 text-base font-normal underline underline-offset-2'
+            disabled={pending}
+            onClick={() => start(async () => void (await setDefaultAddress(address.id, 'billing')))}
+          >
+            Use for billing
+          </Button>
+        ) : null}
       </div>
     </div>
   )

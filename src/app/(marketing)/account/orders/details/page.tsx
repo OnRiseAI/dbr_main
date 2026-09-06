@@ -1,5 +1,6 @@
 // Next Imports
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
 // Component Imports
 import { OrderDetailsView } from '@/views/account/order-details'
@@ -8,7 +9,7 @@ import { OrderDetailsView } from '@/views/account/order-details'
 import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
 
 // Data Imports
-import { getOrderDetails } from '@/app/server/actions'
+import { getOrder, getProfile } from '@/lib/account/data'
 
 export const metadata: Metadata = generateSEOMetadata({
   title: 'Order Details',
@@ -16,10 +17,20 @@ export const metadata: Metadata = generateSEOMetadata({
   url: '/account/orders/details'
 })
 
-const OrderDetailsPage = async () => {
-  const groups = await getOrderDetails()
+export const dynamic = 'force-dynamic'
 
-  return <OrderDetailsView groups={groups} />
+type Props = { searchParams: Promise<{ id?: string }> }
+
+const OrderDetailsPage = async ({ searchParams }: Props) => {
+  const { id } = await searchParams
+
+  if (!id) redirect('/account/orders')
+
+  const [order, profile] = await Promise.all([getOrder(id), getProfile()])
+
+  if (!order) redirect('/account/orders')
+
+  return <OrderDetailsView order={order} profile={profile} />
 }
 
 export default OrderDetailsPage

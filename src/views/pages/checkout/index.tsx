@@ -46,7 +46,6 @@ import AddressForm from '@/views/account/addresses/address-form'
 import OrderSummary from '@/views/pages/checkout/order-summary'
 
 // Store Imports
-import { useAddressesStore } from '@/store/addresses-store'
 import { useOrdersStore } from '@/store/orders-store'
 import { useCart, useCartItems, useIsHydrated } from '@/store/use-products-store'
 
@@ -116,8 +115,7 @@ const CheckoutView = () => {
   const [deselectedItemIds, setDeselectedItemIds] = useState<string[]>([])
   const [isRedirectingToOrders, setIsRedirectingToOrders] = useState(false)
   const [addAddressDialogOpen, setAddAddressDialogOpen] = useState(false)
-  const addOrUpdateAddress = useAddressesStore(state => state.addOrUpdateAddress)
-
+  
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
@@ -166,15 +164,6 @@ const CheckoutView = () => {
   const handleRemoveItem = (productId: string) => {
     removeFromCart(productId)
     setDeselectedItemIds(current => current.filter(currentId => currentId !== productId))
-  }
-
-  const handleSaveNewAddress = (addressData: any) => {
-    addOrUpdateAddress({
-      id: crypto.randomUUID(),
-      isDefault: false,
-      ...addressData
-    })
-    setAddAddressDialogOpen(false)
   }
 
   const goToStep = (step: CheckoutStep) => {
@@ -431,7 +420,7 @@ const CheckoutView = () => {
                   <PlusIcon className='size-6.75' />
                   Add new Address
                 </DialogTrigger>
-                <AddressForm open={addAddressDialogOpen} onSave={handleSaveNewAddress} />
+                <AddressForm open={addAddressDialogOpen} onSaved={() => setAddAddressDialogOpen(false)} />
               </Dialog>
             </div>
           </StepperContent>

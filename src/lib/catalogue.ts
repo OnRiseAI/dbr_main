@@ -15,7 +15,7 @@ import { SITE_ID, createPublicClient, hasSupabase } from '@/lib/supabase/public'
  */
 
 /** Storefront slug -> database slug where the two differ. */
-const DB_SLUG_ALIASES: Record<string, string> = {
+export const DB_SLUG_ALIASES: Record<string, string> = {
   'ghk-cu-pen-100mg': 'ghk-cu-pen-10mg',
   'mots-c-pen-20mg': 'mots-c-pen-10mg'
 }

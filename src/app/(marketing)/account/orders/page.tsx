@@ -2,13 +2,13 @@
 import type { Metadata } from 'next'
 
 // Component Imports
-import OrdersWithClientData from '@/views/account/orders-with-client-data'
+import OrdersView from '@/views/account/orders'
 
 // Utils Imports
 import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
 
 // Data Imports
-import { getOrders } from '@/app/server/actions'
+import { listOrders } from '@/lib/account/data'
 
 export const metadata: Metadata = generateSEOMetadata({
   title: 'My Orders',
@@ -16,10 +16,12 @@ export const metadata: Metadata = generateSEOMetadata({
   url: '/account/orders'
 })
 
-const OrdersPage = async () => {
-  const orders = await getOrders()
+export const dynamic = 'force-dynamic'
 
-  return <OrdersWithClientData staticOrders={orders} />
+const OrdersPage = async () => {
+  const orders = await listOrders()
+
+  return <OrdersView orders={orders} />
 }
 
 export default OrdersPage
