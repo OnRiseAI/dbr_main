@@ -36,7 +36,7 @@ export function generateMetadata({
     title,
     description,
     keywords: keywords.length > 0 ? keywords : undefined,
-    robots: noIndex ? 'noindex,nofollow' : 'index,follow',
+    robots: noIndex || /vercel\.app|localhost/.test(siteConfig.url) ? 'noindex,nofollow' : 'index,follow',
     alternates: {
       canonical: pageUrl
     },
