@@ -9,18 +9,19 @@ const PILLARS = [
 
 /**
  * The standard. One statement, four facts. Typographic, on a full-bleed dark band, with
- * the pen and a vial render bleeding off the right edge of the content column.
+ * the vial and pen renders sitting dimmed behind the type.
  */
 const HomeTrust = () => {
   return (
     <section className='mt-8 bg-neutral-950 text-white sm:mt-12'>
       <ContentLayout>
         <div className='relative overflow-hidden'>
+          {/* Pen behind the pillars: whole render, dimmed like the vial, sized to the band. */}
           <img
             src='/images/products/dbr-reta-pen-15mg-upright.png'
             alt=''
             aria-hidden
-            className='pointer-events-none absolute -right-10 -bottom-24 hidden h-[125%] w-auto rotate-[18deg] object-contain opacity-90 lg:block'
+            className='pointer-events-none absolute top-1/2 -right-4 hidden h-[94%] w-auto -translate-y-1/2 rotate-[14deg] object-contain opacity-30 lg:block'
           />
           <div className='relative grid gap-10 py-12 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-20'>
             <div className='relative space-y-4'>
@@ -41,14 +42,16 @@ const HomeTrust = () => {
               </p>
             </div>
 
-            <dl className='grid content-start gap-x-8 gap-y-7 sm:grid-cols-2 lg:pr-44'>
+            <div className='relative'>
+              <dl className='relative grid content-start gap-x-8 gap-y-7 sm:grid-cols-2'>
               {PILLARS.map(pillar => (
                 <div key={pillar.lead} className='space-y-1.5 border-t border-white/15 pt-4'>
                   <dt className='text-lg font-semibold tracking-tight'>{pillar.lead}</dt>
                   <dd className='text-sm leading-relaxed text-white/70'>{pillar.body}</dd>
                 </div>
               ))}
-            </dl>
+              </dl>
+            </div>
           </div>
         </div>
       </ContentLayout>
