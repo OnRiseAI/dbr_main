@@ -18,7 +18,7 @@ const FORMATS = [
   {
     name: 'Vials',
     lead: 'Lyophilised powder. Reconstitute once, then draw each dose.',
-    image: '/images/products/dbr-reta-vial-10mg.png',
+    image: '/images/products/dbr-reta-vial-10mg-cut.png',
     href: '/shop?category=Vials',
     steps: [
       { title: 'Add bacteriostatic water', body: 'Slowly, down the side of the glass. Not included with the vial.' },
@@ -41,8 +41,8 @@ const HomeHowToUse = () => {
         <div className='grid gap-6 lg:grid-cols-2'>
           {FORMATS.map(format => (
             <div key={format.name} className='bg-muted grid gap-6 rounded-xl p-6 sm:grid-cols-[160px_1fr] sm:p-8'>
-              <div className='flex h-64 items-center justify-center rounded-lg bg-white sm:h-full'>
-                <img src={format.image} alt={format.name} className='max-h-56 object-contain p-4 sm:max-h-72' />
+              <div className='flex h-64 items-center justify-center sm:h-full'>
+                <img src={format.image} alt={format.name} className='max-h-60 object-contain sm:max-h-80' />
               </div>
               <div className='flex flex-col gap-5'>
                 <div className='space-y-1'>
