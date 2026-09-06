@@ -9,7 +9,7 @@ const PILLARS = [
 
 /**
  * The standard. One statement, four facts. Typographic, on a full-bleed dark band, with
- * the pen render bleeding off the right edge of the content column.
+ * the pen and a vial render bleeding off the right edge of the content column.
  */
 const HomeTrust = () => {
   return (
@@ -22,7 +22,13 @@ const HomeTrust = () => {
             aria-hidden
             className='pointer-events-none absolute -right-10 -bottom-24 hidden h-[125%] w-auto rotate-[18deg] object-contain opacity-90 lg:block'
           />
-          <div className='relative grid gap-10 py-12 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-20'>
+          <img
+            src='/images/products/dbr-reta-vial-10mg-cut.png'
+            alt=''
+            aria-hidden
+            className='pointer-events-none absolute right-[9.5rem] -bottom-3 hidden h-[52%] w-auto -rotate-[8deg] object-contain lg:block'
+          />
+          <div className='relative grid gap-10 py-12 sm:py-14 lg:grid-cols-[1fr_1.2fr] lg:gap-12 lg:py-20'>
             <div className='space-y-4'>
               <p className='text-xs font-semibold tracking-[0.16em] text-white/55 uppercase'>The standard</p>
               <h2 className='text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]'>
@@ -34,7 +40,7 @@ const HomeTrust = () => {
               </p>
             </div>
 
-            <dl className='grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:pr-44'>
+            <dl className='grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:pr-64'>
               {PILLARS.map(pillar => (
                 <div key={pillar.lead} className='space-y-1.5 border-t border-white/15 pt-4'>
                   <dt className='text-lg font-semibold tracking-tight'>{pillar.lead}</dt>
