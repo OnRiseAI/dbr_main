@@ -23,20 +23,22 @@ const HomeTrust = () => {
             className='pointer-events-none absolute -right-10 -bottom-24 hidden h-[125%] w-auto rotate-[18deg] object-contain opacity-90 lg:block'
           />
           <div className='relative grid gap-10 py-12 sm:py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-20'>
-            <div className='space-y-4'>
-              <p className='text-xs font-semibold tracking-[0.16em] text-white/55 uppercase'>The standard</p>
-              <h2 className='text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]'>
+            <div className='relative space-y-4'>
+              {/* Vial behind the headline, dimmed so the type stays legible. */}
+              <img
+                src='/images/products/dbr-reta-vial-10mg-cut.png'
+                alt=''
+                aria-hidden
+                className='pointer-events-none absolute -top-10 right-0 hidden h-[135%] w-auto -rotate-[8deg] object-contain opacity-30 lg:block'
+              />
+              <p className='relative text-xs font-semibold tracking-[0.16em] text-white/55 uppercase'>The standard</p>
+              <h2 className='relative text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]'>
                 Tested, documented, and dispatched from Germany.
               </h2>
-              <p className='max-w-md text-base text-white/70'>
+              <p className='relative max-w-md text-base text-white/70'>
                 A small range, made properly. What arrives is the product, its paperwork, and nothing you did not
                 order.
               </p>
-              <img
-                src='/images/products/dbr-reta-vial-10mg-cut.png'
-                alt='Deep Beauty Research Retatrutide vial'
-                className='mt-6 h-44 w-auto -rotate-[6deg] object-contain sm:h-52 lg:mt-10'
-              />
             </div>
 
             <dl className='grid content-start gap-x-8 gap-y-7 sm:grid-cols-2 lg:pr-44'>
