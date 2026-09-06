@@ -1,13 +1,16 @@
 'use client'
 
 // React Imports
-import { Fragment, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 // Next Imports
 import { useRouter } from 'next/navigation'
 
 // Third-party Imports
-import { SearchIcon, HouseIcon, ShoppingBagIcon, Grid3x3Icon, PackageIcon } from 'lucide-react'
+import { SearchIcon } from 'lucide-react'
+
+// Type Imports
+import type { Product } from '@/types/product'
 
 // Component Imports
 import { Button } from '@/components/ui/button'
@@ -23,13 +26,36 @@ import {
   CommandShortcut
 } from '@/components/ui/command'
 
+// Store Imports
+import { useProductsStore } from '@/store/use-products-store'
+
 // Data Imports
 import { searchData } from '@/assets/data/search'
 
+// Utils Imports
+import { familyTitle, formatMeta, formatPrice } from '@/utils/product-utils'
+
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+
+/** Every word typed must appear somewhere in the product's searchable text. */
+const productHaystack = (p: Product) =>
+  norm([p.name, p.familyName ?? '', p.variantLabel ?? '', p.category, p.description ?? '', formatMeta(p), p.id].join(' '))
+
+const matches = (haystack: string, query: string) => {
+  const words = norm(query).split(' ').filter(Boolean)
+
+  return words.length > 0 && words.every(w => haystack.includes(w))
+}
+
+/**
+ * Header search: products from the live catalogue first, then the shop's pages.
+ * Ctrl/Cmd+K or "/" opens it anywhere.
+ */
 const CommandMenu = () => {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
   const router = useRouter()
+  const products = useProductsStore(state => state.products)
 
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false)
@@ -37,11 +63,9 @@ const CommandMenu = () => {
     command()
   }, [])
 
-  // Keyboard shortcut listener
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
-        // Don't trigger if user is typing in an input
         if (
           (e.target instanceof HTMLElement && e.target.isContentEditable) ||
           e.target instanceof HTMLInputElement ||
@@ -61,9 +85,27 @@ const CommandMenu = () => {
     return () => document.removeEventListener('keydown', down)
   }, [])
 
+  const productHits = useMemo(() => {
+    const visible = products.filter(p => !p.hiddenVariant)
+
+    if (!search.trim()) return visible.slice(0, 6)
+
+    return visible.filter(p => matches(productHaystack(p), search)).slice(0, 8)
+  }, [products, search])
+
+  const pageHits = useMemo(
+    () =>
+      searchData.map(group => ({
+        ...group,
+        data: search.trim() ? group.data.filter(item => matches(norm(`${item.name} ${item.keywords ?? ''}`), search)) : group.data.slice(0, 4)
+      })),
+    [search]
+  )
+
+  const nothing = productHits.length === 0 && pageHits.every(g => g.data.length === 0)
+
   return (
     <>
-      {/* Desktop trigger - button with text and shortcut */}
       <Button
         variant='outline'
         className='text-muted-foreground hidden h-9 w-62.5 justify-between gap-2 rounded-md font-normal lg:flex'
@@ -76,13 +118,11 @@ const CommandMenu = () => {
         <CommandShortcut className='text-xs'>⌘K</CommandShortcut>
       </Button>
 
-      {/* Mobile trigger - icon button */}
       <Button variant='ghost' size='icon-lg' className='lg:hidden' onClick={() => setOpen(true)}>
         <SearchIcon className='size-5.5' />
         <span className='sr-only'>Search</span>
       </Button>
 
-      {/* Command Dialog */}
       <CommandDialog
         open={open}
         onOpenChange={openState => {
@@ -91,39 +131,46 @@ const CommandMenu = () => {
         }}
       >
         <Command
+          shouldFilter={false}
           className='**:[[cmdk-group-heading]]:text-muted-foreground w-full max-w-lg **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 **:[[cmdk-input-wrapper]_svg]:h-5 **:[[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]_svg]:h-5 **:[[cmdk-item]_svg]:w-5 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3'
-          filter={(value, search) => {
-            search = search.toLowerCase()
-            value = value.toLowerCase()
-
-            // Exact match with item name (highest priority)
-            if (value === search) return 2
-
-            // Partial match with item name (medium priority)
-            if (value.includes(search)) return 1.5
-
-            return 0
-          }}
         >
           <CommandInput placeholder='Search products, pages...' value={search} onValueChange={setSearch} />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            {nothing ? <CommandEmpty>No results for “{search}”.</CommandEmpty> : null}
 
-            {/* Show filtered results */}
-            {search ? (
-              searchData.map((searchGroup, index) => (
-                <Fragment key={index}>
-                  <CommandGroup heading={searchGroup.title}>
-                    {searchGroup.data.map((item, i) => (
+            {productHits.length > 0 && (
+              <CommandGroup heading={search.trim() ? 'Products' : 'Popular products'}>
+                {productHits.map(product => (
+                  <CommandItem key={product.id} value={product.id} onSelect={() => runCommand(() => router.push(product.href))}>
+                    <img src={product.image} alt='' className='size-9 shrink-0 rounded-md bg-white object-contain ring-1 ring-border' />
+                    <span className='flex min-w-0 flex-1 flex-col'>
+                      <span className='truncate font-medium'>
+                        {familyTitle(product)}
+                        {product.variantLabel ? <span className='text-muted-foreground font-normal'> · {product.variantLabel}</span> : null}
+                      </span>
+                      <span className='text-muted-foreground truncate text-xs'>
+                        {formatMeta(product)} · {product.category}
+                      </span>
+                    </span>
+                    <span className='shrink-0 text-sm font-medium'>{formatPrice(product.price)}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+
+            {pageHits.map(group =>
+              group.data.length > 0 ? (
+                <div key={group.title}>
+                  {productHits.length > 0 ? <CommandSeparator /> : null}
+                  <CommandGroup heading={group.title}>
+                    {group.data.map(item => (
                       <CommandItem
-                        key={i}
+                        key={item.href}
+                        value={item.href}
                         onSelect={() =>
                           runCommand(() => {
-                            if (item.openInNewTab) {
-                              window.open(item.href, '_blank', 'noopener,noreferrer')
-                            } else {
-                              router.push(item.href)
-                            }
+                            if (item.openInNewTab) window.open(item.href, '_blank', 'noopener,noreferrer')
+                            else router.push(item.href)
                           })
                         }
                       >
@@ -133,28 +180,8 @@ const CommandMenu = () => {
                       </CommandItem>
                     ))}
                   </CommandGroup>
-                  {index !== searchData.length - 1 && <CommandSeparator />}
-                </Fragment>
-              ))
-            ) : (
-              <CommandGroup heading='Suggestions'>
-                <CommandItem onSelect={() => runCommand(() => router.push('/'))}>
-                  <HouseIcon className='size-4' />
-                  <span>Main Page</span>
-                </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push('/shop'))}>
-                  <ShoppingBagIcon className='size-4' />
-                  <span>Product Listing</span>
-                </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push('/category'))}>
-                  <Grid3x3Icon className='size-4' />
-                  <span>Category Page</span>
-                </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push('/pages/about-us'))}>
-                  <PackageIcon className='size-4' />
-                  <span>About us</span>
-                </CommandItem>
-              </CommandGroup>
+                </div>
+              ) : null
             )}
           </CommandList>
         </Command>
