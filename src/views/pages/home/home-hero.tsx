@@ -150,10 +150,10 @@ const HomeHero = ({ products }: Props) => {
                 delay={0.7}
                 transition={{ duration: 0.8 }}
                 motionProps={{
-                  src: '/images/products/dbr-reta-vial-10mg.png',
+                  src: '/images/products/dbr-reta-vial-10mg-cut.png',
                   alt: 'Retatrutide 10 mg vial'
                 }}
-                className='ms-auto mb-2 w-28'
+                className='ms-auto -mt-6 mb-3 me-4 h-44 w-auto sm:h-48'
               />
             </Card>
             <Card className='ring-border justify-between gap-0 bg-white pb-0 shadow-none ring-1'>
@@ -187,7 +187,7 @@ const HomeHero = ({ products }: Props) => {
                   src: '/images/products/dbr-mots-c-pen-20mg.png',
                   alt: 'MOTS-c 20 mg pen'
                 }}
-                className='ms-auto mt-2 mb-4 w-64'
+                className='mx-auto mt-2 mb-4 w-full max-w-[22rem] px-3'
               />
             </Card>
           </div>
