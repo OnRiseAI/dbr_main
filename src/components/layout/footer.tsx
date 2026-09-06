@@ -16,6 +16,7 @@ const SHOP = [
   { title: 'All products', href: '/shop' },
   { title: 'Pens', href: '/shop?category=Pens' },
   { title: 'Vials', href: '/shop?category=Vials' },
+  { title: 'Bulk orders', href: '/bulk-orders' },
   { title: 'Retatrutide calculator', href: '/retatrutide-calculator' },
   { title: 'My account', href: '/account' }
 ]

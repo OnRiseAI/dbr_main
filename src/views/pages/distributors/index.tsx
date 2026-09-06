@@ -126,7 +126,15 @@ const DistributorsView = () => {
                   Start a wholesale enquiry
                 </Button>
               }
-              ctaNote='Tell us quantity, region and how often you reorder.'
+              ctaNote={
+                <>
+                  Tell us quantity, region and how often you reorder, or{' '}
+                  <Link href='/bulk-orders' className='text-foreground underline underline-offset-4'>
+                    build a priced request on the bulk orders page
+                  </Link>
+                  .
+                </>
+              }
             />
             <Route
               eyebrowText='Route two'
@@ -252,7 +260,7 @@ const Route = ({
   rows: { label: string; value: string }[]
   note: string
   cta: React.ReactNode
-  ctaNote: string
+  ctaNote: React.ReactNode
 }) => (
   <div className='flex flex-col'>
     <p className={eyebrow}>{eyebrowText}</p>

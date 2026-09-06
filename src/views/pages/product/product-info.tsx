@@ -182,6 +182,13 @@ const ProductInfo = ({ product, variants = [product] }: Props) => {
             <ArrowRightIcon className='size-4 transition-transform duration-300 group-hover:translate-x-1' />
           </Button>
       </div>
+      <p className='text-muted-foreground text-sm'>
+        Buying five or more?{' '}
+        <Link href='/bulk-orders' className='text-foreground underline underline-offset-4'>
+          Request a bulk quote
+        </Link>
+        , volume pricing within one business day.
+      </p>
 
       <ul className='divide-border divide-y rounded-xl border'>
         {FACTS.map(fact => (

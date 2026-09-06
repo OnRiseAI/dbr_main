@@ -54,6 +54,10 @@ export const mainNavigation: NavigationSection[] = [
     href: '/retatrutide-calculator'
   },
   {
+    title: 'Bulk orders',
+    href: '/bulk-orders'
+  },
+  {
     title: 'About',
     groups: [
       {
