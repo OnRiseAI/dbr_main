@@ -7,6 +7,7 @@ import HomeTrust from '@/views/pages/home/home-trust'
 import HomeCategories from '@/views/pages/home/home-categories'
 import HomeProductRow from '@/views/pages/home/home-product-row'
 import HomePenBreakdown from '@/views/pages/home/home-pen-breakdown'
+import HomeEasyToUse from '@/views/pages/home/home-easy-to-use'
 import HomeHowToUse from '@/views/pages/home/home-how-to-use'
 import HomeCalculator from '@/views/pages/home/home-calculator'
 import HomeFormatChooser from '@/views/pages/home/home-format-chooser'
@@ -43,6 +44,7 @@ const HomeView = ({ categories, pens, vials }: Props) => {
 
       {/* The pen story and the calculator, on white. */}
       <HomePenBreakdown />
+      <HomeEasyToUse />
       <HomeHowToUse />
       <HomeCalculator />
 
