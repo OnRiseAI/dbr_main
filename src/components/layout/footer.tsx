@@ -3,6 +3,7 @@ import Link from 'next/link'
 // Component Imports
 import { Separator } from '@/components/ui/separator'
 import NewsletterForm from '@/components/layout/newsletter-form'
+import FooterWordmark from '@/components/layout/footer-wordmark'
 
 // SVG Imports
 import InstagramIcon from '@/assets/svg/instagram-icon'
@@ -45,12 +46,7 @@ const Footer = () => {
       <div className='dark:bg-background bg-muted rounded-4xl py-8 sm:py-12'>
         <div className='mx-auto flex max-w-7xl flex-col gap-16 px-4 sm:px-6 lg:px-8'>
           <div>
-            <p
-              aria-hidden
-              className='text-foreground/[0.06] mb-10 text-center text-[7.4vw] leading-none font-bold tracking-[-0.04em] whitespace-nowrap select-none max-md:hidden xl:text-[6.6rem]'
-            >
-              DEEP BEAUTY RESEARCH
-            </p>
+            <FooterWordmark />
             <div className='grid grid-cols-6 gap-6'>
               <div className='col-span-full flex flex-col items-start gap-4 lg:col-span-2'>
                 <Link href='/' aria-label='Deep Beauty Research'>
